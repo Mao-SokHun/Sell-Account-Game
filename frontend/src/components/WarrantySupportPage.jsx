@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   ArrowLeft, ShieldCheck, RefreshCw, Lock, FileCheck2, 
   AlertTriangle, MessageCircle, Send, CheckCircle2, 
-  HelpCircle, Sparkles, Clock, ExternalLink, ArrowRight
+  HelpCircle, Clock, ExternalLink, ArrowRight
 } from 'lucide-react';
 
 export const WarrantySupportPage = ({ onBack, onGoToStore }) => {
@@ -43,17 +43,16 @@ export const WarrantySupportPage = ({ onBack, onGoToStore }) => {
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '8px',
+          justifyContent: 'center',
           background: 'rgba(16, 185, 129, 0.2)',
           border: '1px solid rgba(16, 185, 129, 0.4)',
           borderRadius: '999px',
-          padding: '6px 14px',
+          padding: '6px 16px',
           fontSize: '0.82rem',
           color: '#6ee7b7',
           fontWeight: 700,
           marginBottom: '16px'
         }}>
-          <ShieldCheck size={14} color="#10b981" />
           <span>ការធានាសុវត្ថិភាព និងទំនុកចិត្តខ្ពស់បំផុត ១០០%</span>
         </div>
 
@@ -84,13 +83,9 @@ export const WarrantySupportPage = ({ onBack, onGoToStore }) => {
           fontSize: '1.25rem',
           fontWeight: 800,
           color: '#ffffff',
-          marginBottom: '20px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '10px'
+          marginBottom: '20px'
         }}>
-          <Sparkles size={20} color="var(--primary)" />
-          <span>ការធានាស្នូលទាំង ៤ ចំណុចពីហាងយើងខ្ញុំ</span>
+          ការធានាស្នូលទាំង ៤ ចំណុចពីហាងយើងខ្ញុំ
         </h2>
 
         <div style={{
@@ -335,17 +330,16 @@ export const WarrantySupportPage = ({ onBack, onGoToStore }) => {
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
+              justifyContent: 'center',
               background: 'rgba(14, 165, 233, 0.2)',
               border: '1px solid rgba(14, 165, 233, 0.4)',
               borderRadius: '999px',
-              padding: '6px 14px',
+              padding: '6px 16px',
               fontSize: '0.82rem',
               color: '#7dd3fc',
               fontWeight: 700,
               marginBottom: '14px'
             }}>
-              <Clock size={14} color="#38bdf8" />
               <span>ឆ្លើយតបរហ័សក្រោម ៥ នាទី | ២៤ ម៉ោង / ៧ ថ្ងៃ</span>
             </div>
 

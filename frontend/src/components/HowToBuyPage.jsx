@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   ArrowLeft, ShoppingBag, QrCode, Key, ShieldCheck, 
   CheckCircle2, Smartphone, ExternalLink, HelpCircle, Lock,
-  Sparkles, ArrowRight
+  ArrowRight
 } from 'lucide-react';
 
 export const HowToBuyPage = ({ onBack, onGoToStore }) => {
@@ -43,17 +43,16 @@ export const HowToBuyPage = ({ onBack, onGoToStore }) => {
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '8px',
+          justifyContent: 'center',
           background: 'rgba(99, 102, 241, 0.2)',
           border: '1px solid rgba(99, 102, 241, 0.4)',
           borderRadius: '999px',
-          padding: '6px 14px',
+          padding: '6px 16px',
           fontSize: '0.82rem',
           color: '#c7d2fe',
           fontWeight: 700,
           marginBottom: '16px'
         }}>
-          <Sparkles size={14} color="#818cf8" />
           <span>ប្រព័ន្ធស្វ័យប្រវត្តិ ២៤ ម៉ោង - មិនបាច់ចុះឈ្មោះ</span>
         </div>
 
