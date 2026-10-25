@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserX, Lock, Unlock, Gamepad2, Search, History, Crown } from 'lucide-react';
+import { Lock, Unlock, Gamepad2, Search, History, Crown } from 'lucide-react';
 
 export const Navbar = ({
   searchQuery,
@@ -146,23 +146,7 @@ export const Navbar = ({
             </div>
           ) : (
             /* BUYER VIEW CONTROLS (Clean: NO Admin button displayed!) */
-            <>
-              {/* Buyer No Register Tag */}
-              <div className="glass-pill" style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                padding: '6px 12px',
-                fontSize: '0.8rem',
-                color: '#38bdf8',
-                borderColor: 'rgba(56, 189, 248, 0.25)'
-              }}>
-                <UserX size={14} />
-                <span>អ្នកទិញមិនបាច់ចុះឈ្មោះ</span>
-              </div>
-
-              {/* Purchased Accounts Button */}
-              <button
+            <button
                 onClick={onOpenHistoryModal}
                 className="btn btn-secondary"
                 style={{ padding: '8px 14px', fontSize: '0.85rem' }}
@@ -184,7 +168,6 @@ export const Navbar = ({
                   </span>
                 )}
               </button>
-            </>
           )}
         </div>
       </div>
