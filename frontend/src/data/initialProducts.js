@@ -39,7 +39,6 @@ export const initialProducts = [
     credentials: {
       username: 'BloxGod_KitsuneKH',
       password: 'KitsunePass#2026@Cambodia',
-      backupCode: 'PIN-883901',
       linkedEmail: 'មិនទាន់ភ្ជាប់ (Unverified Email - អាចដាក់បានភ្លាមៗ)',
       registeredDate: '2024-03-15',
       note: 'សូមប្តូរលេខសម្ងាត់ភ្លាមៗក្រោយពេលទិញ និងភ្ជាប់ Email + លេខសម្ងាត់ ២ ជាន់ផ្ទាល់ខ្លួនរបស់អ្នក។'
@@ -81,7 +80,6 @@ export const initialProducts = [
     credentials: {
       username: 'CyberDominus_VIP99',
       password: 'ValkyrieKorblox!8892',
-      backupCode: 'PIN-492015',
       linkedEmail: 'មិនទាន់ភ្ជាប់ (Unverified Email - អាចដាក់បានភ្លាមៗ)',
       registeredDate: '2023-08-20',
       note: 'មាន Robux 50,230 ក្នុង Account ស្រាប់។ សូមការពារគណនីដោយដាក់ Authenticator App។'
@@ -122,7 +120,6 @@ export const initialProducts = [
     credentials: {
       username: 'HugeDragon_TraderKH',
       password: 'TitanicPet#99DragonGems',
-      backupCode: 'PIN-310492',
       linkedEmail: 'មិនទាន់ភ្ជាប់ (Unverified Email - អាចដាក់បានភ្លាមៗ)',
       registeredDate: '2024-01-10',
       note: 'សូមកុំចែករំលែក Password ទៅកាន់អ្នកដទៃ។'
@@ -163,7 +160,6 @@ export const initialProducts = [
     credentials: {
       username: 'BladeKing_VoidCyber',
       password: 'BladeBall#Mythic2026',
-      backupCode: 'PIN-721839',
       linkedEmail: 'មិនទាន់ភ្ជាប់ (Unverified Email - អាចដាក់បានភ្លាមៗ)',
       registeredDate: '2024-05-12',
       note: 'ទទួលបានដាវកម្រ និង Effect ពេញលេញ។'

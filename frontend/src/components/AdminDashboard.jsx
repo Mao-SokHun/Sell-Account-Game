@@ -73,7 +73,6 @@ export const AdminDashboard = ({
     // Credentials
     username: '',
     password: '',
-    backupCode: 'PIN-1234',
     linkedEmail: 'មិនទាន់ភ្ជាប់ (ស្អាត ១០០%)'
   });
 
@@ -196,7 +195,6 @@ export const AdminDashboard = ({
       status: product.status || 'available',
       username: product.credentials?.username || '',
       password: product.credentials?.password || '',
-      backupCode: product.credentials?.backupCode || '',
       linkedEmail: product.credentials?.linkedEmail || 'មិនទាន់ភ្ជាប់'
     });
 
@@ -261,7 +259,6 @@ export const AdminDashboard = ({
       credentials: {
         username: formData.username.trim(),
         password: formData.password.trim(),
-        backupCode: formData.backupCode.trim(),
         linkedEmail: formData.linkedEmail,
         registeredDate: new Date().toISOString().split('T')[0],
         note: 'សូមប្តូរលេខសម្ងាត់ភ្លាមៗ'
@@ -295,7 +292,6 @@ export const AdminDashboard = ({
         status: 'available',
         username: '',
         password: '',
-        backupCode: 'PIN-1234',
         linkedEmail: 'មិនទាន់ភ្ជាប់ (ស្អាត ១០០%)'
       });
       setCustomStats(DEFAULT_GAME_STATS_TEMPLATES['Blox Fruits']);
@@ -1006,18 +1002,6 @@ export const AdminDashboard = ({
                     value={formData.password}
                     onChange={handleChange}
                     required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">លេខកូដសម្ងាត់ការពារ / លេខ PIN 2FA (បើមាន)</label>
-                  <input
-                    type="text"
-                    name="backupCode"
-                    className="form-input"
-                    placeholder="ឧ. PIN-994821"
-                    value={formData.backupCode}
-                    onChange={handleChange}
                   />
                 </div>
               </div>

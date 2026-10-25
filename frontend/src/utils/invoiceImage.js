@@ -105,7 +105,6 @@ export async function generateInvoiceImageUrl(data) {
 
   const username = credentials.username || 'N/A';
   const password = credentials.password || 'N/A';
-  const pin = credentials.backupCode || credentials.pin || 'គ្មាន (None)';
   const emailStatus = credentials.linkedEmail || 'មិនទាន់ភ្ជាប់ (Unverified Email)';
 
   // Dimensions (Scale 2 for Ultra-Retina crispness)
@@ -313,20 +312,13 @@ export async function generateInvoiceImageUrl(data) {
   ctx.font = 'bold 17px "Courier New", monospace';
   ctx.fillText(password, 88, credY + 184);
 
-  // Field 3: 2FA & Email Badges
-  ctx.fillStyle = '#e2e8f0';
+  // Field 3: Clean Account Security Badge
+  ctx.fillStyle = '#94a3b8';
   ctx.font = '12px "Kantumruy Pro", sans-serif';
-  ctx.fillText(`លេខកូដ PIN 2FA: `, 72, credY + 232);
-  ctx.fillStyle = '#fbbf24';
-  ctx.font = 'bold 13px "Courier New", monospace';
-  ctx.fillText(pin, 185, credY + 232);
-
-  ctx.fillStyle = '#e2e8f0';
-  ctx.font = '12px "Kantumruy Pro", sans-serif';
-  ctx.fillText(`Email: `, width / 2 + 10, credY + 232);
-  ctx.fillStyle = '#34d399';
+  ctx.fillText('ស្ថានភាពគណនី៖', 72, credY + 232);
+  ctx.fillStyle = '#10b981';
   ctx.font = 'bold 12px "Kantumruy Pro", sans-serif';
-  ctx.fillText(emailStatus, width / 2 + 60, credY + 232);
+  ctx.fillText('គណនីស្អាត ១០០% (Clean Account - គ្មានជាប់ 2FA / គ្មានជាប់ Email)', 175, credY + 232);
 
   // 7. Security Advisory Card (Red Accents)
   const secY = 632;

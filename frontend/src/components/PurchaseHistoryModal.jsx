@@ -321,15 +321,6 @@ export const PurchaseHistoryModal = ({
                         </button>
                       </div>
                     </div>
-
-                    {creds.backupCode && (
-                      <div>
-                        <span style={{ color: 'var(--text-dim)', fontSize: '0.76rem', display: 'block' }}>លេខកូដ PIN 2FA៖</span>
-                        <code style={{ fontWeight: 700, color: '#fbbf24', marginTop: '2px', display: 'block' }}>
-                          {creds.backupCode}
-                        </code>
-                      </div>
-                    )}
                   </div>
                 </div>
               );

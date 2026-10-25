@@ -20,7 +20,6 @@ export const AccountSuccessModal = ({
   const creds = product.credentials || {
     username: 'RobloxUser_' + product.id,
     password: 'Password@2026',
-    backupCode: 'PIN-9921',
     linkedEmail: 'មិនទាន់ភ្ជាប់ (ស្អាត ១០០%)',
     note: 'សូមប្តូរលេខសម្ងាត់ភ្លាមៗ'
   };
@@ -56,7 +55,6 @@ export const AccountSuccessModal = ({
 [ព័ត៌មានគណនីសម្រាប់ចូលលេង]
 ឈ្មោះគណនី (Username): ${creds.username}
 ពាក្យសម្ងាត់ (Password): ${creds.password}
-លេខកូដសុវត្ថិភាព (PIN/2FA): ${creds.backupCode || 'គ្មាន'}
 ស្ថានភាព Email: ${creds.linkedEmail}
 
 [សេចក្ដីណែនាំបន្ទាន់]
@@ -332,54 +330,6 @@ export const AccountSuccessModal = ({
                 </button>
               </div>
             </div>
-
-            {/* Field: 2FA / PIN */}
-            {creds.backupCode && (
-              <div style={{ marginBottom: '14px' }}>
-                <div style={{
-                  fontSize: '0.8rem',
-                  color: 'var(--text-muted)',
-                  marginBottom: '6px'
-                }}>
-                  លេខកូដសុវត្ថិភាព / លេខ PIN 2FA
-                </div>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  background: 'rgba(7, 9, 14, 0.8)',
-                  padding: '10px 14px',
-                  borderRadius: '10px',
-                  border: '1px solid var(--border-color)'
-                }}>
-                  <span style={{
-                    fontSize: '0.95rem',
-                    fontWeight: 700,
-                    color: '#fbbf24',
-                    fontFamily: 'monospace'
-                  }}>
-                    {creds.backupCode}
-                  </span>
-                  <button
-                    onClick={() => handleCopy(creds.backupCode, 'pin')}
-                    className="btn btn-secondary"
-                    style={{ padding: '6px 12px', fontSize: '0.78rem' }}
-                  >
-                    {copiedField === 'pin' ? (
-                      <>
-                        <Check size={14} color="#10b981" />
-                        <span>ចម្លងហើយ</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy size={14} />
-                        <span>ចម្លង</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            )}
 
             {/* Email Status */}
             <div style={{

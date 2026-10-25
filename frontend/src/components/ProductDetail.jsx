@@ -572,7 +572,7 @@ export const ProductDetail = ({
                   color: '#64748b',
                   marginBottom: '14px'
                 }}>
-                  លេខសម្គាល់ហាង: BAKONG-RBX-KH01
+                  សូមចំណាំ: ប្រាក់ដែលបានបង់ហើយមិនអាចប្ដូរវិញបានទេ
                 </div>
 
                 {/* QR Image with subtle scanning animation */}
@@ -657,7 +657,7 @@ export const ProductDetail = ({
                 fontSize: '0.74rem',
                 color: '#64748b'
               }}>
-                ស្កេនបានជាមួយ៖ <strong>ABA, Wing, អេស៊ីលីដា, កម្មវិធីបាគង</strong> និងគ្រប់ធនាគារក្នុងស្រុក
+                ស្កេនបានជាមួយ៖ <strong>អេប៊ីអេ, វីង, អេស៊ីលីដា, បាគង, ជីបម៉ុង</strong> និងគ្រប់ធនាគារក្នុងស្រុក
               </div>
             </div>
 
