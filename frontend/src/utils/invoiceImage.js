@@ -534,7 +534,7 @@ export async function generateInvoiceImageUrl(data) {
 
   ctx.fillStyle = "#94a3b8";
   ctx.font = '12px "Kantumruy Pro", sans-serif';
-  ctx.fillText("• គណនីស្អាត មិនជាប់ Hack មិនជាប់ពាក្យបណ្តឹង", 234, botY + 70);
+  ctx.fillText("• គណនីស្អាត មិនជាប់ Hack មិនជាប់ 2FA", 234, botY + 70);
   ctx.fillText(
     "• ប្រព័ន្ធស្វ័យប្រវត្តិកម្ពុជា ២៤ ម៉ោង តាមស្តង់ដារ KHQR",
     234,

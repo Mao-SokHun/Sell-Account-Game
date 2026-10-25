@@ -5,17 +5,29 @@ import { Navbar } from './components/Navbar';
 import { HeroBanner } from './components/HeroBanner';
 import { ProductList } from './components/ProductList';
 import { ProductDetail } from './components/ProductDetail';
+import { HowToBuyPage } from './components/HowToBuyPage';
+import { WarrantySupportPage } from './components/WarrantySupportPage';
 import { AccountSuccessModal } from './components/AccountSuccessModal';
 import { AdminAuthModal } from './components/AdminAuthModal';
 import { AdminDashboard } from './components/AdminDashboard';
 import { PurchaseHistoryModal } from './components/PurchaseHistoryModal';
 import { Footer } from './components/Footer';
 
-// Helper to check if URL path is an owner/admin route
-const checkIsOwnerRoute = () => {
+// Helper to check route on initial load
+const getInitialView = () => {
   const path = window.location.pathname.toLowerCase();
   const hash = window.location.hash.toLowerCase();
-  return path === '/owner' || path === '/admin' || hash === '#owner' || hash === '#admin';
+  if (path === '/owner' || path === '/admin' || hash === '#owner' || hash === '#admin') {
+    const savedAdmin = localStorage.getItem('current_admin');
+    return savedAdmin ? 'admin' : 'owner-login';
+  }
+  if (path === '/how-to-buy' || hash === '#how-to-buy' || hash === '#guide') {
+    return 'how-to-buy';
+  }
+  if (path === '/warranty' || hash === '#warranty' || hash === '#support') {
+    return 'warranty';
+  }
+  return 'catalog';
 };
 
 export function App() {
@@ -43,14 +55,8 @@ export function App() {
     return saved ? JSON.parse(saved) : null;
   });
 
-  // Initial view based on URL route (/owner)
-  const [currentView, setCurrentView] = useState(() => {
-    if (checkIsOwnerRoute()) {
-      const savedAdmin = localStorage.getItem('current_admin');
-      return savedAdmin ? 'admin' : 'owner-login';
-    }
-    return 'catalog';
-  });
+  // Initial view based on URL route
+  const [currentView, setCurrentView] = useState(() => getInitialView());
 
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('ទាំងអស់');
@@ -108,10 +114,13 @@ export function App() {
     });
   };
 
-  // Listen for browser URL changes (back/forward or navigation to /owner)
+  // Listen for browser URL changes (back/forward or direct navigation)
   useEffect(() => {
     const handleUrlChange = () => {
-      if (checkIsOwnerRoute()) {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+
+      if (path === '/owner' || path === '/admin' || hash === '#owner' || hash === '#admin') {
         const savedAdmin = localStorage.getItem('current_admin');
         if (savedAdmin) {
           setAdminUser(JSON.parse(savedAdmin));
@@ -119,9 +128,16 @@ export function App() {
         } else {
           setCurrentView('owner-login');
         }
+      } else if (path === '/how-to-buy' || hash === '#how-to-buy' || hash === '#guide') {
+        setCurrentView('how-to-buy');
+        setSelectedProduct(null);
+      } else if (path === '/warranty' || hash === '#warranty' || hash === '#support') {
+        setCurrentView('warranty');
+        setSelectedProduct(null);
       } else {
-        if (currentView === 'admin' || currentView === 'owner-login') {
+        if (currentView === 'admin' || currentView === 'owner-login' || currentView === 'how-to-buy' || currentView === 'warranty') {
           setCurrentView('catalog');
+          setSelectedProduct(null);
         }
       }
     };
@@ -138,6 +154,22 @@ export function App() {
   const handleNavigateHome = () => {
     window.history.pushState(null, '', '/');
     setCurrentView('catalog');
+    setSelectedProduct(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Navigate to How to Buy Guide
+  const handleNavigateHowToBuy = () => {
+    window.history.pushState(null, '', '/how-to-buy');
+    setCurrentView('how-to-buy');
+    setSelectedProduct(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Navigate to Warranty & Support
+  const handleNavigateWarranty = () => {
+    window.history.pushState(null, '', '/warranty');
+    setCurrentView('warranty');
     setSelectedProduct(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -219,12 +251,14 @@ export function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Navigation Bar - NO Admin button on buyer pages! */}
+      {/* Navigation Bar */}
       <Navbar
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         currentView={currentView}
         onNavigateHome={handleNavigateHome}
+        onNavigateHowToBuy={handleNavigateHowToBuy}
+        onNavigateWarranty={handleNavigateWarranty}
         adminUser={adminUser}
         onLogoutAdmin={handleAdminLogout}
         purchasedCount={purchases.length}
@@ -257,7 +291,23 @@ export function App() {
             />
           )}
 
-          {/* VIEW 3: DEDICATED OWNER LOGIN (ACCESSIBLE VIA URL: /owner) */}
+          {/* VIEW 3: HOW TO BUY GUIDE */}
+          {currentView === 'how-to-buy' && (
+            <HowToBuyPage
+              onBack={handleNavigateHome}
+              onGoToStore={handleNavigateHome}
+            />
+          )}
+
+          {/* VIEW 4: WARRANTY & SUPPORT */}
+          {currentView === 'warranty' && (
+            <WarrantySupportPage
+              onBack={handleNavigateHome}
+              onGoToStore={handleNavigateHome}
+            />
+          )}
+
+          {/* VIEW 5: DEDICATED OWNER LOGIN (ACCESSIBLE VIA URL: /owner) */}
           {currentView === 'owner-login' && (
             <AdminAuthModal
               isStandalone={true}
@@ -266,7 +316,7 @@ export function App() {
             />
           )}
 
-          {/* VIEW 4: ADMIN DASHBOARD (ACCESSIBLE VIA URL: /owner) */}
+          {/* VIEW 6: ADMIN DASHBOARD (ACCESSIBLE VIA URL: /owner) */}
           {currentView === 'admin' && adminUser && (
             <AdminDashboard
               products={products}
@@ -281,7 +331,11 @@ export function App() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer
+        onNavigateHome={handleNavigateHome}
+        onNavigateHowToBuy={handleNavigateHowToBuy}
+        onNavigateWarranty={handleNavigateWarranty}
+      />
 
       {/* MODAL 1: ACCOUNT DETAIL SUCCESS MODAL (POST-PAYMENT BAKONG) */}
       {successModalData && (

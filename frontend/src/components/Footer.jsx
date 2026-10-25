@@ -1,7 +1,7 @@
 import React from 'react';
-import { Gamepad2, ShieldCheck, Heart, Send, ExternalLink, QrCode } from 'lucide-react';
+import { Gamepad2, ShieldCheck, Send, BookOpen, ExternalLink, HelpCircle, ArrowRight } from 'lucide-react';
 
-export const Footer = () => {
+export const Footer = ({ onNavigateHome, onNavigateHowToBuy, onNavigateWarranty }) => {
   return (
     <footer style={{
       borderTop: '1px solid var(--border-color)',
@@ -13,13 +13,16 @@ export const Footer = () => {
       <div className="container">
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
           gap: '36px',
           marginBottom: '40px'
         }}>
           {/* Brand Col */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+            <div 
+              onClick={onNavigateHome}
+              style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px', cursor: 'pointer' }}
+            >
               <div style={{
                 width: '36px',
                 height: '36px',
@@ -33,7 +36,7 @@ export const Footer = () => {
                 <Gamepad2 size={20} />
               </div>
               <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff' }}>
-                ហាង ROBLOX KHMER
+                ROBLOX KHMER
               </span>
             </div>
             <p style={{ fontSize: '0.86rem', lineHeight: 1.7, marginBottom: '16px' }}>
@@ -41,9 +44,81 @@ export const Footer = () => {
             </p>
             <div style={{ display: 'flex', gap: '8px' }}>
               <span className="badge badge-green">
-                <ShieldCheck size={12} /> សុវត្ថិភាព ១០០%
+                <ShieldCheck size={12} /> សុវត្ថិភាព & ធានា ១០០%
               </span>
             </div>
+          </div>
+
+          {/* Quick Links Menu */}
+          <div>
+            <h4 style={{ fontSize: '0.98rem', fontWeight: 700, color: '#fff', marginBottom: '16px' }}>
+              ម៉ឺនុយរហ័ស (Navigation)
+            </h4>
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <li>
+                <button
+                  onClick={onNavigateHome}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    color: 'var(--text-muted)',
+                    fontSize: '0.88rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.color = '#fff'}
+                  onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+                >
+                  <ArrowRight size={14} color="var(--primary)" />
+                  <span>ហាងទំនិញ (Store Catalog)</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={onNavigateHowToBuy}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    color: 'var(--text-muted)',
+                    fontSize: '0.88rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.color = '#fff'}
+                  onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+                >
+                  <ArrowRight size={14} color="var(--primary)" />
+                  <span>របៀបទិញ (How to Buy Guide)</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={onNavigateWarranty}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    color: 'var(--text-muted)',
+                    fontSize: '0.88rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.color = '#fff'}
+                  onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+                >
+                  <ArrowRight size={14} color="var(--primary)" />
+                  <span>គោលការណ៍ធានា និងជំនួយ (Warranty & Support)</span>
+                </button>
+              </li>
+            </ul>
           </div>
 
           {/* Payment Methods */}
@@ -61,11 +136,10 @@ export const Footer = () => {
               fontSize: '0.8rem'
             }}>
               <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារបាគង (Bakong)</span>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារអេប៊ីអេ</span>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារវីង</span>
+              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារអេប៊ីអេ (ABA)</span>
+              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារវីង (Wing)</span>
               <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារអេស៊ីលីដា (ACLEDA)</span>
               <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារកាណាឌីយ៉ា</span>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារជីបម៉ុង</span>
             </div>
           </div>
 
@@ -78,7 +152,7 @@ export const Footer = () => {
               ប្រសិនបើមានចម្ងល់ ឬត្រូវការជំនួយក្នុងការ Login ប្តូរលេខសម្ងាត់ សូមទាក់ទងមកយើងខ្ញុំ៖
             </p>
             <a
-              href="https://t.me"
+              href="https://t.me/RobloxKhmerSupport"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"
