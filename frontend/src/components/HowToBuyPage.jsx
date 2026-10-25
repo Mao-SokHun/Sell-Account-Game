@@ -9,56 +9,46 @@ export const HowToBuyPage = ({ onBack, onGoToStore }) => {
   return (
     <div style={{ maxWidth: '1000px', margin: '0 auto 80px auto', padding: '10px 0' }}>
       {/* Top Breadcrumb & Back - Unified Modern Strip */}
+      {/* Sleek Minimalist Top Navigation */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '12px',
-        flexWrap: 'wrap',
-        marginBottom: '24px'
+        gap: '10px',
+        marginBottom: '20px',
+        whiteSpace: 'nowrap'
       }}>
         <button
           onClick={onBack}
           className="btn btn-secondary"
           style={{
-            padding: '8px 16px',
-            fontSize: '0.86rem',
-            borderRadius: '12px',
+            padding: '7px 14px',
+            fontSize: '0.84rem',
+            borderRadius: '10px',
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: '6px',
             background: 'rgba(255, 255, 255, 0.05)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             cursor: 'pointer',
-            fontWeight: 700
+            fontWeight: 700,
+            color: '#f8fafc',
+            flexShrink: 0
           }}
         >
           <ArrowLeft size={16} />
-          <span>ត្រឡប់ទៅហាងទំនិញ</span>
+          <span>ត្រឡប់ក្រោយ</span>
         </button>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
+        <span style={{ color: 'rgba(255, 255, 255, 0.2)', userSelect: 'none', flexShrink: 0 }}>/</span>
+
+        <span style={{
           fontSize: '0.84rem',
-          color: 'var(--text-muted)',
-          background: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
-          padding: '6px 14px',
-          borderRadius: '12px',
-          backdropFilter: 'blur(10px)'
+          color: '#ffffff',
+          fontWeight: 600,
+          whiteSpace: 'nowrap'
         }}>
-          <span 
-            onClick={onBack}
-            style={{ cursor: 'pointer', transition: 'color 0.2s' }}
-            onMouseEnter={(e) => e.target.style.color = '#38bdf8'}
-            onMouseLeave={(e) => e.target.style.color = ''}
-          >
-            ទំព័រដើម
-          </span>
-          <ChevronRight size={14} color="rgba(255, 255, 255, 0.3)" />
-          <span style={{ color: '#fff', fontWeight: 600 }}>របៀបទិញគណនី (How to Buy)</span>
-        </div>
+          របៀបទិញគណនី (How to Buy)
+        </span>
       </div>
 
       {/* Header Banner */}

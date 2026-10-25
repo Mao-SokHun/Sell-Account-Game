@@ -84,62 +84,69 @@ export const ProductDetail = ({
 
   return (
     <div style={{ marginBottom: '80px' }}>
-      {/* Back Button & Breadcrumbs - Unified Modern Strip */}
+      {/* Sleek Minimal Back & Breadcrumb Bar */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '12px',
-        flexWrap: 'wrap',
+        gap: '10px',
         maxWidth: '1440px',
-        margin: '16px auto 20px auto'
+        margin: '14px auto 18px auto',
+        padding: '0 2px',
+        whiteSpace: 'nowrap'
       }}>
         <button
           onClick={onBack}
           className="btn btn-secondary"
           style={{
-            padding: '8px 16px',
-            fontSize: '0.86rem',
-            borderRadius: '12px',
+            padding: '7px 14px',
+            fontSize: '0.84rem',
+            borderRadius: '10px',
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: '6px',
             background: 'rgba(255, 255, 255, 0.05)',
             border: '1px solid rgba(255, 255, 255, 0.1)',
             cursor: 'pointer',
-            fontWeight: 700
+            fontWeight: 700,
+            color: '#f8fafc',
+            flexShrink: 0
           }}
         >
           <ArrowLeft size={16} />
-          <span>ត្រឡប់ទៅបញ្ជីគណនី</span>
+          <span>ត្រឡប់ក្រោយ</span>
         </button>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
+        <span style={{ color: 'rgba(255, 255, 255, 0.2)', userSelect: 'none', flexShrink: 0 }}>/</span>
+
+        <span
+          onClick={onBack}
+          style={{
+            fontSize: '0.84rem',
+            color: 'var(--text-muted)',
+            cursor: 'pointer',
+            flexShrink: 0,
+            whiteSpace: 'nowrap',
+            transition: 'color 0.2s'
+          }}
+          onMouseEnter={(e) => e.target.style.color = '#38bdf8'}
+          onMouseLeave={(e) => e.target.style.color = ''}
+        >
+          {product.category}
+        </span>
+
+        <ChevronRight size={13} color="rgba(255, 255, 255, 0.25)" style={{ flexShrink: 0 }} />
+
+        <span style={{
           fontSize: '0.84rem',
-          color: 'var(--text-muted)',
-          background: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
-          padding: '6px 14px',
-          borderRadius: '12px',
-          backdropFilter: 'blur(10px)'
+          color: '#ffffff',
+          fontWeight: 600,
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          maxWidth: '450px'
         }}>
-          <span 
-            onClick={onBack}
-            style={{ cursor: 'pointer', transition: 'color 0.2s' }}
-            onMouseEnter={(e) => e.target.style.color = '#38bdf8'}
-            onMouseLeave={(e) => e.target.style.color = ''}
-          >
-            ទំព័រដើម
-          </span>
-          <ChevronRight size={14} color="rgba(255, 255, 255, 0.3)" />
-          <span style={{ color: 'var(--text-muted)' }}>{product.category}</span>
-          <ChevronRight size={14} color="rgba(255, 255, 255, 0.3)" />
-          <span style={{ color: '#ffffff', fontWeight: 600 }}>
-            {product.title.length > 40 ? `${product.title.slice(0, 40)}...` : product.title}
-          </span>
-        </div>
+          {product.title}
+        </span>
       </div>
 
       {/* 2 COLUMN LAYOUT */}

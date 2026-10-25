@@ -86,7 +86,7 @@ export const Navbar = ({
               </span>
             </div>
             <p className="navbar-brand-subtitle" style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: 0, whiteSpace: 'nowrap' }}>
-              Platform លក់ Account Game & Roblox ស្វ័យប្រវត្តិ
+              Platform លក់ Account Game & Roblox
             </p>
           </div>
         </div>
