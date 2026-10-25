@@ -3,7 +3,7 @@ import {
   PlusCircle, Package, DollarSign, CheckCircle2, 
   Trash2, Edit3, ArrowLeft, Image as ImageIcon, 
   Key, ShieldCheck, Tag, AlertTriangle,
-  Upload, Camera, Smartphone, Monitor, X, Layers
+  Upload, Camera, Smartphone, Monitor, X, Layers, Plus
 } from 'lucide-react';
 import { formatUSD, formatKHR, convertUsdToKhr } from '../utils/currency';
 import { GAME_CATEGORIES } from '../data/initialProducts';
@@ -111,56 +111,53 @@ export const AdminDashboard = ({
     { label: 'រូបភាព Blade Ball ដាវពន្លឺ', url: '/images/bladeball.jpg' }
   ];
 
-  // Handle Cover image upload from Mobile (Camera / Gallery) or Computer
-  const handleCoverUpload = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (file.size > 8 * 1024 * 1024) {
-      alert('ទំហំរូបភាពធំពេក! សូមជ្រើសរើសរូបភាពដែលមានទំហំតូចជាង 8MB');
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (uploadEvent) => {
-      const dataUrl = uploadEvent.target.result;
-      setFormData(prev => ({
-        ...prev,
-        image: dataUrl,
-        gallery: [dataUrl, ...(prev.gallery || []).filter(g => g !== dataUrl)]
-      }));
-    };
-    reader.readAsDataURL(file);
-  };
-
-  // Handle Additional Screenshots (Gallery) upload from Mobile or Computer
-  const handleGalleryUpload = (e) => {
+  // Handle Unified Images Upload from Mobile (Camera / Gallery) or Computer
+  const handleImagesUpload = (e) => {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
     files.forEach(file => {
-      if (file.size > 8 * 1024 * 1024) return;
+      if (file.size > 8 * 1024 * 1024) {
+        alert(`រូបភាព "${file.name}" ធំជាង 8MB! សូមជ្រើសរើសរូបភាពតូចជាងនេះ`);
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = (uploadEvent) => {
         const dataUrl = uploadEvent.target.result;
-        setFormData(prev => ({
-          ...prev,
-          image: prev.image || dataUrl,
-          gallery: [...(prev.gallery || []).filter(g => g !== dataUrl), dataUrl]
-        }));
+        setFormData(prev => {
+          const currentGallery = prev.gallery || [];
+          if (currentGallery.includes(dataUrl)) return prev;
+          const newGallery = [...currentGallery, dataUrl];
+          return {
+            ...prev,
+            image: prev.image || newGallery[0],
+            gallery: newGallery
+          };
+        });
       };
       reader.readAsDataURL(file);
     });
+
+    e.target.value = '';
   };
 
-  // Remove single image from gallery
-  const handleRemoveGalleryImage = (idxToRemove) => {
+  // Set selected image as the main cover
+  const handleSetCover = (imgUrl) => {
+    setFormData(prev => ({
+      ...prev,
+      image: imgUrl
+    }));
+  };
+
+  // Remove single image from account gallery
+  const handleRemoveImage = (imgUrlToRemove) => {
     setFormData(prev => {
-      const updated = (prev.gallery || []).filter((_, idx) => idx !== idxToRemove);
+      const updatedGallery = (prev.gallery || []).filter(img => img !== imgUrlToRemove);
       return {
         ...prev,
-        image: updated.length > 0 ? (prev.image === prev.gallery[idxToRemove] ? updated[0] : prev.image) : '',
-        gallery: updated
+        image: prev.image === imgUrlToRemove ? (updatedGallery[0] || '') : prev.image,
+        gallery: updatedGallery
       };
     });
   };
@@ -538,12 +535,12 @@ export const AdminDashboard = ({
               </div>
             </div>
 
-            {/* Device Image Upload (Mobile Camera/Gallery & Computer) */}
+            {/* Unified Account Photos & Gallery Uploader */}
             <div className="form-group" style={{ marginBottom: '24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px', flexWrap: 'wrap', gap: '6px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px', flexWrap: 'wrap', gap: '6px' }}>
                 <label className="form-label" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <ImageIcon size={16} color="var(--primary)" />
-                  <span>រូបភាពគម្របគណនី (Cover Image) *</span>
+                  <span>រូបភាពគណនី និងរូបភាពក្នុងហ្គេម (Account Photos & Gallery) *</span>
                 </label>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.78rem', color: '#38bdf8' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -556,92 +553,205 @@ export const AdminDashboard = ({
                 </div>
               </div>
 
-              {/* Hidden file input for main cover from device */}
+              {/* Single Unified Hidden File Input */}
               <input
                 type="file"
-                id="main-cover-upload"
+                id="unified-images-upload"
                 accept="image/*"
+                multiple
                 style={{ display: 'none' }}
-                onChange={handleCoverUpload}
+                onChange={handleImagesUpload}
               />
 
-              {formData.image ? (
-                <div style={{
-                  position: 'relative',
-                  borderRadius: '16px',
-                  overflow: 'hidden',
-                  border: '2px solid rgba(99, 102, 241, 0.45)',
-                  background: '#0a0f1d',
-                  marginBottom: '14px'
-                }}>
-                  <img
-                    src={formData.image}
-                    alt="Account Cover Preview"
-                    style={{
-                      width: '100%',
-                      maxHeight: '260px',
-                      objectFit: 'cover',
-                      display: 'block'
-                    }}
-                  />
+              {/* If images exist, showcase Main Cover + Thumbnails row */}
+              {formData.gallery && formData.gallery.length > 0 ? (
+                <div>
+                  {/* Main Cover Showcase */}
                   <div style={{
-                    position: 'absolute',
-                    top: '12px',
-                    right: '12px',
-                    display: 'flex',
-                    gap: '8px',
-                    zIndex: 2
+                    position: 'relative',
+                    borderRadius: '16px',
+                    overflow: 'hidden',
+                    border: '2px solid rgba(99, 102, 241, 0.45)',
+                    background: '#0a0f1d',
+                    marginBottom: '14px',
+                    height: '240px'
                   }}>
-                    <label
-                      htmlFor="main-cover-upload"
-                      className="btn btn-primary"
-                      style={{ padding: '6px 14px', fontSize: '0.82rem', cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,0,0,0.6)' }}
-                    >
-                      <Camera size={14} style={{ marginRight: '4px' }} />
-                      ប្តូររូបភាព
-                    </label>
-                    <button
-                      type="button"
-                      onClick={() => setFormData(prev => ({
-                        ...prev,
-                        image: '',
-                        gallery: (prev.gallery || []).filter(g => g !== prev.image)
-                      }))}
-                      className="btn btn-secondary"
-                      style={{ padding: '6px 12px', fontSize: '0.82rem', color: '#f87171', background: 'rgba(15, 23, 42, 0.85)' }}
-                      title="លុបរូបភាព"
-                    >
-                      <Trash2 size={14} />
-                    </button>
+                    <img
+                      src={formData.image || formData.gallery[0]}
+                      alt="Account Cover Preview"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        display: 'block'
+                      }}
+                    />
+
+                    {/* Top Badges and Action */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '12px',
+                      left: '12px',
+                      right: '12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      zIndex: 2
+                    }}>
+                      <span className="badge badge-primary" style={{ padding: '6px 12px', fontSize: '0.8rem', backdropFilter: 'blur(8px)', background: 'rgba(99, 102, 241, 0.85)', color: '#fff' }}>
+                        ⭐️ រូបភាពគម្របមេ (Main Cover)
+                      </span>
+
+                      <label
+                        htmlFor="unified-images-upload"
+                        className="btn btn-primary"
+                        style={{ padding: '6px 14px', fontSize: '0.8rem', cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,0,0,0.6)' }}
+                      >
+                        <Plus size={14} />
+                        <span>+ បន្ថែមរូបទៀត</span>
+                      </label>
+                    </div>
+
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '10px',
+                      left: '12px',
+                      background: 'rgba(15, 23, 42, 0.85)',
+                      backdropFilter: 'blur(8px)',
+                      padding: '4px 12px',
+                      borderRadius: '8px',
+                      fontSize: '0.78rem',
+                      color: 'var(--accent-green)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      border: '1px solid rgba(16, 185, 129, 0.3)'
+                    }}>
+                      <CheckCircle2 size={13} />
+                      <span>សរុប {formData.gallery.length} រូបភាពក្នុងបញ្ជី</span>
+                    </div>
                   </div>
+
+                  {/* Thumbnail Strip with Cover Indicator and Delete */}
                   <div style={{
-                    position: 'absolute',
-                    bottom: '12px',
-                    left: '12px',
-                    background: 'rgba(15, 23, 42, 0.85)',
-                    backdropFilter: 'blur(8px)',
-                    padding: '4px 12px',
-                    borderRadius: '8px',
-                    fontSize: '0.78rem',
-                    color: 'var(--accent-green)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    border: '1px solid rgba(16, 185, 129, 0.3)'
+                    background: 'rgba(15, 23, 42, 0.5)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: '14px',
+                    padding: '12px 14px',
+                    marginBottom: '16px'
                   }}>
-                    <CheckCircle2 size={14} />
-                    <span>រូបភាពបានបញ្ចូលពី Device រួចរាល់</span>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '8px' }}>
+                      ចុចលើរូបភាពណាមួយដើម្បីកំណត់ជា <strong>រូបភាពគម្រប (Cover)</strong> ឬចុចសញ្ញា ✕ ដើម្បីលុប៖
+                    </div>
+                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', alignItems: 'center' }}>
+                      {formData.gallery.map((imgUrl, idx) => {
+                        const isCover = formData.image === imgUrl;
+                        return (
+                          <div
+                            key={idx}
+                            style={{
+                              position: 'relative',
+                              width: '90px',
+                              height: '68px',
+                              borderRadius: '10px',
+                              overflow: 'hidden',
+                              border: isCover ? '2px solid var(--primary)' : '1px solid rgba(255,255,255,0.15)',
+                              boxShadow: isCover ? '0 0 12px rgba(99, 102, 241, 0.5)' : 'none',
+                              cursor: 'pointer',
+                              transition: 'all 0.2s ease'
+                            }}
+                            onClick={() => handleSetCover(imgUrl)}
+                            title={isCover ? 'រូបភាពគម្របមេបច្ចុប្បន្ន' : 'ចុចដើម្បីកំណត់ជារូបភាពគម្របមេ'}
+                          >
+                            <img
+                              src={imgUrl}
+                              alt={`Thumbnail ${idx + 1}`}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                            {isCover && (
+                              <div style={{
+                                position: 'absolute',
+                                bottom: '0',
+                                left: '0',
+                                right: '0',
+                                background: 'rgba(99, 102, 241, 0.9)',
+                                color: '#fff',
+                                fontSize: '0.62rem',
+                                fontWeight: 700,
+                                textAlign: 'center',
+                                padding: '1px 0'
+                              }}>
+                                ⭐️ គម្រប
+                              </div>
+                            )}
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleRemoveImage(imgUrl);
+                              }}
+                              style={{
+                                position: 'absolute',
+                                top: '3px',
+                                right: '3px',
+                                width: '20px',
+                                height: '20px',
+                                borderRadius: '50%',
+                                background: 'rgba(239, 68, 68, 0.9)',
+                                border: 'none',
+                                color: '#fff',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                padding: 0
+                              }}
+                              title="លុបរូបភាពនេះ"
+                            >
+                              <X size={12} />
+                            </button>
+                          </div>
+                        );
+                      })}
+
+                      {/* Add more button tile in the strip */}
+                      <label
+                        htmlFor="unified-images-upload"
+                        style={{
+                          width: '90px',
+                          height: '68px',
+                          borderRadius: '10px',
+                          border: '2px dashed rgba(99, 102, 241, 0.4)',
+                          background: 'rgba(99, 102, 241, 0.08)',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '4px',
+                          cursor: 'pointer',
+                          color: '#818cf8',
+                          fontSize: '0.72rem',
+                          fontWeight: 600,
+                          transition: 'all 0.2s ease'
+                        }}
+                        title="ជ្រើសរើសរូបភាពបន្ថែម"
+                      >
+                        <Plus size={18} />
+                        <span>+ ថែមរូប</span>
+                      </label>
+                    </div>
                   </div>
                 </div>
               ) : (
+                /* Empty state: Single unified dropzone */
                 <label
-                  htmlFor="main-cover-upload"
+                  htmlFor="unified-images-upload"
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: '36px 20px',
+                    padding: '38px 20px',
                     border: '2px dashed rgba(99, 102, 241, 0.5)',
                     borderRadius: '18px',
                     background: 'rgba(15, 23, 42, 0.5)',
@@ -652,8 +762,8 @@ export const AdminDashboard = ({
                   }}
                 >
                   <div style={{
-                    width: '54px',
-                    height: '54px',
+                    width: '56px',
+                    height: '56px',
                     borderRadius: '16px',
                     background: 'rgba(99, 102, 241, 0.18)',
                     display: 'flex',
@@ -662,101 +772,16 @@ export const AdminDashboard = ({
                     color: '#818cf8',
                     marginBottom: '12px'
                   }}>
-                    <Upload size={26} />
+                    <Upload size={28} />
                   </div>
-                  <div style={{ fontSize: '1rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
+                  <div style={{ fontSize: '1.02rem', fontWeight: 700, color: '#ffffff', marginBottom: '4px' }}>
                     ចុចទីនេះដើម្បីជ្រើសរើសរូបភាពពីទូរស័ព្ទ ឬកុំព្យូទ័រ
                   </div>
-                  <p style={{ fontSize: '0.82rem', color: 'var(--text-dim)', maxWidth: '440px', margin: 0 }}>
-                    ជ្រើសរើសរូបពី Photo Gallery, ថតរូបថ្មីពី Camera ឬ Upload ឯកសារ JPG, PNG, WEBP ពីកុំព្យូទ័រ
+                  <p style={{ fontSize: '0.82rem', color: 'var(--text-dim)', maxWidth: '460px', margin: 0 }}>
+                    ជ្រើសរើសរូបភាពពី Photo Gallery, ថតរូបថ្មី ឬ Upload ឯកសារ JPG, PNG, WEBP (អាចជ្រើសរើសរូបភាពច្រើនសន្លឹកក្នុងពេលតែមួយបាន)
                   </p>
                 </label>
               )}
-
-              {/* Additional Screenshots (Gallery) from Device */}
-              <div style={{
-                background: 'rgba(15, 23, 42, 0.45)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
-                borderRadius: '14px',
-                padding: '14px 16px',
-                marginBottom: '16px'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-main)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Layers size={14} color="#818cf8" />
-                    <span>រូបភាពបន្ថែមក្នុងហ្គេម (Game Gallery Screenshots)</span>
-                  </span>
-                  <label
-                    htmlFor="gallery-upload-input"
-                    className="btn btn-secondary"
-                    style={{ padding: '4px 12px', fontSize: '0.78rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
-                  >
-                    <Upload size={12} />
-                    <span>+ បន្ថែមរូបពី Device</span>
-                  </label>
-                  <input
-                    type="file"
-                    id="gallery-upload-input"
-                    accept="image/*"
-                    multiple
-                    style={{ display: 'none' }}
-                    onChange={handleGalleryUpload}
-                  />
-                </div>
-
-                {formData.gallery && formData.gallery.length > 0 ? (
-                  <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                    {formData.gallery.map((imgUrl, gIdx) => (
-                      <div
-                        key={gIdx}
-                        style={{
-                          position: 'relative',
-                          width: '85px',
-                          height: '65px',
-                          borderRadius: '8px',
-                          overflow: 'hidden',
-                          border: formData.image === imgUrl ? '2px solid var(--primary)' : '1px solid rgba(255,255,255,0.1)'
-                        }}
-                      >
-                        <img
-                          src={imgUrl}
-                          alt="Gallery item"
-                          onClick={() => setFormData(prev => ({ ...prev, image: imgUrl }))}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', cursor: 'pointer' }}
-                          title="ចុចដើម្បីកំណត់ជារូបភាពគម្របមេ"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveGalleryImage(gIdx)}
-                          style={{
-                            position: 'absolute',
-                            top: '2px',
-                            right: '2px',
-                            width: '18px',
-                            height: '18px',
-                            borderRadius: '50%',
-                            background: 'rgba(239, 68, 68, 0.9)',
-                            border: 'none',
-                            color: '#fff',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            padding: 0
-                          }}
-                          title="លុបរូបនេះចេញ"
-                        >
-                          <X size={10} />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p style={{ fontSize: '0.78rem', color: 'var(--text-dim)', margin: 0 }}>
-                    អ្នកអាចជ្រើសរូបភាពច្រើនសន្លឹកបន្ថែមទៀតពីទូរស័ព្ទ ឬកុំព្យូទ័រ ដើម្បីបង្ហាញកាតាប Items ឬកម្រិត Level ក្នុងហ្គេម។
-                  </p>
-                )}
-              </div>
 
               {/* Optional Quick Sample Presets */}
               <div style={{ marginTop: '12px' }}>

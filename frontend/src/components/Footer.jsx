@@ -42,7 +42,7 @@ export const Footer = () => {
             <div style={{ display: 'flex', gap: '8px' }}>
               <span className="badge badge-green">
                 <ShieldCheck size={12} /> សុវត្ថិភាព ១០០%
-              </span>3
+              </span>
             </div>
           </div>
 
@@ -60,12 +60,12 @@ export const Footer = () => {
               gap: '8px',
               fontSize: '0.8rem'
             }}>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>កម្មវិធីបាគង (Bakong)</span>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ABA Mobile</span>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>Wing Bank</span>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>អេស៊ីលីដា (ACLEDA)</span>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>កាណាឌីយ៉ា</span>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}></span>
+              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារបាគង (Bakong)</span>
+              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារអេប៊ីអេ</span>
+              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារវីង</span>
+              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារអេស៊ីលីដា (ACLEDA)</span>
+              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារកាណាឌីយ៉ា</span>
+              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ធនាគារជីបម៉ុង</span>
             </div>
           </div>
 
@@ -109,7 +109,7 @@ export const Footer = () => {
           fontSize: '0.82rem'
         }}>
           <div>
-            © {new Date().getFullYear()} ហាង ROBLOX KHMER VAULT. រក្សាសិទ្ធិគ្រប់យ៉ាង។ សម្រាប់ប្រើប្រាស់នៅប្រទេសកម្ពុជា
+            © {new Date().getFullYear()} ហាង ROBLOX KHMER VAULT. រក្សាសិទ្ធិគ្រប់យ៉ាង។
           </div>
           <div style={{ color: 'var(--text-dim)' }}>
             ប្រព័ន្ធទូទាត់ស្វ័យប្រវត្តិ Bakong KHQR • មិនបាច់ចុះឈ្មោះសម្រាប់អ្នកទិញ

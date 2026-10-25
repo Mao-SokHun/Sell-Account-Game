@@ -70,7 +70,7 @@ export const Navbar = ({
               </span> */}
             </div>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: 0 }}>
-              ហាងលក់ Account Roblox ស្វ័យប្រវត្តិ
+              Platform លក់ Account Roblox ស្វ័យប្រវត្តិ
             </p>
           </div>
         </div>

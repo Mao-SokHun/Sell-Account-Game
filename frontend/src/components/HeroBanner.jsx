@@ -41,7 +41,7 @@ export const HeroBanner = () => {
         {/* Top Badges */}
         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '16px' }}>
           <span className="badge badge-gold">
-            <Flame size={14} /> ហាងពេញនិយមបំផុតនៅកម្ពុជា
+            <Flame size={14} /> Platform ដែលងាយស្រួលក្នុងការទិញគណនីហ្គេម Roblox បង់ប្រាក់រួចរាល់និងទទួលបានគណនីភ្លាមៗ
           </span>
           <span className="badge badge-cyan">
             <Zap size={14} /> ប្រព័ន្ធស្វ័យប្រវត្តិ ២៤ ម៉ោង
