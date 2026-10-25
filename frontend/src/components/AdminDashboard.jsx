@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { formatUSD, formatKHR, convertUsdToKhr } from '../utils/currency';
 import { GAME_CATEGORIES } from '../data/initialProducts';
+import { CustomDropdown } from './CustomDropdown';
 
 // Default templates for game in-game statistics
 export const DEFAULT_GAME_STATS_TEMPLATES = {
@@ -443,10 +444,16 @@ export const AdminDashboard = ({
               {/* Category */}
               <div className="form-group">
                 <label className="form-label">ប្រភេទហ្គេម *</label>
-                <select
+                <CustomDropdown
                   name="category"
-                  className="form-select"
                   value={formData.category}
+                  fullWidth={true}
+                  options={[
+                    'Blox Fruits',
+                    'ឈុត VIP Avatar',
+                    'Pet Sim 99',
+                    'Blade Ball'
+                  ]}
                   onChange={(e) => {
                     const newCat = e.target.value;
                     handleChange(e);
@@ -454,12 +461,7 @@ export const AdminDashboard = ({
                       setCustomStats(DEFAULT_GAME_STATS_TEMPLATES[newCat] || []);
                     }
                   }}
-                >
-                  <option value="Blox Fruits">Blox Fruits</option>
-                  <option value="ឈុត VIP Avatar">ឈុត VIP Avatar</option>
-                  <option value="Pet Sim 99">Pet Sim 99</option>
-                  <option value="Blade Ball">Blade Ball</option>
-                </select>
+                />
               </div>
 
               {/* Price USD */}

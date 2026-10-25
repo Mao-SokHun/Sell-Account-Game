@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ProductCard } from './ProductCard';
 import { GAME_CATEGORIES } from '../data/initialProducts';
 import { SlidersHorizontal, AlertCircle } from 'lucide-react';
+import { CustomDropdown } from './CustomDropdown';
 
 export const ProductList = ({
   products,
@@ -75,24 +76,21 @@ export const ProductList = ({
         </div>
 
         {/* Sorting Dropdown */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <SlidersHorizontal size={16} color="var(--text-dim)" />
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="form-select"
-            style={{
-              padding: '8px 12px',
-              fontSize: '0.85rem',
-              width: 'auto',
-              background: 'rgba(15, 23, 42, 0.8)'
-            }}
-          >
-            <option value="featured">តម្រៀប៖ ពេញនិយមបំផុត</option>
-            <option value="price-low">តម្លៃ៖ ពីទាបទៅខ្ពស់</option>
-            <option value="price-high">តម្លៃ៖ ពីខ្ពស់ទៅទាប</option>
-          </select>
-        </div>
+        <CustomDropdown
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value)}
+          icon={SlidersHorizontal}
+          options={[
+            { value: 'featured', label: 'តម្រៀប៖ ពេញនិយមបំផុត' },
+            { value: 'price-low', label: 'តម្លៃ៖ ពីទាបទៅខ្ពស់' },
+            { value: 'price-high', label: 'តម្លៃ៖ ពីខ្ពស់ទៅទាប' }
+          ]}
+          buttonStyle={{
+            padding: '7px 14px',
+            fontSize: '0.84rem',
+            borderRadius: 'var(--radius-full)'
+          }}
+        />
       </div>
 
       {/* Grid of Product Cards */}
