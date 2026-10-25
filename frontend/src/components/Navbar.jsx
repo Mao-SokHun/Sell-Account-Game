@@ -83,189 +83,197 @@ export const Navbar = ({
           </div>
         </div>
 
-        {/* Desktop Navigation Links */}
-        {!isOwnerView && (
-          <nav className="navbar-desktop-nav">
-            <button
-              onClick={() => handleNavClick(onNavigateHome)}
-              className="btn"
-              style={{
-                padding: '7px 14px',
-                fontSize: '0.86rem',
-                borderRadius: '10px',
-                background: currentView === 'catalog' ? 'rgba(99, 102, 241, 0.18)' : 'transparent',
-                border: currentView === 'catalog' ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
-                color: currentView === 'catalog' ? '#fff' : 'var(--text-muted)',
-                fontWeight: currentView === 'catalog' ? 700 : 500,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                cursor: 'pointer'
-              }}
-            >
-              <Gamepad2 size={16} color={currentView === 'catalog' ? 'var(--primary)' : 'currentColor'} />
-              <span>ហាងទំនិញ</span>
-            </button>
-
-            <button
-              onClick={() => handleNavClick(onNavigateHowToBuy)}
-              className="btn"
-              style={{
-                padding: '7px 14px',
-                fontSize: '0.86rem',
-                borderRadius: '10px',
-                background: currentView === 'how-to-buy' ? 'rgba(99, 102, 241, 0.18)' : 'transparent',
-                border: currentView === 'how-to-buy' ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
-                color: currentView === 'how-to-buy' ? '#fff' : 'var(--text-muted)',
-                fontWeight: currentView === 'how-to-buy' ? 700 : 500,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                cursor: 'pointer'
-              }}
-            >
-              <BookOpen size={16} color={currentView === 'how-to-buy' ? 'var(--primary)' : 'currentColor'} />
-              <span>របៀបទិញ</span>
-            </button>
-          </nav>
-        )}
-
-        {/* Desktop Search Bar (only shown on catalog view) */}
-        {!isOwnerView && currentView === 'catalog' && (
-          <div className="navbar-desktop-search">
-            <div style={{ position: 'relative', width: '100%' }}>
-              <Search size={16} style={{
-                position: 'absolute',
-                left: '12px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: 'var(--text-dim)'
-              }} />
-              <input
-                type="text"
-                placeholder="ស្វែងរក Blox Fruits, VIP..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="form-input"
-                style={{
-                  paddingLeft: '36px',
-                  background: 'rgba(15, 23, 42, 0.6)',
-                  fontSize: '0.84rem',
-                  paddingTop: '7px',
-                  paddingBottom: '7px'
-                }}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Right Controls */}
+        {/* Right Section: Navigation Links, Search Bar & Controls Grouped Together */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '8px',
-          flexShrink: 0
+          gap: '12px',
+          marginLeft: 'auto'
         }}>
-          {isOwnerView ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span className="badge badge-gold" style={{ padding: '6px 10px', fontSize: '0.78rem' }}>
-                <Crown size={14} /> <span>Admin</span>
-              </span>
-
+          {/* Desktop Navigation Links */}
+          {!isOwnerView && (
+            <nav className="navbar-desktop-nav">
               <button
                 onClick={() => handleNavClick(onNavigateHome)}
-                className="btn btn-secondary"
-                style={{ padding: '6px 12px', fontSize: '0.82rem' }}
+                className="btn"
+                style={{
+                  padding: '7px 14px',
+                  fontSize: '0.86rem',
+                  borderRadius: '10px',
+                  background: currentView === 'catalog' ? 'rgba(99, 102, 241, 0.18)' : 'transparent',
+                  border: currentView === 'catalog' ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
+                  color: currentView === 'catalog' ? '#fff' : 'var(--text-muted)',
+                  fontWeight: currentView === 'catalog' ? 700 : 500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer'
+                }}
               >
+                <Gamepad2 size={16} color={currentView === 'catalog' ? 'var(--primary)' : 'currentColor'} />
                 <span>ហាងទំនិញ</span>
               </button>
 
-              {adminUser && (
-                <button
-                  onClick={onLogoutAdmin}
-                  className="btn btn-ghost"
-                  style={{ padding: '6px 10px', fontSize: '0.82rem', color: '#f87171' }}
-                  title="ចាកចេញពី Admin"
-                >
-                  <Unlock size={15} />
-                </button>
-              )}
+              <button
+                onClick={() => handleNavClick(onNavigateHowToBuy)}
+                className="btn"
+                style={{
+                  padding: '7px 14px',
+                  fontSize: '0.86rem',
+                  borderRadius: '10px',
+                  background: currentView === 'how-to-buy' ? 'rgba(99, 102, 241, 0.18)' : 'transparent',
+                  border: currentView === 'how-to-buy' ? '1px solid rgba(99, 102, 241, 0.4)' : '1px solid transparent',
+                  color: currentView === 'how-to-buy' ? '#fff' : 'var(--text-muted)',
+                  fontWeight: currentView === 'how-to-buy' ? 700 : 500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer'
+                }}
+              >
+                <BookOpen size={16} color={currentView === 'how-to-buy' ? 'var(--primary)' : 'currentColor'} />
+                <span>របៀបទិញ</span>
+              </button>
+            </nav>
+          )}
+
+          {/* Desktop Search Bar (only shown on catalog view) */}
+          {!isOwnerView && currentView === 'catalog' && (
+            <div className="navbar-desktop-search">
+              <div style={{ position: 'relative', width: '100%' }}>
+                <Search size={16} style={{
+                  position: 'absolute',
+                  left: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: 'var(--text-dim)'
+                }} />
+                <input
+                  type="text"
+                  placeholder="ស្វែងរក Blox Fruits, VIP..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="form-input"
+                  style={{
+                    paddingLeft: '36px',
+                    background: 'rgba(15, 23, 42, 0.6)',
+                    fontSize: '0.84rem',
+                    paddingTop: '7px',
+                    paddingBottom: '7px'
+                  }}
+                />
+              </div>
             </div>
-          ) : (
-            <>
-              {/* Mobile Search Toggle Button */}
-              {currentView === 'catalog' && (
+          )}
+
+          {/* Right Controls */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            flexShrink: 0
+          }}>
+            {isOwnerView ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span className="badge badge-gold" style={{ padding: '6px 10px', fontSize: '0.78rem' }}>
+                  <Crown size={14} /> <span>Admin</span>
+                </span>
+
+                <button
+                  onClick={() => handleNavClick(onNavigateHome)}
+                  className="btn btn-secondary"
+                  style={{ padding: '6px 12px', fontSize: '0.82rem' }}
+                >
+                  <span>ហាងទំនិញ</span>
+                </button>
+
+                {adminUser && (
+                  <button
+                    onClick={onLogoutAdmin}
+                    className="btn btn-ghost"
+                    style={{ padding: '6px 10px', fontSize: '0.82rem', color: '#f87171' }}
+                    title="ចាកចេញពី Admin"
+                  >
+                    <Unlock size={15} />
+                  </button>
+                )}
+              </div>
+            ) : (
+              <>
+                {/* Mobile Search Toggle Button */}
+                {currentView === 'catalog' && (
+                  <button
+                    onClick={() => {
+                      setIsMobileSearchOpen(prev => !prev);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="btn btn-secondary navbar-mobile-search-btn"
+                    style={{
+                      padding: '8px 10px',
+                      borderRadius: '10px',
+                      color: isMobileSearchOpen ? 'var(--primary)' : 'var(--text-main)'
+                    }}
+                    title="ស្វែងរក"
+                    aria-label="Search"
+                  >
+                    {isMobileSearchOpen ? <X size={18} /> : <Search size={18} />}
+                  </button>
+                )}
+
+                {/* History Button (Buyer) */}
+                {purchasedCount > 0 && (
+                  <button
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      onOpenHistoryModal();
+                    }}
+                    className="btn btn-secondary"
+                    style={{
+                      padding: '7px 11px',
+                      fontSize: '0.84rem',
+                      borderRadius: '10px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}
+                    title="មើលគណនីដែលបានទិញរួចរាល់"
+                  >
+                    <History size={16} />
+                    <span className="navbar-brand-subtitle">គណនីបានទិញ</span>
+                    <span style={{
+                      background: 'var(--accent-green)',
+                      color: '#000',
+                      fontSize: '0.72rem',
+                      fontWeight: 800,
+                      borderRadius: '999px',
+                      padding: '1px 6px'
+                    }}>
+                      {purchasedCount}
+                    </span>
+                  </button>
+                )}
+
+                {/* Mobile Hamburger Toggle Button */}
                 <button
                   onClick={() => {
-                    setIsMobileSearchOpen(prev => !prev);
-                    setIsMobileMenuOpen(false);
+                    setIsMobileMenuOpen(prev => !prev);
+                    setIsMobileSearchOpen(false);
                   }}
-                  className="btn btn-secondary navbar-mobile-search-btn"
+                  className="btn btn-secondary navbar-mobile-toggle-btn"
                   style={{
                     padding: '8px 10px',
                     borderRadius: '10px',
-                    color: isMobileSearchOpen ? 'var(--primary)' : 'var(--text-main)'
+                    color: isMobileMenuOpen ? 'var(--primary)' : 'var(--text-main)',
+                    background: isMobileMenuOpen ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.08)'
                   }}
-                  title="ស្វែងរក"
-                  aria-label="Search"
+                  title="មឺនុយ"
+                  aria-label="Menu"
                 >
-                  {isMobileSearchOpen ? <X size={18} /> : <Search size={18} />}
+                  {isMobileMenuOpen ? <X size={19} /> : <Menu size={19} />}
                 </button>
-              )}
-
-              {/* History Button (Buyer) */}
-              {purchasedCount > 0 && (
-                <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onOpenHistoryModal();
-                  }}
-                  className="btn btn-secondary"
-                  style={{
-                    padding: '7px 11px',
-                    fontSize: '0.84rem',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px'
-                  }}
-                  title="មើលគណនីដែលបានទិញរួចរាល់"
-                >
-                  <History size={16} />
-                  <span className="navbar-brand-subtitle">គណនីបានទិញ</span>
-                  <span style={{
-                    background: 'var(--accent-green)',
-                    color: '#000',
-                    fontSize: '0.72rem',
-                    fontWeight: 800,
-                    borderRadius: '999px',
-                    padding: '1px 6px'
-                  }}>
-                    {purchasedCount}
-                  </span>
-                </button>
-              )}
-
-              {/* Mobile Hamburger Toggle Button */}
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(prev => !prev);
-                  setIsMobileSearchOpen(false);
-                }}
-                className="btn btn-secondary navbar-mobile-toggle-btn"
-                style={{
-                  padding: '8px 10px',
-                  borderRadius: '10px',
-                  color: isMobileMenuOpen ? 'var(--primary)' : 'var(--text-main)',
-                  background: isMobileMenuOpen ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255, 255, 255, 0.08)'
-                }}
-                title="មឺនុយ"
-                aria-label="Menu"
-              >
-                {isMobileMenuOpen ? <X size={19} /> : <Menu size={19} />}
-              </button>
-            </>
-          )}
+              </>
+            )}
+          </div>
         </div>
       </div>
 

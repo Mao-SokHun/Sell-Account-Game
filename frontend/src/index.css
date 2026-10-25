@@ -435,8 +435,7 @@ html, body, #root {
 .navbar-desktop-search {
   display: flex;
   align-items: center;
-  flex: 1;
-  max-width: 320px;
+  width: 250px;
 }
 
 .navbar-mobile-toggle-btn {

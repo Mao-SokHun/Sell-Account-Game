@@ -102,7 +102,7 @@ export const HeroBanner = ({ onNavigateHowToBuy, onSelectCategory }) => {
           <h1 className="cinematic-hero-title">
             {currentSlide.title} <br />
             <span className="hero-gradient-text">
-              ស្កេនបាគង KHQR ភ្លាមៗ
+              ស្កេនបាគង KHQR ភ្លាមទទួលបាន Account ភ្លាមៗ
             </span>
           </h1>
 
