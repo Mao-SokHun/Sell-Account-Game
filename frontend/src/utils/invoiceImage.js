@@ -509,7 +509,7 @@ export async function generateInvoiceImageUrl(data) {
     botY + 98,
   );
   ctx.fillText(
-    "• សេវាបម្រើអតិថិជន Telegram Support: @RobloxKhmerSupport",
+    "• សេវាបម្រើអតិថិជន Telegram Support: @Mirastore10",
     80,
     botY + 122,
   );

@@ -519,7 +519,7 @@ export const HowToBuyPage = ({ onBack, onGoToStore }) => {
               ❓ ប្រសិនបើមានបញ្ហា តើទាក់ទងជំនួយតាមណា?
             </h4>
             <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)', lineHeight: 1.6, margin: 0 }}>
-              លោកអ្នកអាចទាក់ទងមកកាន់ Telegram Support ផ្លូវការរបស់យើងខ្ញុំបាន ២៤ ម៉ោង តាមរយៈ <strong>@RobloxKhmerSupport</strong> យើងខ្ញុំរីករាយជួយដោះស្រាយភ្លាមៗ!
+              លោកអ្នកអាចទាក់ទងមកកាន់ Telegram Support ផ្លូវការរបស់យើងខ្ញុំបាន ២៤ ម៉ោង តាមរយៈ <a href="https://t.me/Mirastore10" target="_blank" rel="noopener noreferrer" style={{ color: '#38bdf8', textDecoration: 'underline', fontWeight: 700 }}>@Mirastore10</a> យើងខ្ញុំរីករាយជួយដោះស្រាយភ្លាមៗ!
             </p>
           </div>
         </div>

@@ -411,7 +411,7 @@ export const Navbar = ({
             borderTop: '1px solid rgba(255, 255, 255, 0.08)'
           }}>
             <a
-              href="https://t.me/RobloxKhmerSupport"
+              href="https://t.me/Mirastore10"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"
@@ -429,7 +429,7 @@ export const Navbar = ({
               }}
             >
               <Send size={15} />
-              <span>Telegram ជំនួយ៖ @RobloxKhmerSupport</span>
+              <span>Telegram ជំនួយ៖ @Mirastore10</span>
             </a>
           </div>
         </div>

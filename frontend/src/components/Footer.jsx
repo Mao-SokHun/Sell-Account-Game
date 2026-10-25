@@ -131,7 +131,7 @@ export const Footer = ({ onNavigateHome, onNavigateHowToBuy }) => {
               ប្រសិនបើមានចម្ងល់ ឬត្រូវការជំនួយក្នុងការ Login ប្តូរលេខសម្ងាត់ សូមទាក់ទងមកយើងខ្ញុំ៖
             </p>
             <a
-              href="https://t.me/RobloxKhmerSupport"
+              href="https://t.me/Mirastore10"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"
@@ -145,7 +145,7 @@ export const Footer = ({ onNavigateHome, onNavigateHowToBuy }) => {
               }}
             >
               <Send size={15} />
-              <span>Telegram ជំនួយ៖ @RobloxKhmerSupport</span>
+              <span>Telegram ជំនួយ៖ @Mirastore10</span>
             </a>
           </div>
         </div>
