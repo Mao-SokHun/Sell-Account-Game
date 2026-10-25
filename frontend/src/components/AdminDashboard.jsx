@@ -1141,13 +1141,16 @@ export const AdminDashboard = ({
                   {/* Status Toggle */}
                   <td style={{ padding: '12px 14px' }}>
                     <button
+                      type="button"
                       onClick={() => handleToggleStatus(product)}
                       style={{
                         border: 'none',
                         background: 'none',
                         cursor: 'pointer',
-                        padding: 0
+                        padding: 0,
+                        fontFamily: 'var(--font-family)'
                       }}
+                      title="ចុចដើម្បីប្តូរស្ថានភាព ស្តុក / លក់ដាច់"
                     >
                       {product.status === 'available' ? (
                         <span className="badge badge-green">មានក្នុងស្តុក</span>
