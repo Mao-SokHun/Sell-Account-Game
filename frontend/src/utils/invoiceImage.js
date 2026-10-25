@@ -183,18 +183,45 @@ export async function generateInvoiceImageUrl(data) {
 
   // 3. Top Header Bar
   const headY = 46;
-  // Brand Icon Logo
-  const iconGrad = ctx.createLinearGradient(48, headY, 96, headY + 48);
-  iconGrad.addColorStop(0, "#6366f1");
-  iconGrad.addColorStop(1, "#06b6d4");
-  drawRoundRect(ctx, 48, headY, 50, 50, 14, iconGrad);
-
-  // Gamepad Icon Graphic inside logo
-  ctx.fillStyle = "#ffffff";
-  ctx.font = 'bold 18px "Outfit", sans-serif';
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText("MIRA", 73, headY + 25);
+  // Brand Icon Logo - Draw official MIRA STORE logo
+  try {
+    const logoImg = new Image();
+    logoImg.crossOrigin = "anonymous";
+    logoImg.src = "/images/logo.jpg";
+    await new Promise((res) => {
+      logoImg.onload = res;
+      logoImg.onerror = res;
+    });
+    if (logoImg.complete && logoImg.naturalWidth > 0) {
+      ctx.save();
+      drawRoundRect(ctx, 48, headY, 52, 52, 14);
+      ctx.clip();
+      ctx.drawImage(logoImg, 48, headY, 52, 52);
+      ctx.restore();
+      // subtle border
+      drawRoundRect(ctx, 48, headY, 52, 52, 14, null, "rgba(56, 189, 248, 0.4)", 1.5);
+    } else {
+      const iconGrad = ctx.createLinearGradient(48, headY, 100, headY + 52);
+      iconGrad.addColorStop(0, "#6366f1");
+      iconGrad.addColorStop(1, "#06b6d4");
+      drawRoundRect(ctx, 48, headY, 52, 52, 14, iconGrad);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = 'bold 18px "Outfit", sans-serif';
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("MIRA", 74, headY + 26);
+    }
+  } catch (e) {
+    const iconGrad = ctx.createLinearGradient(48, headY, 100, headY + 52);
+    iconGrad.addColorStop(0, "#6366f1");
+    iconGrad.addColorStop(1, "#06b6d4");
+    drawRoundRect(ctx, 48, headY, 52, 52, 14, iconGrad);
+    ctx.fillStyle = "#ffffff";
+    ctx.font = 'bold 18px "Outfit", sans-serif';
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("MIRA", 74, headY + 26);
+  }
 
   // Brand Name & Subtitle
   ctx.textAlign = "left";
@@ -502,9 +529,13 @@ export async function generateInvoiceImageUrl(data) {
 
   ctx.fillStyle = "#94a3b8";
   ctx.font = '13px "Kantumruy Pro", sans-serif';
-  ctx.fillText("• គណនីស្អាត មិនជាប់ Hack មិនជាប់ 2FA អាចដាក់ Email ផ្ទាល់ខ្លួនបានភ្លាមៗ", 80, botY + 74);
   ctx.fillText(
-    "• ប្រព័ន្ធស្វ័យប្រវត្តិកម្ពុជា ២៤ ម៉ោង តាមស្តង់ដារ KHQR ទទួលគណនីភ្លាមៗ",
+    "• គណនីស្អាត មិនជាប់ Hack មិនជាប់ 2FA អាចដាក់ Email ផ្ទាល់ខ្លួនបានភ្លាមៗ",
+    80,
+    botY + 74,
+  );
+  ctx.fillText(
+    "• ប្រព័ន្ធស្វ័យប្រវត្តិ ២៤ ម៉ោង តាមស្តង់ដារ KHQR ទទួលគណនីភ្លាមៗ",
     80,
     botY + 98,
   );

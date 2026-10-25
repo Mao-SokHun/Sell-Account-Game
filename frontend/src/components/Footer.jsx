@@ -24,16 +24,24 @@ export const Footer = ({ onNavigateHome, onNavigateHowToBuy }) => {
               style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px', cursor: 'pointer' }}
             >
               <div style={{
-                width: '36px',
-                height: '36px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, #6366f1, #06b6d4)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#fff'
+                width: '42px',
+                height: '42px',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                border: '1.5px solid rgba(56, 189, 248, 0.4)',
+                boxShadow: '0 0 16px rgba(14, 165, 233, 0.3)',
+                flexShrink: 0,
+                background: '#0c1222'
               }}>
-                <Gamepad2 size={20} />
+                <img
+                  src="/images/logo.jpg"
+                  alt="MIRA STORE Logo"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
               </div>
               <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff' }}>
                 MIRA STORE

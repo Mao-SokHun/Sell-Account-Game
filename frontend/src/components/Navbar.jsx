@@ -51,17 +51,24 @@ export const Navbar = ({
           }}
         >
           <div style={{
-            width: '38px',
-            height: '38px',
-            borderRadius: '10px',
-            background: 'linear-gradient(135deg, #6366f1, #06b6d4)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 0 16px rgba(99, 102, 241, 0.45)',
-            flexShrink: 0
+            width: '42px',
+            height: '42px',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            border: '1.5px solid rgba(56, 189, 248, 0.5)',
+            boxShadow: '0 0 16px rgba(14, 165, 233, 0.4)',
+            flexShrink: 0,
+            background: '#0c1222'
           }}>
-            <Gamepad2 size={20} color="#ffffff" />
+            <img
+              src="/images/logo.jpg"
+              alt="MIRA STORE Logo"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            />
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
