@@ -166,6 +166,7 @@ export const AdminAuthModal = ({
           type="button"
           onClick={() => { setMode('login'); setError(''); }}
           style={{
+            fontFamily: 'var(--font-family)',
             flex: 1,
             padding: '8px',
             borderRadius: '9px',
@@ -183,6 +184,7 @@ export const AdminAuthModal = ({
           type="button"
           onClick={() => { setMode('register'); setError(''); }}
           style={{
+            fontFamily: 'var(--font-family)',
             flex: 1,
             padding: '8px',
             borderRadius: '9px',

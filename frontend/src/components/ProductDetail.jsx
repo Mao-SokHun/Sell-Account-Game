@@ -430,8 +430,10 @@ export const ProductDetail = ({
                 border: '1px solid var(--border-color)'
               }}>
                 <button
+                  type="button"
                   onClick={() => setSelectedCurrency('USD')}
                   style={{
+                    fontFamily: 'var(--font-family)',
                     background: selectedCurrency === 'USD' ? 'var(--primary)' : 'transparent',
                     color: selectedCurrency === 'USD' ? '#fff' : 'var(--text-muted)',
                     border: 'none',
@@ -445,8 +447,10 @@ export const ProductDetail = ({
                   ដុល្លារ ($)
                 </button>
                 <button
+                  type="button"
                   onClick={() => setSelectedCurrency('KHR')}
                   style={{
+                    fontFamily: 'var(--font-family)',
                     background: selectedCurrency === 'KHR' ? 'var(--primary)' : 'transparent',
                     color: selectedCurrency === 'KHR' ? '#fff' : 'var(--text-muted)',
                     border: 'none',
