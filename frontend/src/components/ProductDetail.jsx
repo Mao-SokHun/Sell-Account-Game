@@ -31,10 +31,10 @@ export const ProductDetail = ({
   // Generate Bakong KHQR code using qrcode package
   useEffect(() => {
     const khqrText = generateBakongKhqrString({
-      merchantName: 'ROBLOX KHMER STORE',
+      merchantName: 'MIRA STORE',
       amount: selectedCurrency === 'USD' ? priceUsd : priceKhr,
       currency: selectedCurrency,
-      orderId: `RBX-${product.id}-${Date.now().toString().slice(-4)}`
+      orderId: `MIRA-${product.id}-${Date.now().toString().slice(-4)}`
     });
 
     QRCode.toDataURL(khqrText, {
@@ -625,7 +625,7 @@ export const ProductDetail = ({
                   marginBottom: '2px',
                   letterSpacing: '0.3px'
                 }}>
-                  ហាង ROBLOX KHMER
+                  ហាង MIRA STORE
                 </div>
                 <div style={{
                   fontSize: '0.76rem',

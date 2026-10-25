@@ -81,7 +81,7 @@ function drawOfficialStamp(ctx, centerX, centerY, radius = 62) {
   // Arc text top & bottom
   ctx.font = 'bold 9px "Kantumruy Pro", sans-serif';
   ctx.fillStyle = "rgba(52, 211, 153, 0.9)";
-  ctx.fillText("★ ROBLOX KHMER OFFICIAL ★", 0, -radius + 14);
+  ctx.fillText("★ MIRA STORE OFFICIAL ★", 0, -radius + 14);
   ctx.fillText("★ ធានាសុវត្ថិភាព ១០០% ★", 0, radius - 12);
 
   ctx.restore();
@@ -193,20 +193,20 @@ export async function generateInvoiceImageUrl(data) {
 
   // Gamepad Icon Graphic inside logo
   ctx.fillStyle = "#ffffff";
-  ctx.font = 'bold 22px "Outfit", sans-serif';
+  ctx.font = 'bold 18px "Outfit", sans-serif';
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText("RBX", 73, headY + 25);
+  ctx.fillText("MIRA", 73, headY + 25);
 
   // Brand Name & Subtitle
   ctx.textAlign = "left";
   ctx.fillStyle = "#ffffff";
-  ctx.font = 'bold 21px "Kantumruy Pro", sans-serif';
-  ctx.fillText("ហាង ROBLOX KHMER", 110, headY + 18);
+  ctx.font = 'bold 21px "Outfit", "Kantumruy Pro", sans-serif';
+  ctx.fillText("MIRA STORE", 110, headY + 18);
 
   ctx.fillStyle = "#94a3b8";
   ctx.font = '12px "Kantumruy Pro", sans-serif';
-  ctx.fillText("ទីផ្សារទិញ-លក់ Account Roblox", 110, headY + 40);
+  ctx.fillText("ទីផ្សារទិញ-លក់ Account Game & Roblox", 110, headY + 40);
 
   // Official Receipt Pill Badge (Top Right)
   const pillW = 200;
@@ -497,7 +497,7 @@ export async function generateInvoiceImageUrl(data) {
   );
 
   // QR Code on Left
-  const qrDataText = `ROBLOX-KHMER-RECEIPT|${invoiceId}|${username}|${purchaseDate}`;
+  const qrDataText = `MIRA-STORE-RECEIPT|${invoiceId}|${username}|${purchaseDate}`;
   try {
     const qrDataUrl = await QRCode.toDataURL(qrDataText, {
       margin: 1,
@@ -530,7 +530,7 @@ export async function generateInvoiceImageUrl(data) {
   ctx.textAlign = "left";
   ctx.fillStyle = "#ffffff";
   ctx.font = 'bold 14px "Kantumruy Pro", sans-serif';
-  ctx.fillText("ធានាសុវត្ថិភាព ១០០% ដោយហាង ROBLOX KHMER", 234, botY + 45);
+  ctx.fillText("ធានាសុវត្ថិភាព ១០០% ដោយ MIRA STORE", 234, botY + 45);
 
   ctx.fillStyle = "#94a3b8";
   ctx.font = '12px "Kantumruy Pro", sans-serif';
@@ -577,7 +577,7 @@ export async function generateInvoiceImageUrl(data) {
   ctx.fillStyle = "#475569";
   ctx.font = '10px "Outfit", sans-serif';
   ctx.fillText(
-    "© 2026 ROBLOX KHMER VAULT CAMBODIA. ALL RIGHTS RESERVED.",
+    "© 2026 MIRA STORE CAMBODIA. ALL RIGHTS RESERVED.",
     width / 2,
     footY + 42,
   );

@@ -1,6 +1,6 @@
-# ROBLOX KHMER VAULT - GAME ACCOUNT MARKETPLACE 🇰🇭
+# MIRA STORE - GAME ACCOUNT MARKETPLACE 🇰🇭
 
-វេទិកាទីផ្សារទិញ-លក់ Account Roblox ស្វ័យប្រវត្តិតាមបាគង KHQR សម្រាប់ប្រទេសកម្ពុជា។
+វេទិកាទីផ្សារទិញ-លក់ Account Game & Roblox ស្វ័យប្រវត្តិតាមបាគង KHQR សម្រាប់ប្រទេសកម្ពុជា។
 
 👉 **សម្រាប់ឯកសាររចនាសម្ព័ន្ធលម្អិតពេញលេញ សូមមើល [PROJECT_STRUCTURE.md](file:///d:/Account%20Game/PROJECT_STRUCTURE.md)**
 

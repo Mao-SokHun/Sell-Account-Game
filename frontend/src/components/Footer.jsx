@@ -36,11 +36,11 @@ export const Footer = ({ onNavigateHome, onNavigateHowToBuy }) => {
                 <Gamepad2 size={20} />
               </div>
               <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff' }}>
-                ROBLOX KHMER
+                MIRA STORE
               </span>
             </div>
             <p style={{ fontSize: '0.86rem', lineHeight: 1.7, marginBottom: '16px' }}>
-              ទីផ្សារទិញ-លក់ Account Roblox ស្វ័យប្រវត្តិកំពូលនៅកម្ពុជា។ មិនបាច់ចុះឈ្មោះសម្រាប់អ្នកទិញ ស្កេនទូទាត់តាមបាគង KHQR ទទួលគណនីភ្លាមៗ ធានាសុវត្ថិភាព ១០០%។
+              MIRA STORE - ទីផ្សារទិញ-លក់ Account Game & Roblox ស្វ័យប្រវត្តិកំពូលនៅកម្ពុជា។ មិនបាច់ចុះឈ្មោះសម្រាប់អ្នកទិញ ស្កេនទូទាត់តាមបាគង KHQR ទទួលគណនីភ្លាមៗ ធានាសុវត្ថិភាព ១០០%។
             </p>
             <div style={{ display: 'flex', gap: '8px' }}>
               <span className="badge badge-green">
@@ -162,7 +162,7 @@ export const Footer = ({ onNavigateHome, onNavigateHowToBuy }) => {
           fontSize: '0.82rem'
         }}>
           <div>
-            © {new Date().getFullYear()} ហាង ROBLOX KHMER VAULT. រក្សាសិទ្ធិគ្រប់យ៉ាង។
+            © {new Date().getFullYear()} MIRA STORE. រក្សាសិទ្ធិគ្រប់យ៉ាង។
           </div>
           <div style={{ color: 'var(--text-dim)' }}>
             ប្រព័ន្ធទូទាត់ស្វ័យប្រវត្តិ Bakong KHQR • មិនបាច់ចុះឈ្មោះសម្រាប់អ្នកទិញ

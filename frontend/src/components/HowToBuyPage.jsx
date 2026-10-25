@@ -63,7 +63,7 @@ export const HowToBuyPage = ({ onBack, onGoToStore }) => {
           marginBottom: '12px',
           lineHeight: 1.4
         }}>
-          របៀបទិញគណនី Roblox ងាយៗ ៣ ជំហាន
+          របៀបទិញគណនី Game លើ MIRA STORE ងាយៗ ៣ ជំហាន
         </h1>
 
         <p style={{

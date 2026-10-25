@@ -25,6 +25,7 @@ export const convertUsdToKhr = (usd) => {
 export const generateBakongKhqrString = ({ merchantName, amount, currency, orderId }) => {
   const cur = currency === 'KHR' ? 'KHR' : 'USD';
   const timestamp = Date.now();
-  // Standard format string recognizable for QR scanners
-  return `00020101021229370016bakong.nbc.gov.kh0113${merchantName}520459995303${cur === 'USD' ? '840' : '116'}540${amount.toString().length}${amount}5802KH5917ROBLOX KHMER STORE6010PHNOM PENH62150111${orderId}6304BAKONG`;
+  const mName = merchantName || 'MIRA STORE';
+  const nameLen = mName.length.toString().padStart(2, '0');
+  return `00020101021229370016bakong.nbc.gov.kh0113${mName}520459995303${cur === 'USD' ? '840' : '116'}540${amount.toString().length}${amount}5802KH59${nameLen}${mName}6010PHNOM PENH62150111${orderId}6304BAKONG`;
 };

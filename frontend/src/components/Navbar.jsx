@@ -74,11 +74,11 @@ export const Navbar = ({
                 WebkitTextFillColor: 'transparent',
                 whiteSpace: 'nowrap'
               }}>
-                ROBLOX KHMER
+                MIRA STORE
               </span>
             </div>
             <p className="navbar-brand-subtitle" style={{ fontSize: '0.74rem', color: 'var(--text-muted)', margin: 0, whiteSpace: 'nowrap' }}>
-              Platform លក់ Account Roblox ស្វ័យប្រវត្តិ
+              Platform លក់ Account Game & Roblox ស្វ័យប្រវត្តិ
             </p>
           </div>
         </div>

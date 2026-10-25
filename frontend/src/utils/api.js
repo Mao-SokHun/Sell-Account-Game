@@ -1,4 +1,4 @@
-// API Client for Roblox Khmer Platform
+// API Client for MIRA STORE Platform
 // Configured to communicate with Backend API (/api)
 const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 

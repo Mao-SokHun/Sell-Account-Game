@@ -46,10 +46,10 @@ export const AccountSuccessModal = ({
 
   // Copy all details
   const handleCopyAll = () => {
-    const fullText = `=== ព័ត៌មានគណនី ROBLOX (វិក្កយបត្រផ្លូវការ) ===
-ហាងលក់: ហាង ROBLOX KHMER
+    const fullText = `=== ព័ត៌មានគណនី (វិក្កយបត្រផ្លូវការ) ===
+ហាងលក់: MIRA STORE
 ផលិតផល: ${product.title}
-វិក្កយបត្រ ID: ${orderInfo?.invoiceId || 'RBX-' + Date.now()}
+វិក្កយបត្រ ID: ${orderInfo?.invoiceId || 'MIRA-' + Date.now()}
 កាលបរិច្ឆេទ: ${new Date().toLocaleString('km-KH')}
 
 [ព័ត៌មានគណនីសម្រាប់ចូលលេង]
