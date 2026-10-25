@@ -156,7 +156,6 @@ export const ProductDetail = ({
               }}>
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   <span className="badge badge-primary">{product.category}</span>
-                  {product.badge && <span className="badge badge-gold">{product.badge}</span>}
                 </div>
                 <span className={`badge ${product.status === 'sold' ? 'badge-red' : 'badge-green'}`} style={{ backdropFilter: 'blur(8px)' }}>
                   <Zap size={12} /> {product.status === 'sold' ? 'លក់ដាច់ហើយ (Sold Out)' : 'មានក្នុងស្តុក'}
@@ -475,9 +474,6 @@ export const ProductDetail = ({
               marginBottom: '16px'
             }}>
               <div>
-                <span className="badge badge-gold" style={{ marginBottom: '6px' }}>
-                  ទូទាត់ស្វ័យប្រវត្តិ
-                </span>
                 <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>
                   ស្កេនទូទាត់តាមបាគង KHQR
                 </h2>

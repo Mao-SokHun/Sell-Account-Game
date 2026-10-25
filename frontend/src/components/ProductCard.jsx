@@ -109,15 +109,6 @@ export const ProductCard = ({ product, onSelectProduct }) => {
 
       {/* Content Area */}
       <div style={{ padding: '16px 18px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-        {/* Promotional Badge & Item Tag Row */}
-        {product.badge && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-            <span className="badge badge-gold" style={{ fontSize: '0.74rem', padding: '2px 8px' }}>
-              {product.badge}
-            </span>
-          </div>
-        )}
-
         <h3 style={{
           fontSize: '0.98rem',
           fontWeight: 700,

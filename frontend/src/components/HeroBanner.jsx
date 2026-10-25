@@ -29,19 +29,6 @@ export const HeroBanner = () => {
       }} />
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px' }}>
-        {/* Top Badges */}
-        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '14px' }}>
-          <span className="badge badge-gold" style={{ fontSize: '0.78rem' }}>
-            <Flame size={13} /> ទិញងាយស្រួល ទទួលគណនីភ្លាមៗ
-          </span>
-          <span className="badge badge-cyan" style={{ fontSize: '0.78rem' }}>
-            <Zap size={13} /> ស្វ័យប្រវត្តិ ២៤ ម៉ោង
-          </span>
-          <span className="badge badge-green" style={{ fontSize: '0.78rem' }}>
-            <ShieldCheck size={13} /> ធានាសុវត្ថិភាព ១០០%
-          </span>
-        </div>
-
         {/* Main Headline */}
         <h1 style={{
           fontSize: 'clamp(1.35rem, 4.5vw, 2.3rem)',
