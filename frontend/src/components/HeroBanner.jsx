@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flame, ArrowRight, BookOpen, CheckCircle2, Sparkles } from 'lucide-react';
+import { Flame, ArrowRight, BookOpen, CheckCircle2 } from 'lucide-react';
 
 const FEATURED_SLIDES = [
   {
@@ -92,12 +92,6 @@ export const HeroBanner = ({ onNavigateHowToBuy, onSelectCategory }) => {
       {/* Hero Content (Left-Aligned Minimal & Bold with Fade Animation) */}
       <div className="cinematic-hero-content">
         <div key={activeIndex} className="hero-text-anim">
-          {/* Top Glow Badge */}
-          <div className="cinematic-hero-badge">
-            <Sparkles size={14} color="#38bdf8" />
-            <span>{currentSlide.badge}</span>
-          </div>
-
           {/* Clean Headline */}
           <h1 className="cinematic-hero-title">
             {currentSlide.title} <br />
