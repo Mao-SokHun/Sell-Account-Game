@@ -1,27 +1,18 @@
 import React, { useState } from 'react';
 import { 
   History, X, Copy, Check, Eye, EyeOff, Download, 
-  RefreshCw, Search, CloudCheck, Database, CheckCircle2, AlertCircle,
-  FileImage, Loader2
+  CheckCircle2, AlertCircle, FileImage, Loader2
 } from 'lucide-react';
 import { formatUSD } from '../utils/currency';
-import { lookupPurchaseByInvoiceApi } from '../utils/api';
 import { downloadInvoiceImage } from '../utils/invoiceImage';
 
 export const PurchaseHistoryModal = ({
   isOpen,
   onClose,
-  purchases,
-  onRefreshApi,
-  isSyncing,
-  apiSource,
-  onAddPurchase
+  purchases
 }) => {
   const [copiedId, setCopiedId] = useState(null);
   const [revealedPasswords, setRevealedPasswords] = useState({});
-  const [searchInvoice, setSearchInvoice] = useState('');
-  const [searchLoading, setSearchLoading] = useState(false);
-  const [searchMessage, setSearchMessage] = useState(null);
   const [downloadingId, setDownloadingId] = useState(null);
 
   if (!isOpen) return null;
@@ -57,30 +48,6 @@ export const PurchaseHistoryModal = ({
     } finally {
       setDownloadingId(null);
     }
-  };
-
-  // Lookup single order from Backend API by Invoice ID
-  const handleLookupInvoice = async (e) => {
-    e.preventDefault();
-    if (!searchInvoice.trim()) return;
-
-    setSearchLoading(true);
-    setSearchMessage(null);
-
-    const result = await lookupPurchaseByInvoiceApi(searchInvoice.trim());
-    setSearchLoading(false);
-
-    if (result && result.success && result.data) {
-      if (onAddPurchase) {
-        onAddPurchase(result.data);
-      }
-      setSearchMessage({ type: 'success', text: `រកឃើញវិក្កយបត្រ ${result.data.invoiceId} ជោគជ័យពី API!` });
-      setSearchInvoice('');
-    } else {
-      setSearchMessage({ type: 'error', text: 'រកមិនឃើញវិក្កយបត្រនេះនៅលើប្រព័ន្ធ Backend ឡើយ។' });
-    }
-
-    setTimeout(() => setSearchMessage(null), 4000);
   };
 
   return (
@@ -120,97 +87,24 @@ export const PurchaseHistoryModal = ({
               <History size={22} />
             </div>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 800 }}>
-                  ប្រវត្តិគណនីដែលបានទិញ
-                </h3>
-                <span className="badge badge-cyan" style={{ fontSize: '0.7rem', padding: '2px 8px' }}>
-                  Backend API (/api/purchases)
-                </span>
-              </div>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-dim)' }}>
-                ទិន្នន័យគណនី Roblox ដែលបានបញ្ជាក់ការទូទាត់ពី Backend API
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 800 }}>
+                ប្រវត្តិគណនីដែលបានទិញ
+              </h3>
+              <p style={{ fontSize: '0.82rem', color: 'var(--text-dim)', marginTop: '2px' }}>
+                បញ្ជីគណនី Roblox ដែលលោកអ្នកបានទិញជោគជ័យ និងព័ត៌មាន Login
               </p>
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            {onRefreshApi && (
-              <button
-                onClick={onRefreshApi}
-                disabled={isSyncing}
-                className="btn btn-secondary"
-                style={{ padding: '6px 12px', fontSize: '0.8rem', gap: '6px' }}
-                title="ទាញយកទិន្នន័យថ្មីពី Backend API"
-              >
-                <RefreshCw size={13} style={{ animation: isSyncing ? 'spin 1s linear infinite' : 'none' }} />
-                <span>{isSyncing ? 'កំពុងទាញ...' : 'ទាញពី API'}</span>
-              </button>
-            )}
-
-            <button
-              onClick={onClose}
-              className="btn btn-ghost"
-              style={{ padding: '6px', borderRadius: '50%' }}
-              title="បិទ"
-            >
-              <X size={18} />
-            </button>
-          </div>
-        </div>
-
-        {/* Search by Invoice ID from Backend API */}
-        <form 
-          onSubmit={handleLookupInvoice}
-          style={{
-            display: 'flex',
-            gap: '8px',
-            marginBottom: '20px',
-            background: 'rgba(15, 23, 42, 0.6)',
-            padding: '8px',
-            borderRadius: '14px',
-            border: '1px solid rgba(255, 255, 255, 0.08)'
-          }}
-        >
-          <div style={{ position: 'relative', flex: 1 }}>
-            <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }} />
-            <input
-              type="text"
-              placeholder="ស្វែងរកតាមលេខវិក្កយបត្រ (ឧទាហរណ៍៖ RBX-839201) ពី Backend API..."
-              value={searchInvoice}
-              onChange={(e) => setSearchInvoice(e.target.value)}
-              className="form-input"
-              style={{
-                paddingLeft: '36px',
-                fontSize: '0.85rem',
-                border: 'none',
-                background: 'transparent'
-              }}
-            />
-          </div>
           <button
-            type="submit"
-            disabled={searchLoading}
-            className="btn btn-primary"
-            style={{ padding: '8px 16px', fontSize: '0.84rem' }}
+            onClick={onClose}
+            className="btn btn-ghost"
+            style={{ padding: '8px', borderRadius: '50%' }}
+            title="បិទ"
           >
-            {searchLoading ? 'កំពុងស្វែងរក...' : 'ទាញពី API'}
+            <X size={20} />
           </button>
-        </form>
-
-        {searchMessage && (
-          <div style={{
-            padding: '10px 14px',
-            borderRadius: '10px',
-            marginBottom: '16px',
-            fontSize: '0.85rem',
-            background: searchMessage.type === 'success' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-            color: searchMessage.type === 'success' ? '#34d399' : '#f87171',
-            border: `1px solid ${searchMessage.type === 'success' ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`
-          }}>
-            {searchMessage.text}
-          </div>
-        )}
+        </div>
 
         {/* Purchases List */}
         {purchases && purchases.length > 0 ? (

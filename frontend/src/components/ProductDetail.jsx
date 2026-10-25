@@ -158,8 +158,8 @@ export const ProductDetail = ({
                   <span className="badge badge-primary">{product.category}</span>
                   {product.badge && <span className="badge badge-gold">{product.badge}</span>}
                 </div>
-                <span className="badge badge-green" style={{ backdropFilter: 'blur(8px)' }}>
-                  <Zap size={12} /> {product.status === 'available' ? 'មានក្នុងស្តុក' : 'អស់ពីស្តុក'}
+                <span className={`badge ${product.status === 'sold' ? 'badge-red' : 'badge-green'}`} style={{ backdropFilter: 'blur(8px)' }}>
+                  <Zap size={12} /> {product.status === 'sold' ? 'លក់ដាច់ហើយ (Sold Out)' : 'មានក្នុងស្តុក'}
                 </span>
               </div>
 
@@ -399,12 +399,74 @@ export const ProductDetail = ({
           position: 'sticky',
           top: '90px'
         }}>
-          <div className="glass-panel" style={{
-            padding: '24px',
-            borderRadius: '24px',
-            border: '1px solid rgba(99, 102, 241, 0.25)',
-            boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.6)'
-          }}>
+          {product.status === 'sold' ? (
+            <div className="glass-panel" style={{
+              padding: '36px 24px',
+              borderRadius: '24px',
+              border: '1px solid rgba(239, 68, 68, 0.35)',
+              boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.6)',
+              textAlign: 'center'
+            }}>
+              <div style={{
+                width: '70px',
+                height: '70px',
+                borderRadius: '50%',
+                background: 'rgba(239, 68, 68, 0.15)',
+                border: '2px solid rgba(239, 68, 68, 0.4)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 18px auto',
+                color: '#f87171'
+              }}>
+                <Lock size={32} />
+              </div>
+
+              <span className="badge badge-red" style={{ fontSize: '0.84rem', padding: '6px 14px', marginBottom: '14px' }}>
+                លក់ដាច់ហើយ (Sold Out)
+              </span>
+
+              <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#ffffff', margin: '12px 0' }}>
+                គណនីនេះត្រូវបានទិញរួចរាល់
+              </h2>
+
+              <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '24px' }}>
+                គណនី Roblox នេះត្រូវបានទូទាត់ និងប្រគល់ជូនអ្នកទិញរួចរាល់ហើយ។ ប្រព័ន្ធបានបិទការស្កេនទូទាត់សម្រាប់គណនីនេះដើម្បីការពារសុវត្ថិភាព។
+              </p>
+
+              <div style={{
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid var(--border-color)',
+                borderRadius: '14px',
+                padding: '14px',
+                marginBottom: '20px',
+                fontSize: '0.84rem',
+                color: 'var(--text-dim)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px'
+              }}>
+                <CheckCircle2 size={16} color="var(--accent-green)" />
+                <span>បានបញ្ចប់ការទិញ-លក់តាមបាគង KHQR ជោគជ័យ</span>
+              </div>
+
+              <button
+                onClick={onBack}
+                className="btn btn-primary"
+                style={{ width: '100%', padding: '12px', fontSize: '0.95rem', gap: '8px' }}
+              >
+                <ArrowLeft size={16} />
+                <span>ត្រឡប់ទៅមើលគណនីផ្សេងទៀត</span>
+              </button>
+            </div>
+          ) : (
+            <div className="glass-panel" style={{
+              padding: '24px',
+              borderRadius: '24px',
+              border: '1px solid rgba(99, 102, 241, 0.25)',
+              boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.6)'
+            }}>
             {/* Header */}
             <div style={{
               display: 'flex',
@@ -723,6 +785,7 @@ export const ProductDetail = ({
               <span>ព័ត៌មានគណនី (ឈ្មោះ និងលេខសម្ងាត់) នឹងលេចឡើងភ្លាមៗ</span>
             </div>
           </div>
+          )}
         </div>
       </div>
     </div>

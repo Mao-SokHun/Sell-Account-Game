@@ -174,14 +174,15 @@ export const ProductCard = ({ product, onSelectProduct }) => {
           </div>
 
           <button 
-            className="btn btn-primary"
+            className={`btn ${isAvailable ? 'btn-primary' : 'btn-secondary'}`}
             style={{
               padding: '7px 12px',
               fontSize: '0.82rem',
-              borderRadius: '10px'
+              borderRadius: '10px',
+              opacity: isAvailable ? 1 : 0.8
             }}
           >
-            <span>ទិញភ្លាមៗ</span>
+            <span>{isAvailable ? 'ទិញភ្លាមៗ' : 'លក់ដាច់ហើយ'}</span>
             <ArrowRight size={14} />
           </button>
         </div>

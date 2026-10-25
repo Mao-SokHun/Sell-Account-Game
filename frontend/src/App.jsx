@@ -177,9 +177,12 @@ export function App() {
       p.id === product.id ? { ...p, status: 'sold' } : p
     ));
 
+    // Also update selectedProduct so the detail view immediately reflects sold status
+    setSelectedProduct(prev => prev && prev.id === product.id ? { ...prev, status: 'sold' } : prev);
+
     // Show the detail modal with Roblox account credentials!
     setSuccessModalData({
-      product,
+      product: { ...product, status: 'sold' },
       orderInfo: { invoiceId }
     });
   };
@@ -285,19 +288,18 @@ export function App() {
         <AccountSuccessModal
           product={successModalData.product}
           orderInfo={successModalData.orderInfo}
-          onClose={() => setSuccessModalData(null)}
+          onClose={() => {
+            setSuccessModalData(null);
+            handleNavigateHome();
+          }}
         />
       )}
 
-      {/* MODAL 2: BUYER'S PURCHASE HISTORY (SYNCED WITH BACKEND API & CACHED IN LOCALSTORAGE) */}
+      {/* MODAL 2: BUYER'S PURCHASE HISTORY */}
       <PurchaseHistoryModal
         isOpen={isHistoryModalOpen}
         onClose={() => setIsHistoryModalOpen(false)}
         purchases={purchases}
-        onRefreshApi={handleRefreshPurchases}
-        isSyncing={isSyncingApi}
-        apiSource={apiSource}
-        onAddPurchase={handleAddPurchaseFromSearch}
       />
     </div>
   );
