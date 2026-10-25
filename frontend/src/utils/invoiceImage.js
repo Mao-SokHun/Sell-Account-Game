@@ -1,5 +1,3 @@
-import QRCode from "qrcode";
-
 /**
  * Helper to draw a rounded rectangle on a canvas context
  */
@@ -496,62 +494,32 @@ export async function generateInvoiceImageUrl(data) {
     1,
   );
 
-  // QR Code on Left
-  const qrDataText = `MIRA-STORE-RECEIPT|${invoiceId}|${username}|${purchaseDate}`;
-  try {
-    const qrDataUrl = await QRCode.toDataURL(qrDataText, {
-      margin: 1,
-      width: 130,
-      color: { dark: "#000000", light: "#ffffff" },
-    });
-
-    await new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => {
-        // Draw white card for QR
-        drawRoundRect(ctx, 70, botY + 18, 140, 140, 12, "#ffffff");
-        ctx.drawImage(img, 75, botY + 23, 130, 130);
-        resolve();
-      };
-      img.onerror = resolve;
-      img.src = qrDataUrl;
-    });
-  } catch (err) {
-    console.warn("QR code render failed:", err);
-  }
-
-  // QR Caption
-  ctx.fillStyle = "#94a3b8";
-  ctx.font = '10px "Kantumruy Pro", sans-serif';
-  ctx.textAlign = "center";
-  ctx.fillText("ស្កេនដើម្បីផ្ទៀងផ្ទាត់ (Scan to Verify)", 140, botY + 172);
-
-  // Middle Text Information
+  // Security Information (Clean left alignment, no QR verify)
   ctx.textAlign = "left";
   ctx.fillStyle = "#ffffff";
-  ctx.font = 'bold 14px "Kantumruy Pro", sans-serif';
-  ctx.fillText("ធានាសុវត្ថិភាព ១០០% ដោយ MIRA STORE", 234, botY + 45);
+  ctx.font = 'bold 16px "Kantumruy Pro", sans-serif';
+  ctx.fillText("ធានាសុវត្ថិភាព ១០០% ដោយ MIRA STORE", 80, botY + 45);
 
   ctx.fillStyle = "#94a3b8";
-  ctx.font = '12px "Kantumruy Pro", sans-serif';
-  ctx.fillText("• គណនីស្អាត មិនជាប់ Hack មិនជាប់ 2FA", 234, botY + 70);
+  ctx.font = '13px "Kantumruy Pro", sans-serif';
+  ctx.fillText("• គណនីស្អាត មិនជាប់ Hack មិនជាប់ 2FA អាចដាក់ Email ផ្ទាល់ខ្លួនបានភ្លាមៗ", 80, botY + 74);
   ctx.fillText(
-    "• ប្រព័ន្ធស្វ័យប្រវត្តិកម្ពុជា ២៤ ម៉ោង តាមស្តង់ដារ KHQR",
-    234,
-    botY + 92,
+    "• ប្រព័ន្ធស្វ័យប្រវត្តិកម្ពុជា ២៤ ម៉ោង តាមស្តង់ដារ KHQR ទទួលគណនីភ្លាមៗ",
+    80,
+    botY + 98,
   );
   ctx.fillText(
-    "• សេវាបម្រើអតិថិជន Telegram: @RobloxKhmerSupport",
-    234,
-    botY + 114,
+    "• សេវាបម្រើអតិថិជន Telegram Support: @RobloxKhmerSupport",
+    80,
+    botY + 122,
   );
 
   ctx.fillStyle = "#38bdf8";
-  ctx.font = 'bold 11px "Outfit", monospace';
+  ctx.font = 'bold 12px "Outfit", monospace';
   ctx.fillText(
     `AUTHENTICATION SIGNATURE: ${invoiceId}-SECURED`,
-    234,
-    botY + 144,
+    80,
+    botY + 152,
   );
 
   // Official Stamp Seal (Right Side)
