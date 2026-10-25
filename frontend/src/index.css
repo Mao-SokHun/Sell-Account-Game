@@ -493,15 +493,35 @@ html, body, #root {
   align-items: center;
 }
 
-.cinematic-hero-bg {
+.cinematic-hero-bg-layer {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.cinematic-hero-bg-layer.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 0;
+}
+
+.cinematic-hero-bg-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center right;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  filter: brightness(0.9);
+  filter: brightness(0.92);
+  transform: scale(1.05);
+  transition: transform 7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cinematic-hero-bg-layer.active .cinematic-hero-bg-img {
+  transform: scale(1);
 }
 
 .cinematic-hero-overlay {
@@ -522,6 +542,21 @@ html, body, #root {
   padding: 44px 48px;
   max-width: 650px;
   text-align: left;
+}
+
+@keyframes heroTextFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-text-anim {
+  animation: heroTextFadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .cinematic-hero-badge {
@@ -590,29 +625,45 @@ html, body, #root {
 }
 
 .cinematic-tab-btn {
-  padding: 6px 14px;
-  border-radius: 10px;
-  font-size: 0.78rem;
+  position: relative;
+  padding: 7px 16px;
+  border-radius: 12px;
+  font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
   background: rgba(15, 23, 42, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #94a3b8;
-  backdrop-filter: blur(10px);
-  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 
 .cinematic-tab-btn:hover {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(99, 102, 241, 0.25);
   color: #ffffff;
   border-color: rgba(99, 102, 241, 0.5);
+  transform: translateY(-2px);
 }
 
 .cinematic-tab-btn.active {
-  background: rgba(99, 102, 241, 0.4);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.5) 0%, rgba(6, 182, 212, 0.35) 100%);
   color: #ffffff;
-  border-color: #6366f1;
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+  border-color: rgba(99, 102, 241, 0.8);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.45);
+  transform: translateY(-2px);
+}
+
+.cinematic-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #38bdf8);
+  box-shadow: 0 0 8px #38bdf8;
 }
 
 @media (max-width: 880px) {

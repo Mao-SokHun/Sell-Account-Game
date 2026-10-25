@@ -53,7 +53,7 @@ export const HeroBanner = ({ onNavigateHowToBuy, onSelectCategory }) => {
       setActiveIndex((prev) => (prev + 1) % FEATURED_SLIDES.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [activeIndex]);
 
   const currentSlide = FEATURED_SLIDES[activeIndex];
 
@@ -71,37 +71,46 @@ export const HeroBanner = ({ onNavigateHowToBuy, onSelectCategory }) => {
 
   return (
     <div className="cinematic-hero">
-      {/* Background Cinematic Gaming Image */}
-      <img
-        key={currentSlide.image}
-        src={currentSlide.image}
-        alt={currentSlide.title}
-        className="cinematic-hero-bg"
-      />
+      {/* Background Cinematic Gaming Images with Smooth Crossfade Layers */}
+      {FEATURED_SLIDES.map((slide, idx) => (
+        <div
+          key={slide.id}
+          className={`cinematic-hero-bg-layer ${activeIndex === idx ? 'active' : ''}`}
+          aria-hidden={activeIndex !== idx}
+        >
+          <img
+            src={slide.image}
+            alt={slide.title}
+            className="cinematic-hero-bg-img"
+          />
+        </div>
+      ))}
 
       {/* Dark Vignette Gradient Overlay */}
       <div className="cinematic-hero-overlay" />
 
-      {/* Hero Content (Left-Aligned Minimal & Bold) */}
+      {/* Hero Content (Left-Aligned Minimal & Bold with Fade Animation) */}
       <div className="cinematic-hero-content">
-        {/* Top Glow Badge */}
-        <div className="cinematic-hero-badge">
-          <Sparkles size={14} color="#38bdf8" />
-          <span>{currentSlide.badge}</span>
+        <div key={activeIndex} className="hero-text-anim">
+          {/* Top Glow Badge */}
+          <div className="cinematic-hero-badge">
+            <Sparkles size={14} color="#38bdf8" />
+            <span>{currentSlide.badge}</span>
+          </div>
+
+          {/* Clean Headline */}
+          <h1 className="cinematic-hero-title">
+            {currentSlide.title} <br />
+            <span className="hero-gradient-text">
+              ស្កេនបាគង KHQR ភ្លាមៗ
+            </span>
+          </h1>
+
+          {/* 1-Sentence Punchy Description */}
+          <p className="cinematic-hero-desc">
+            {currentSlide.description}
+          </p>
         </div>
-
-        {/* Clean Headline */}
-        <h1 className="cinematic-hero-title">
-          {currentSlide.title} <br />
-          <span className="hero-gradient-text">
-            ស្កេនបាគង KHQR ភ្លាមៗ
-          </span>
-        </h1>
-
-        {/* 1-Sentence Punchy Description */}
-        <p className="cinematic-hero-desc">
-          {currentSlide.description}
-        </p>
 
         {/* CTA Actions */}
         <div className="cinematic-hero-actions">
