@@ -3,8 +3,9 @@ import confetti from 'canvas-confetti';
 import { 
   CheckCircle, Copy, Check, Eye, EyeOff, 
   Download, ExternalLink, ShieldAlert, Key, 
-  User, Lock, X, FileText
+  User, Lock, X, FileImage, Loader2 
 } from 'lucide-react';
+import { downloadInvoiceImage } from '../utils/invoiceImage';
 
 export const AccountSuccessModal = ({ 
   product, 
@@ -14,6 +15,7 @@ export const AccountSuccessModal = ({
   const [copiedField, setCopiedField] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [copiedAll, setCopiedAll] = useState(false);
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
 
   const creds = product.credentials || {
     username: 'RobloxUser_' + product.id,
@@ -68,34 +70,25 @@ export const AccountSuccessModal = ({
     setTimeout(() => setCopiedAll(false), 2000);
   };
 
-  // Download .txt file
-  const handleDownloadTxt = () => {
-    const fullText = `ហាង ROBLOX KHMER - ព័ត៌មានគណនី ROBLOX ផ្លូវការ
-=============================================
-ផលិតផល: ${product.title}
-វិក្កយបត្រ ID: ${orderInfo?.invoiceId || 'RBX-' + Date.now()}
-កាលបរិច្ឆេទ: ${new Date().toLocaleString()}
-
-ព័ត៌មានគណនីសម្រាប់ចូលលេង (LOGIN):
----------------------------------------------
-- ឈ្មោះគណនី (Username): ${creds.username}
-- ពាក្យសម្ងាត់ (Password): ${creds.password}
-- លេខកូដសុវត្ថិភាព (PIN/2FA): ${creds.backupCode || 'គ្មាន'}
-- ស្ថានភាព Email: ${creds.linkedEmail}
-
-ជំហានសុវត្ថិភាពបន្ទាន់ (SECURITY STEPS):
-១. ចូល roblox.com ហើយ Login ជាមួយ Username & Password ខាងលើ
-២. ចូល Settings -> Account Info -> បន្ថែម Email និងលេខទូរស័ព្ទផ្ទាល់ខ្លួន
-៣. ផ្លាស់ប្តូរលេខសម្ងាត់ថ្មីភ្លាមៗ
-=============================================`;
-
-    const element = document.createElement('a');
-    const file = new Blob([fullText], { type: 'text/plain;charset=utf-8' });
-    element.href = URL.createObjectURL(file);
-    element.download = `Roblox_Account_${creds.username}.txt`;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+  // Download Graphic Invoice Image (PNG)
+  const handleDownloadImage = async () => {
+    try {
+      setIsGeneratingImage(true);
+      await downloadInvoiceImage({
+        invoiceId: orderInfo?.invoiceId || 'RBX-' + (product.id ? String(product.id).padStart(6, '0') : '144993'),
+        productTitle: product.title,
+        category: product.category,
+        level: product.level,
+        priceUsd: product.priceUsd ? product.priceUsd.toFixed(2) : '0.00',
+        priceKhr: (product.priceKhr || (product.priceUsd ? Math.round(product.priceUsd * 4100) : 0)).toLocaleString(),
+        purchaseDate: orderInfo?.date || new Date().toLocaleString('km-KH'),
+        credentials: creds,
+      });
+    } catch (err) {
+      console.error('Invoice image download error:', err);
+    } finally {
+      setIsGeneratingImage(false);
+    }
   };
 
   return (
@@ -419,12 +412,29 @@ export const AccountSuccessModal = ({
             </button>
 
             <button
-              onClick={handleDownloadTxt}
+              onClick={handleDownloadImage}
+              disabled={isGeneratingImage}
               className="btn btn-secondary"
-              style={{ padding: '12px 18px', fontSize: '0.9rem' }}
+              style={{
+                padding: '12px 18px',
+                fontSize: '0.9rem',
+                border: '1px solid rgba(56, 189, 248, 0.4)',
+                color: '#38bdf8',
+                background: 'rgba(56, 189, 248, 0.08)'
+              }}
+              title="ទាញយកវិក្កយបត្រជារូបភាព PNG កម្រិតខ្ពស់"
             >
-              <Download size={18} />
-              <span>ទាញយកវិក្កយបត្រ (.txt)</span>
+              {isGeneratingImage ? (
+                <>
+                  <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} />
+                  <span>កំពុងបង្កើតរូបភាព...</span>
+                </>
+              ) : (
+                <>
+                  <FileImage size={18} />
+                  <span>ទាញយករូបភាពវិក្កយបត្រ (PNG)</span>
+                </>
+              )}
             </button>
 
             <a

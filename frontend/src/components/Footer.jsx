@@ -64,8 +64,8 @@ export const Footer = () => {
               <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>ABA Mobile</span>
               <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>Wing Bank</span>
               <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>អេស៊ីលីដា (ACLEDA)</span>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>សហគ្រាសកាណាឌីយ៉ា</span>
-              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>សត្ថាពនា</span>
+              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}>កាណាឌីយ៉ា</span>
+              <span className="glass-pill" style={{ padding: '4px 10px', color: '#fff' }}></span>
             </div>
           </div>
 

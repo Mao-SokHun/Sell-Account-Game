@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { 
   History, X, Copy, Check, Eye, EyeOff, Download, 
-  RefreshCw, Search, CloudCheck, Database, CheckCircle2, AlertCircle 
+  RefreshCw, Search, CloudCheck, Database, CheckCircle2, AlertCircle,
+  FileImage, Loader2
 } from 'lucide-react';
 import { formatUSD } from '../utils/currency';
 import { lookupPurchaseByInvoiceApi } from '../utils/api';
+import { downloadInvoiceImage } from '../utils/invoiceImage';
 
 export const PurchaseHistoryModal = ({
   isOpen,
@@ -20,6 +22,7 @@ export const PurchaseHistoryModal = ({
   const [searchInvoice, setSearchInvoice] = useState('');
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchMessage, setSearchMessage] = useState(null);
+  const [downloadingId, setDownloadingId] = useState(null);
 
   if (!isOpen) return null;
 
@@ -36,29 +39,24 @@ export const PurchaseHistoryModal = ({
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const handleDownloadSingle = (purchase) => {
-    const creds = purchase.credentials || {};
-    const fullText = `=== ព័ត៌មានគណនី ROBLOX (វិក្កយបត្រផ្លូវការពីប្រព័ន្ធ API) ===
-ហាងលក់: ហាង ROBLOX KHMER
-ផលិតផល: ${purchase.title}
-វិក្កយបត្រ ID: ${purchase.invoiceId}
-កាលបរិច្ឆេទ: ${purchase.purchaseDate}
-
-ព័ត៌មានគណនី ROBLOX សម្រាប់ចូលលេង:
-- ឈ្មោះគណនី (Username): ${creds.username}
-- ពាក្យសម្ងាត់ (Password): ${creds.password}
-- លេខកូដសុវត្ថិភាព PIN/2FA: ${creds.backupCode || 'គ្មាន'}
-- ស្ថានភាព Email: ${creds.linkedEmail || 'ស្អាត ១០០%'}
-
-សូមប្តូរពាក្យសម្ងាត់ថ្មីភ្លាមៗក្រោយពេល Login!`;
-
-    const element = document.createElement('a');
-    const file = new Blob([fullText], { type: 'text/plain;charset=utf-8' });
-    element.href = URL.createObjectURL(file);
-    element.download = `Receipt_${purchase.invoiceId}.txt`;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+  const handleDownloadSingle = async (purchase) => {
+    try {
+      setDownloadingId(purchase.invoiceId);
+      await downloadInvoiceImage({
+        invoiceId: purchase.invoiceId,
+        productTitle: purchase.title,
+        category: purchase.category || 'Roblox',
+        level: purchase.level || '',
+        priceUsd: purchase.priceUsd ? purchase.priceUsd.toFixed(2) : '0.00',
+        priceKhr: (purchase.priceKhr || (purchase.priceUsd ? Math.round(purchase.priceUsd * 4100) : 0)).toLocaleString(),
+        purchaseDate: purchase.purchaseDate || new Date().toLocaleString('km-KH'),
+        credentials: purchase.credentials || {},
+      });
+    } catch (err) {
+      console.error('Invoice image download error:', err);
+    } finally {
+      setDownloadingId(null);
+    }
   };
 
   // Lookup single order from Backend API by Invoice ID
@@ -253,12 +251,27 @@ export const PurchaseHistoryModal = ({
 
                     <button
                       onClick={() => handleDownloadSingle(purchase)}
+                      disabled={downloadingId === purchase.invoiceId}
                       className="btn btn-secondary"
-                      style={{ padding: '6px 12px', fontSize: '0.8rem' }}
-                      title="ទាញយកវិក្កយបត្រ"
+                      style={{
+                        padding: '6px 12px',
+                        fontSize: '0.8rem',
+                        color: '#38bdf8',
+                        borderColor: 'rgba(56, 189, 248, 0.3)'
+                      }}
+                      title="ទាញយករូបភាពវិក្កយបត្រ (PNG)"
                     >
-                      <Download size={14} />
-                      <span>វិក្កយបត្រ</span>
+                      {downloadingId === purchase.invoiceId ? (
+                        <>
+                          <Loader2 size={13} style={{ animation: 'spin 1s linear infinite' }} />
+                          <span>កំពុងទាញ...</span>
+                        </>
+                      ) : (
+                        <>
+                          <FileImage size={13} />
+                          <span>រូបភាពវិក្កយបត្រ</span>
+                        </>
+                      )}
                     </button>
                   </div>
 
