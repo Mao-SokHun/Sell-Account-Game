@@ -8,6 +8,44 @@ import {
 import { formatUSD, formatKHR, convertUsdToKhr } from '../utils/currency';
 import { GAME_CATEGORIES } from '../data/initialProducts';
 
+// Default templates for game in-game statistics
+export const DEFAULT_GAME_STATS_TEMPLATES = {
+  'Blox Fruits': [
+    { key: 'ផ្លែបិសាច', value: 'Kitsune (Awakened ពេញ Mastery 600)' },
+    { key: 'ក្បាច់ប្រយុទ្ធ', value: 'Godhuman និង Sanguine Art' },
+    { key: 'ក្បាច់ Melee ផ្សេងទៀត', value: 'Superhuman, Death Step, Sharkman Karate' },
+    { key: 'ដាវ និងអាវុធ', value: 'ដាវគូ Cursed Dual Katana (CDK), TTK, Hallow Scythe' },
+    { key: 'កាំភ្លើង', value: 'Soul Guitar' },
+    { key: 'ពូជតួអង្គ (Race)', value: 'Cyborg V4 (ដោះសោ Gears ទាំងអស់)' },
+    { key: 'ពិន្ទុ Bounty', value: '១២.៥ លាន (12.5M Bounty)' },
+    { key: 'ប្រាក់ Beli ក្នុងហ្គេម', value: '៨៥ លាន Beli' },
+    { key: 'បំណែក Fragments', value: '១២០,០០០ Fragments' }
+  ],
+  'ឈុត VIP Avatar': [
+    { key: 'អាយុកាលគណនី', value: 'បង្កើតឡើង ៥ ឆ្នាំមុន (គណនីចាស់)' },
+    { key: 'ទឹកប្រាក់ Robux', value: '៥០,២៣០ Robux (មានស្រាប់ក្នុងគណនី)' },
+    { key: 'គ្រឿងតុបតែងក្បាល', value: 'Golden Valkyrie Helm, Dominus Rex Hood' },
+    { key: 'ឈុតរូបរាង', value: 'Korblox Deathspeaker (ជើងឆ្អឹង Korblox Leg)' },
+    { key: 'កាយវិការ Animation', value: 'Ninja, Cartoony, Levitation, Mage' },
+    { key: 'មេដាយហ្គេម', value: 'ច្រើនជាង ៣៥០+ Game Badges' },
+    { key: 'របស់របរក្នុងកាតាប', value: 'ច្រើនជាង ១,២០០+ Accessories និងសម្លៀកបំពាក់' }
+  ],
+  'Pet Sim 99': [
+    { key: 'កម្រិតតួអង្គ', value: 'Rank 28 (Pro Trader)' },
+    { key: 'សត្វចិញ្ចឹមកំពូល', value: 'Huge Titanic Rainbow Dragon, សត្វ Huge ១៥ ក្បាល' },
+    { key: 'គ្រាប់ពេជ្រ Gems', value: '៨,៤៥០,៣២១,៧៨៩ គ្រាប់ពេជ្រ (Gems)' },
+    { key: 'កាក់ Coins', value: '១៥,២០០,៥០០,៦០០ កាក់ (Coins)' },
+    { key: 'សំបុត្រពិសេស Gamepass', value: 'VIP Gamepass, Auto Farm, Magic Egg, Huge Hunter' },
+    { key: 'សៀវភៅ Enchants', value: 'Overload, Lightning, Super Magnet (កម្រិត Max)' }
+  ],
+  'Blade Ball': [
+    { key: 'កម្រិត Rank', value: 'Rank Mythic (ពិន្ទុ ១២៥០+)' },
+    { key: 'ដាវពន្លឺពិសេស', value: 'Chromatic Void Blade' },
+    { key: 'ក្បាច់ផ្ទុះ Explosion', value: 'VIP Explosion' },
+    { key: 'សមត្ថភាព Abilities', value: 'Rapture, Infinity, Forcefield' }
+  ]
+};
+
 export const AdminDashboard = ({
   products,
   onAddProduct,
@@ -38,6 +76,30 @@ export const AdminDashboard = ({
     backupCode: 'PIN-1234',
     linkedEmail: 'មិនទាន់ភ្ជាប់ (ស្អាត ១០០%)'
   });
+
+  // Dynamic In-Game Detailed Stats (ព័ត៌មានលម្អិតក្នុងហ្គេម)
+  const [customStats, setCustomStats] = useState(() => DEFAULT_GAME_STATS_TEMPLATES['Blox Fruits']);
+
+  const handleAddStatRow = () => {
+    setCustomStats(prev => [...prev, { key: '', value: '' }]);
+  };
+
+  const handleUpdateStatRow = (index, field, val) => {
+    setCustomStats(prev => {
+      const updated = [...prev];
+      updated[index] = { ...updated[index], [field]: val };
+      return updated;
+    });
+  };
+
+  const handleRemoveStatRow = (index) => {
+    setCustomStats(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleLoadTemplate = (categoryName) => {
+    const template = DEFAULT_GAME_STATS_TEMPLATES[categoryName] || [];
+    setCustomStats([...template]);
+  };
 
   const [formSuccess, setFormSuccess] = useState('');
 
@@ -140,6 +202,18 @@ export const AdminDashboard = ({
       backupCode: product.credentials?.backupCode || '',
       linkedEmail: product.credentials?.linkedEmail || 'មិនទាន់ភ្ជាប់'
     });
+
+    // Populate customStats from product.gameStats
+    if (product.gameStats && Object.keys(product.gameStats).length > 0) {
+      const excludedKeys = ['ការប្រគល់ជូន', 'ស្ថានភាព Email', 'កម្រិតគណនី', 'ចំនួន Robux', 'ប្រភេទហ្គេម'];
+      const statsList = Object.entries(product.gameStats)
+        .filter(([k]) => !excludedKeys.includes(k))
+        .map(([k, v]) => ({ key: k, value: String(v) }));
+      setCustomStats(statsList.length > 0 ? statsList : (DEFAULT_GAME_STATS_TEMPLATES[product.category] || []));
+    } else {
+      setCustomStats(DEFAULT_GAME_STATS_TEMPLATES[product.category] || []);
+    }
+
     setActiveTab('add');
   };
 
@@ -157,6 +231,21 @@ export const AdminDashboard = ({
       return;
     }
 
+    // Build comprehensive gameStats object (combining top specs & custom attributes)
+    const gameStatsObj = {
+      'ប្រភេទហ្គេម': formData.category,
+      'កម្រិតគណនី': formData.level || 'កម្រិតធម្មតា',
+      'ចំនួន Robux': formData.robux > 0 ? `${formData.robux.toLocaleString()} Robux` : 'គ្មាន',
+      'ស្ថានភាព Email': formData.emailStatus,
+      'ការប្រគល់ជូន': 'ស្វ័យប្រវត្តភ្លាមៗ'
+    };
+
+    customStats.forEach(item => {
+      if (item.key.trim() && item.value.trim()) {
+        gameStatsObj[item.key.trim()] = item.value.trim();
+      }
+    });
+
     const productPayload = {
       id: editingId || `rbx-${Date.now().toString().slice(-4)}`,
       title: formData.title.trim(),
@@ -171,13 +260,7 @@ export const AdminDashboard = ({
       description: formData.description,
       emailStatus: formData.emailStatus,
       status: formData.status,
-      gameStats: {
-        'ប្រភេទហ្គេម': formData.category,
-        'កម្រិតគណនី': formData.level,
-        'ចំនួន Robux': formData.robux > 0 ? `${formData.robux.toLocaleString()} Robux` : 'គ្មាន',
-        'ស្ថានភាព Email': formData.emailStatus,
-        'ការប្រគល់ជូន': 'ស្វ័យប្រវត្តភ្លាមៗ'
-      },
+      gameStats: gameStatsObj,
       credentials: {
         username: formData.username.trim(),
         password: formData.password.trim(),
@@ -209,6 +292,7 @@ export const AdminDashboard = ({
         robux: 1000,
         badge: 'ពេញនិយម',
         image: '/images/bloxfruits.jpg',
+        gallery: ['/images/bloxfruits.jpg'],
         description: '',
         emailStatus: 'គណនីស្អាត ១០០% មិនទាន់ភ្ជាប់ Email (អាចដាក់ Email ផ្ទាល់ខ្លួន)',
         status: 'available',
@@ -217,6 +301,7 @@ export const AdminDashboard = ({
         backupCode: 'PIN-1234',
         linkedEmail: 'មិនទាន់ភ្ជាប់ (ស្អាត ១០០%)'
       });
+      setCustomStats(DEFAULT_GAME_STATS_TEMPLATES['Blox Fruits']);
     }, 1200);
   };
 
@@ -369,7 +454,13 @@ export const AdminDashboard = ({
                   name="category"
                   className="form-select"
                   value={formData.category}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const newCat = e.target.value;
+                    handleChange(e);
+                    if (!editingId) {
+                      setCustomStats(DEFAULT_GAME_STATS_TEMPLATES[newCat] || []);
+                    }
+                  }}
                 >
                   <option value="Blox Fruits">Blox Fruits</option>
                   <option value="ឈុត VIP Avatar">ឈុត VIP Avatar</option>
@@ -706,6 +797,124 @@ export const AdminDashboard = ({
                   ))}
                 </div>
               </div>
+            </div>
+
+            {/* ================= DETAILED IN-GAME STATS TABLE EDITOR ================= */}
+            <div style={{
+              background: 'rgba(15, 23, 42, 0.65)',
+              border: '1px solid rgba(99, 102, 241, 0.3)',
+              borderRadius: '20px',
+              padding: '24px',
+              marginBottom: '28px'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '12px',
+                flexWrap: 'wrap',
+                gap: '10px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Sparkles size={18} color="#818cf8" />
+                  <h3 style={{ fontSize: '1.08rem', fontWeight: 700, color: '#ffffff', margin: 0 }}>
+                    ព័ត៌មានលម្អិតក្នុងហ្គេម (In-Game Detailed Stats Table)
+                  </h3>
+                </div>
+
+                {/* Quick Category Templates */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: '0.78rem', color: 'var(--text-dim)' }}>ផ្ទុកគំរូរហ័ស:</span>
+                  {Object.keys(DEFAULT_GAME_STATS_TEMPLATES).map(cat => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => handleLoadTemplate(cat)}
+                      className="btn btn-secondary"
+                      style={{
+                        padding: '4px 10px',
+                        fontSize: '0.74rem',
+                        borderRadius: '8px',
+                        background: formData.category === cat ? 'rgba(99, 102, 241, 0.25)' : 'rgba(255, 255, 255, 0.05)',
+                        borderColor: formData.category === cat ? 'var(--primary)' : 'rgba(255, 255, 255, 0.1)'
+                      }}
+                      title={`ផ្ទុកគំរូទម្រង់សម្រាប់ ${cat}`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: '18px' }}>
+                * ព័ត៌មានដែលអ្នកបញ្ចូលខាងក្រោមនេះ នឹងត្រូវបង្ហាញលើតារាងលម្អិតក្នុងហ្គេម (ដូចជា៖ ផ្លែបិសាច, ក្បាច់ប្រយុទ្ធ, ដាវ CDK, គ្រឿងតុបតែង Dominus, ឈុត Korblox, សត្វចិញ្ចឹម Huge Pets...) ឱ្យអ្នកទិញបានឃើញច្បាស់។
+              </p>
+
+              {/* Rows List */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '16px' }}>
+                {customStats.map((item, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'minmax(130px, 1fr) minmax(180px, 1.8fr) 42px',
+                      gap: '10px',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="ឈ្មោះលក្ខណៈ (ឧ. ផ្លែបិសាច, ដាវ)"
+                      value={item.key}
+                      onChange={(e) => handleUpdateStatRow(idx, 'key', e.target.value)}
+                      style={{ fontSize: '0.86rem', padding: '8px 12px' }}
+                    />
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="ព័ត៌មានជាក់ស្តែង (ឧ. Kitsune Awakened, CDK)"
+                      value={item.value}
+                      onChange={(e) => handleUpdateStatRow(idx, 'value', e.target.value)}
+                      style={{ fontSize: '0.86rem', padding: '8px 12px' }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveStatRow(idx)}
+                      className="btn btn-ghost"
+                      style={{
+                        color: '#f87171',
+                        padding: '8px',
+                        borderRadius: '8px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'rgba(239, 68, 68, 0.1)'
+                      }}
+                      title="លុបជួរនេះ"
+                    >
+                      <Trash2 size={15} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddStatRow}
+                className="btn btn-secondary"
+                style={{
+                  padding: '8px 16px',
+                  fontSize: '0.84rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  borderRadius: '10px'
+                }}
+              >
+                <PlusCircle size={15} />
+                <span>+ បន្ថែមព័ត៌មានលម្អិតមួយជួរទៀត</span>
+              </button>
             </div>
 
             {/* Description */}
