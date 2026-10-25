@@ -114,7 +114,9 @@ export const ProductDetail = ({
           display: 'grid',
           gridTemplateColumns: '1.25fr 0.95fr',
           gap: '32px',
-          alignItems: 'start'
+          alignItems: 'start',
+          maxWidth: '1440px',
+          margin: '0 auto'
         }}
       >
         {/* ==================== LEFT COLUMN: ACCOUNT DETAILS & DESCRIPTION ==================== */}
