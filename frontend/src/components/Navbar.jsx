@@ -145,8 +145,8 @@ export const Navbar = ({
             </nav>
           )}
 
-          {/* Desktop Search Bar (only shown on catalog view) */}
-          {!isOwnerView && currentView === 'catalog' && (
+          {/* Desktop Search Bar (Always visible for shoppers) */}
+          {!isOwnerView && (
             <div className="navbar-desktop-search">
               <div style={{ position: 'relative', width: '100%' }}>
                 <Search size={16} style={{
@@ -160,7 +160,17 @@ export const Navbar = ({
                   type="text"
                   placeholder="ស្វែងរក Blox Fruits, VIP..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    if (currentView !== 'catalog' && onNavigateHome) {
+                      onNavigateHome();
+                    }
+                  }}
+                  onFocus={() => {
+                    if (currentView !== 'catalog' && onNavigateHome) {
+                      onNavigateHome();
+                    }
+                  }}
                   className="form-input"
                   style={{
                     paddingLeft: '36px',
@@ -209,7 +219,7 @@ export const Navbar = ({
             ) : (
               <>
                 {/* Mobile Search Toggle Button */}
-                {currentView === 'catalog' && (
+                {!isOwnerView && (
                   <button
                     onClick={() => {
                       setIsMobileSearchOpen(prev => !prev);
@@ -286,7 +296,7 @@ export const Navbar = ({
       </div>
 
       {/* Mobile Search Dropdown Bar */}
-      {isMobileSearchOpen && !isOwnerView && currentView === 'catalog' && (
+      {isMobileSearchOpen && !isOwnerView && (
         <div style={{
           padding: '10px 14px',
           borderTop: '1px solid rgba(255, 255, 255, 0.08)',
@@ -306,7 +316,12 @@ export const Navbar = ({
               type="text"
               placeholder="ស្វែងរក Blox Fruits, VIP, Pet Sim 99..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (currentView !== 'catalog' && onNavigateHome) {
+                  onNavigateHome();
+                }
+              }}
               className="form-input"
               autoFocus
               style={{
