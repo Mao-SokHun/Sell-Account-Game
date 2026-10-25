@@ -103,13 +103,7 @@ export const AdminDashboard = ({
 
   const [formSuccess, setFormSuccess] = useState('');
 
-  // Sample image presets for quick selection
-  const imagePresets = [
-    { label: 'រូបភាព Blox Fruits', url: '/images/bloxfruits.jpg' },
-    { label: 'រូបភាព VIP Avatar (Robux)', url: '/images/avatar_rich.jpg' },
-    { label: 'រូបភាព Pet Sim 99 Huge Pet', url: '/images/petsim.jpg' },
-    { label: 'រូបភាព Blade Ball ដាវពន្លឺ', url: '/images/bladeball.jpg' }
-  ];
+
 
   // Handle Unified Images Upload from Mobile (Camera / Gallery) or Computer
   const handleImagesUpload = (e) => {
@@ -781,45 +775,7 @@ export const AdminDashboard = ({
                 </label>
               )}
 
-              {/* Optional Quick Sample Presets */}
-              <div style={{ marginTop: '12px' }}>
-                <span style={{ fontSize: '0.78rem', color: 'var(--text-dim)', display: 'block', marginBottom: '8px' }}>
-                  ឬជ្រើសរើសរូបភាពគំរូខាងក្រោម៖
-                </span>
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-                  gap: '8px'
-                }}>
-                  {imagePresets.map((preset, idx) => (
-                    <div
-                      key={idx}
-                      onClick={() => setFormData(prev => ({
-                        ...prev,
-                        image: preset.url,
-                        gallery: [preset.url, ...(prev.gallery || []).filter(g => g !== preset.url)]
-                      }))}
-                      style={{
-                        border: formData.image === preset.url ? '2px solid var(--primary)' : '1px solid var(--border-color)',
-                        borderRadius: '10px',
-                        overflow: 'hidden',
-                        cursor: 'pointer',
-                        background: 'rgba(15, 23, 42, 0.5)',
-                        padding: '6px'
-                      }}
-                    >
-                      <img
-                        src={preset.url}
-                        alt={preset.label}
-                        style={{ width: '100%', height: '65px', objectFit: 'cover', borderRadius: '6px', marginBottom: '4px' }}
-                      />
-                      <div style={{ fontSize: '0.72rem', fontWeight: 600, color: formData.image === preset.url ? '#818cf8' : 'var(--text-muted)', textAlign: 'center' }}>
-                        {preset.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+
             </div>
 
             {/* ================= DETAILED IN-GAME STATS TABLE EDITOR ================= */}
