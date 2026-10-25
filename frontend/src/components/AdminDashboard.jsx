@@ -194,55 +194,6 @@ export const AdminDashboard = ({
             សួស្តី {adminUser?.username || 'Admin'}! អ្នកអាចគ្រប់គ្រង និងបន្ថែមគណនី Roblox សម្រាប់ដាក់លក់នៅទីនេះ។
           </p>
         </div>
-
-        {/* Tab Controls */}
-        <div style={{
-          display: 'flex',
-          background: 'rgba(255, 255, 255, 0.05)',
-          padding: '4px',
-          borderRadius: '12px',
-          border: '1px solid var(--border-color)'
-        }}>
-          <button
-            onClick={() => { setActiveTab('list'); setEditingId(null); }}
-            style={{
-              padding: '8px 18px',
-              borderRadius: '9px',
-              border: 'none',
-              background: activeTab === 'list' ? 'var(--primary)' : 'transparent',
-              color: activeTab === 'list' ? '#fff' : 'var(--text-muted)',
-              fontWeight: 700,
-              fontSize: '0.88rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}
-          >
-            <Package size={16} />
-            <span>បញ្ជីគណនី ({totalProducts})</span>
-          </button>
-
-          <button
-            onClick={() => { setActiveTab('add'); setEditingId(null); }}
-            style={{
-              padding: '8px 18px',
-              borderRadius: '9px',
-              border: 'none',
-              background: activeTab === 'add' ? 'var(--primary)' : 'transparent',
-              color: activeTab === 'add' ? '#fff' : 'var(--text-muted)',
-              fontWeight: 700,
-              fontSize: '0.88rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}
-          >
-            <PlusCircle size={16} />
-            <span>{editingId ? 'កែប្រែគណនី' : 'បន្ថែមគណនីដាក់លក់'}</span>
-          </button>
-        </div>
       </div>
 
       {/* KPI Cards in 100% Khmer */}
@@ -311,6 +262,16 @@ export const AdminDashboard = ({
       {/* ================= TAB 1: ADD / EDIT PRODUCT FORM ================= */}
       {activeTab === 'add' && (
         <div className="glass-panel" style={{ padding: '32px', borderRadius: '24px' }}>
+          <button
+            type="button"
+            onClick={() => { setActiveTab('list'); setEditingId(null); }}
+            className="btn btn-secondary"
+            style={{ padding: '7px 14px', fontSize: '0.84rem', marginBottom: '18px', display: 'inline-flex', gap: '6px' }}
+          >
+            <ArrowLeft size={15} />
+            <span>ត្រឡប់ទៅបញ្ជីគណនី</span>
+          </button>
+
           <h2 style={{ fontSize: '1.3rem', fontWeight: 800, marginBottom: '6px' }}>
             {editingId ? 'កែប្រែព័ត៌មានគណនី Roblox' : 'ដាក់លក់គណនី Roblox ថ្មី'}
           </h2>
