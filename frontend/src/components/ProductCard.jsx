@@ -47,11 +47,11 @@ export const ProductCard = ({ product, onSelectProduct }) => {
           }}
         />
 
-        {/* Overlay gradient */}
+        {/* Overlay gradient (top vignette for badges, bottom for level/robux) */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to top, rgba(7, 9, 14, 0.95) 0%, rgba(7, 9, 14, 0.2) 60%, transparent 100%)'
+          background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.65) 0%, transparent 45%), linear-gradient(to top, rgba(7, 9, 14, 0.95) 0%, rgba(7, 9, 14, 0.2) 60%, transparent 100%)'
         }} />
 
         {/* Top Header Strip (Single Row with space-between - NO OVERLAPPING) */}
@@ -67,17 +67,17 @@ export const ProductCard = ({ product, onSelectProduct }) => {
           zIndex: 2
         }}>
           {/* Category on Left */}
-          <span className="badge badge-primary" style={{ backdropFilter: 'blur(10px)', fontSize: '0.74rem' }}>
+          <span className="badge badge-primary" style={{ fontSize: '0.78rem', padding: '5px 12px' }}>
             {product.category}
           </span>
 
           {/* Stock on Right */}
           {isAvailable ? (
-            <span className="badge badge-green" style={{ backdropFilter: 'blur(10px)', fontSize: '0.74rem' }}>
-              <Zap size={11} /> មានស្តុក
+            <span className="badge badge-green" style={{ fontSize: '0.78rem', padding: '5px 12px' }}>
+              <Zap size={12} /> មានស្តុក
             </span>
           ) : (
-            <span className="badge badge-red" style={{ backdropFilter: 'blur(10px)', fontSize: '0.74rem' }}>
+            <span className="badge badge-red" style={{ fontSize: '0.78rem', padding: '5px 12px' }}>
               អស់ស្តុក
             </span>
           )}
@@ -94,13 +94,30 @@ export const ProductCard = ({ product, onSelectProduct }) => {
           justifyContent: 'space-between',
           fontSize: '0.82rem',
           color: '#ffffff',
-          fontWeight: 600
+          fontWeight: 700
         }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <span style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '5px',
+            background: 'rgba(7, 9, 14, 0.85)',
+            padding: '3px 8px',
+            borderRadius: '6px',
+            border: '1px solid rgba(255, 255, 255, 0.1)'
+          }}>
             <Trophy size={14} color="#38bdf8" /> {product.level}
           </span>
           {product.robux > 0 && (
-            <span style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#fbbf24' }}>
+            <span style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '5px', 
+              color: '#fbbf24',
+              background: 'rgba(7, 9, 14, 0.85)',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              border: '1px solid rgba(245, 158, 11, 0.25)'
+            }}>
               <Coins size={14} color="#fbbf24" /> {product.robux.toLocaleString()} Robux
             </span>
           )}
