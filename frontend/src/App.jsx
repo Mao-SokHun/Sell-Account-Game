@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { initialProducts } from './data/initialProducts';
+import { fetchPurchaseHistoryFromApi, savePurchaseToApi } from './utils/api';
 import { Navbar } from './components/Navbar';
 import { HeroBanner } from './components/HeroBanner';
 import { ProductList } from './components/ProductList';
@@ -55,20 +56,57 @@ export function App() {
   const [selectedCategory, setSelectedCategory] = useState('ទាំងអស់');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Buyer purchases state (no buyer register needed)
+  // Buyer purchases state (synced with Backend API and cached in localStorage)
   const [purchases, setPurchases] = useState(() => {
     const saved = localStorage.getItem('roblox_purchases');
     return saved ? JSON.parse(saved) : [];
   });
+  const [isSyncingApi, setIsSyncingApi] = useState(false);
+  const [apiSource, setApiSource] = useState('local_cache');
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false);
 
   // Success Modal state after Bakong payment
   const [successModalData, setSuccessModalData] = useState(null);
 
-  // Save purchases
+  // Sync purchase history from Backend API on mount
+  useEffect(() => {
+    const syncWithApi = async () => {
+      setIsSyncingApi(true);
+      const res = await fetchPurchaseHistoryFromApi();
+      if (res && res.data && res.data.length > 0) {
+        setPurchases(res.data);
+      }
+      if (res && res.source) {
+        setApiSource(res.source);
+      }
+      setIsSyncingApi(false);
+    };
+    syncWithApi();
+  }, []);
+
+  // Save purchases to local storage on update
   useEffect(() => {
     localStorage.setItem('roblox_purchases', JSON.stringify(purchases));
   }, [purchases]);
+
+  const handleRefreshPurchases = async () => {
+    setIsSyncingApi(true);
+    const res = await fetchPurchaseHistoryFromApi();
+    if (res && res.data) {
+      setPurchases(res.data);
+    }
+    if (res && res.source) {
+      setApiSource(res.source);
+    }
+    setIsSyncingApi(false);
+  };
+
+  const handleAddPurchaseFromSearch = (item) => {
+    setPurchases(prev => {
+      const exists = prev.some(p => p.invoiceId === item.invoiceId);
+      return exists ? prev : [item, ...prev];
+    });
+  };
 
   // Listen for browser URL changes (back/forward or navigation to /owner)
   useEffect(() => {
@@ -112,7 +150,7 @@ export function App() {
   };
 
   // Payment success handler (Triggered when Bakong KHQR is paid)
-  const handlePaymentSuccess = (product) => {
+  const handlePaymentSuccess = async (product) => {
     const invoiceId = `RBX-${Math.floor(100000 + Math.random() * 900000)}`;
     const purchaseItem = {
       ...product,
@@ -126,8 +164,13 @@ export function App() {
       })
     };
 
-    // Save purchase to history
+    // Save purchase to state and push to Backend API
     setPurchases(prev => [purchaseItem, ...prev]);
+    try {
+      await savePurchaseToApi(purchaseItem);
+    } catch (err) {
+      console.warn('API save fallback to local:', err);
+    }
 
     // Mark product as sold in inventory
     setProducts(prev => prev.map(p => 
@@ -246,11 +289,15 @@ export function App() {
         />
       )}
 
-      {/* MODAL 2: BUYER'S PURCHASE HISTORY (SAVED IN LOCALSTORAGE) */}
+      {/* MODAL 2: BUYER'S PURCHASE HISTORY (SYNCED WITH BACKEND API & CACHED IN LOCALSTORAGE) */}
       <PurchaseHistoryModal
         isOpen={isHistoryModalOpen}
         onClose={() => setIsHistoryModalOpen(false)}
         purchases={purchases}
+        onRefreshApi={handleRefreshPurchases}
+        isSyncing={isSyncingApi}
+        apiSource={apiSource}
+        onAddPurchase={handleAddPurchaseFromSearch}
       />
     </div>
   );

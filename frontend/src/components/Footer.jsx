@@ -42,10 +42,7 @@ export const Footer = () => {
             <div style={{ display: 'flex', gap: '8px' }}>
               <span className="badge badge-green">
                 <ShieldCheck size={12} /> សុវត្ថិភាព ១០០%
-              </span>
-              <span className="badge badge-primary">
-                ⚡ ដឹកជញ្ជូនភ្លាមៗ
-              </span>
+              </span>3
             </div>
           </div>
 
@@ -112,7 +109,7 @@ export const Footer = () => {
           fontSize: '0.82rem'
         }}>
           <div>
-            © {new Date().getFullYear()} ហាង ROBLOX KHMER VAULT. រក្សាសិទ្ធិគ្រប់យ៉ាង។ សម្រាប់ប្រើប្រាស់នៅប្រទេសកម្ពុជា 🇰🇭
+            © {new Date().getFullYear()} ហាង ROBLOX KHMER VAULT. រក្សាសិទ្ធិគ្រប់យ៉ាង។ សម្រាប់ប្រើប្រាស់នៅប្រទេសកម្ពុជា
           </div>
           <div style={{ color: 'var(--text-dim)' }}>
             ប្រព័ន្ធទូទាត់ស្វ័យប្រវត្តិ Bakong KHQR • មិនបាច់ចុះឈ្មោះសម្រាប់អ្នកទិញ

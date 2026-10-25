@@ -65,9 +65,9 @@ export const Navbar = ({
               }}>
                 ROBLOX KHMER
               </span>
-              <span className="badge badge-cyan" style={{ fontSize: '0.7rem', padding: '2px 8px' }}>
+              {/* <span className="badge badge-cyan" style={{ fontSize: '0.7rem', padding: '2px 8px' }}>
                 🇰🇭 កម្ពុជា
-              </span>
+              </span> */}
             </div>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: 0 }}>
               ហាងលក់ Account Roblox ស្វ័យប្រវត្តិ
@@ -145,8 +145,9 @@ export const Navbar = ({
               )}
             </div>
           ) : (
-            /* BUYER VIEW CONTROLS (Clean: NO Admin button displayed!) */
-            <button
+            /* BUYER VIEW CONTROLS (Only show when buyer has actually made a purchase!) */
+            purchasedCount > 0 ? (
+              <button
                 onClick={onOpenHistoryModal}
                 className="btn btn-secondary"
                 style={{ padding: '8px 14px', fontSize: '0.85rem' }}
@@ -154,20 +155,19 @@ export const Navbar = ({
               >
                 <History size={16} />
                 <span>គណនីបានទិញ</span>
-                {purchasedCount > 0 && (
-                  <span style={{
-                    background: 'var(--accent-green)',
-                    color: '#000',
-                    fontSize: '0.72rem',
-                    fontWeight: 700,
-                    borderRadius: '999px',
-                    padding: '1px 6px',
-                    marginLeft: '4px'
-                  }}>
-                    {purchasedCount}
-                  </span>
-                )}
+                <span style={{
+                  background: 'var(--accent-green)',
+                  color: '#000',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  borderRadius: '999px',
+                  padding: '1px 6px',
+                  marginLeft: '4px'
+                }}>
+                  {purchasedCount}
+                </span>
               </button>
+            ) : null
           )}
         </div>
       </div>
