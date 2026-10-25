@@ -3,7 +3,7 @@ import QRCode from 'qrcode';
 import { 
   ArrowLeft, ShieldCheck, CheckCircle2, QrCode, Clock, 
   Coins, Trophy, AlertCircle, Copy, Check, 
-  Lock, Eye, Flame, Smartphone, HelpCircle, Zap
+  Lock, Eye, Flame, Smartphone, HelpCircle, Zap, ChevronRight
 } from 'lucide-react';
 import { formatUSD, formatKHR, generateBakongKhqrString } from '../utils/currency';
 
@@ -84,26 +84,61 @@ export const ProductDetail = ({
 
   return (
     <div style={{ marginBottom: '80px' }}>
-      {/* Back Button & Breadcrumbs */}
+      {/* Back Button & Breadcrumbs - Unified Modern Strip */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
         gap: '12px',
-        margin: '20px 0 24px 0'
+        flexWrap: 'wrap',
+        maxWidth: '1440px',
+        margin: '16px auto 20px auto'
       }}>
         <button
           onClick={onBack}
           className="btn btn-secondary"
-          style={{ padding: '8px 16px', fontSize: '0.88rem' }}
+          style={{
+            padding: '8px 16px',
+            fontSize: '0.86rem',
+            borderRadius: '12px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            cursor: 'pointer',
+            fontWeight: 700
+          }}
         >
           <ArrowLeft size={16} />
           <span>ត្រឡប់ទៅបញ្ជីគណនី</span>
         </button>
 
-        <div style={{ fontSize: '0.86rem', color: 'var(--text-muted)' }}>
-          <span>ទំព័រដើម</span> &gt; <span>{product.category}</span> &gt; <span style={{ color: '#fff' }}>{product.title.slice(0, 35)}...</span>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontSize: '0.84rem',
+          color: 'var(--text-muted)',
+          background: 'rgba(255, 255, 255, 0.03)',
+          border: '1px solid rgba(255, 255, 255, 0.06)',
+          padding: '6px 14px',
+          borderRadius: '12px',
+          backdropFilter: 'blur(10px)'
+        }}>
+          <span 
+            onClick={onBack}
+            style={{ cursor: 'pointer', transition: 'color 0.2s' }}
+            onMouseEnter={(e) => e.target.style.color = '#38bdf8'}
+            onMouseLeave={(e) => e.target.style.color = ''}
+          >
+            ទំព័រដើម
+          </span>
+          <ChevronRight size={14} color="rgba(255, 255, 255, 0.3)" />
+          <span style={{ color: 'var(--text-muted)' }}>{product.category}</span>
+          <ChevronRight size={14} color="rgba(255, 255, 255, 0.3)" />
+          <span style={{ color: '#ffffff', fontWeight: 600 }}>
+            {product.title.length > 40 ? `${product.title.slice(0, 40)}...` : product.title}
+          </span>
         </div>
       </div>
 

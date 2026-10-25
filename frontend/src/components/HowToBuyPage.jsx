@@ -2,32 +2,62 @@ import React from 'react';
 import { 
   ArrowLeft, ShoppingBag, QrCode, Key, ShieldCheck, 
   CheckCircle2, Smartphone, ExternalLink, HelpCircle, Lock,
-  ArrowRight
+  ArrowRight, ChevronRight
 } from 'lucide-react';
 
 export const HowToBuyPage = ({ onBack, onGoToStore }) => {
   return (
     <div style={{ maxWidth: '1000px', margin: '0 auto 80px auto', padding: '10px 0' }}>
-      {/* Top Breadcrumb & Back */}
+      {/* Top Breadcrumb & Back - Unified Modern Strip */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
         gap: '12px',
+        flexWrap: 'wrap',
         marginBottom: '24px'
       }}>
         <button
           onClick={onBack}
           className="btn btn-secondary"
-          style={{ padding: '8px 16px', fontSize: '0.88rem' }}
+          style={{
+            padding: '8px 16px',
+            fontSize: '0.86rem',
+            borderRadius: '12px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            cursor: 'pointer',
+            fontWeight: 700
+          }}
         >
           <ArrowLeft size={16} />
           <span>ត្រឡប់ទៅហាងទំនិញ</span>
         </button>
 
-        <div style={{ fontSize: '0.86rem', color: 'var(--text-muted)' }}>
-          <span>ទំព័រដើម</span> &gt; <span style={{ color: '#fff' }}>របៀបទិញគណនី (How to Buy)</span>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontSize: '0.84rem',
+          color: 'var(--text-muted)',
+          background: 'rgba(255, 255, 255, 0.03)',
+          border: '1px solid rgba(255, 255, 255, 0.06)',
+          padding: '6px 14px',
+          borderRadius: '12px',
+          backdropFilter: 'blur(10px)'
+        }}>
+          <span 
+            onClick={onBack}
+            style={{ cursor: 'pointer', transition: 'color 0.2s' }}
+            onMouseEnter={(e) => e.target.style.color = '#38bdf8'}
+            onMouseLeave={(e) => e.target.style.color = ''}
+          >
+            ទំព័រដើម
+          </span>
+          <ChevronRight size={14} color="rgba(255, 255, 255, 0.3)" />
+          <span style={{ color: '#fff', fontWeight: 600 }}>របៀបទិញគណនី (How to Buy)</span>
         </div>
       </div>
 
