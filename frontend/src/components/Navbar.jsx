@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Lock, Unlock, Gamepad2, Search, History, Crown, 
   BookOpen, Menu, X, Send, ArrowRight 
@@ -17,7 +17,17 @@ export const Navbar = ({
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const isOwnerView = currentView === 'admin';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleNavClick = (callback) => {
     setIsMobileMenuOpen(false);
@@ -26,7 +36,8 @@ export const Navbar = ({
   };
 
   return (
-    <header className="navbar-header">
+    <>
+      <header className={`navbar-header ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="container navbar-container">
         {/* Brand Logo */}
         <div 
@@ -416,5 +427,7 @@ export const Navbar = ({
         </div>
       )}
     </header>
+    <div className="navbar-spacer" aria-hidden="true" />
+  </>
   );
 };
