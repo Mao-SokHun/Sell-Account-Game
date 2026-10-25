@@ -257,6 +257,11 @@ export function App() {
             <>
               <HeroBanner 
                 onNavigateHowToBuy={handleNavigateHowToBuy} 
+                onSelectCategory={(category) => {
+                  setSelectedCategory(category);
+                  const el = document.getElementById('product-catalog-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
               />
               <ProductList
                 products={products}
