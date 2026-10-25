@@ -104,21 +104,25 @@ export const AccountSuccessModal = ({
         className="modal-content animate-modal"
         style={{
           maxWidth: '680px',
+          maxHeight: 'min(92vh, 880px)',
+          overflowY: 'auto',
           padding: '0',
-          overflow: 'hidden',
           border: '1px solid rgba(16, 185, 129, 0.4)',
           boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(16, 185, 129, 0.3)'
         }}
       >
-        {/* Header Ribbon */}
+        {/* Header Ribbon - Sticky so close button and title remain reachable on scroll */}
         <div style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 20,
           background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
-          padding: '24px 28px',
+          padding: '20px 28px',
           color: '#ffffff',
-          position: 'relative',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={{
@@ -160,7 +164,7 @@ export const AccountSuccessModal = ({
         </div>
 
         {/* Content Body */}
-        <div style={{ padding: '24px 28px' }}>
+        <div style={{ padding: '24px 28px 32px 28px' }}>
           
           {/* Order Meta Bar */}
           <div style={{
@@ -478,8 +482,8 @@ export const AccountSuccessModal = ({
             <span>* ព័ត៌មាននេះត្រូវបានរក្សាទុកក្នុងទំព័រ "គណនីបានទិញ" ដោយស្វ័យប្រវត្តិ</span>
             <button
               onClick={onClose}
-              className="btn btn-ghost"
-              style={{ padding: '6px 14px', fontSize: '0.84rem' }}
+              className="btn btn-secondary"
+              style={{ padding: '6px 16px', fontSize: '0.84rem' }}
             >
               បិទផ្ទាំងនេះ
             </button>

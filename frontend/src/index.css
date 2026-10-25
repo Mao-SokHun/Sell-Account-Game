@@ -274,7 +274,8 @@ td {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 24px 16px;
+  overflow-y: auto;
 }
 
 .modal-content {
@@ -286,6 +287,7 @@ td {
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(99, 102, 241, 0.2);
+  margin: auto;
 }
 
 /* Form Styles */
