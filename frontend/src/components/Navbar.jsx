@@ -51,12 +51,12 @@ export const Navbar = ({
           }}
         >
           <div style={{
-            width: '42px',
-            height: '42px',
-            borderRadius: '12px',
+            width: '46px',
+            height: '46px',
+            borderRadius: '13px',
             overflow: 'hidden',
             border: '1.5px solid rgba(56, 189, 248, 0.5)',
-            boxShadow: '0 0 16px rgba(14, 165, 233, 0.4)',
+            boxShadow: '0 0 18px rgba(14, 165, 233, 0.45)',
             flexShrink: 0,
             background: '#0c1222'
           }}>
@@ -73,9 +73,10 @@ export const Navbar = ({
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{
-                fontSize: '1.15rem',
+                fontSize: '1.42rem',
                 fontWeight: 900,
-                letterSpacing: '-0.3px',
+                letterSpacing: '0.2px',
+                lineHeight: 1.2,
                 background: 'linear-gradient(to right, #ffffff, #c7d2fe, #38bdf8)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -84,7 +85,7 @@ export const Navbar = ({
                 MIRA STORE
               </span>
             </div>
-            <p className="navbar-brand-subtitle" style={{ fontSize: '0.74rem', color: 'var(--text-muted)', margin: 0, whiteSpace: 'nowrap' }}>
+            <p className="navbar-brand-subtitle" style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: 0, whiteSpace: 'nowrap' }}>
               Platform លក់ Account Game & Roblox ស្វ័យប្រវត្តិ
             </p>
           </div>

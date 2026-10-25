@@ -43,7 +43,7 @@ export const Footer = ({ onNavigateHome, onNavigateHowToBuy }) => {
                   }}
                 />
               </div>
-              <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fff' }}>
+              <span style={{ fontSize: '1.35rem', fontWeight: 900, color: '#fff', letterSpacing: '0.2px' }}>
                 MIRA STORE
               </span>
             </div>
