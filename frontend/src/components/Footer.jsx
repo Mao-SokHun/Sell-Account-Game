@@ -1,7 +1,7 @@
 import React from 'react';
 import { Gamepad2, ShieldCheck, Send, BookOpen, ExternalLink, HelpCircle, ArrowRight } from 'lucide-react';
 
-export const Footer = ({ onNavigateHome, onNavigateHowToBuy, onNavigateWarranty }) => {
+export const Footer = ({ onNavigateHome, onNavigateHowToBuy }) => {
   return (
     <footer style={{
       borderTop: '1px solid var(--border-color)',
@@ -95,27 +95,6 @@ export const Footer = ({ onNavigateHome, onNavigateHowToBuy, onNavigateWarranty 
                 >
                   <ArrowRight size={14} color="var(--primary)" />
                   <span>របៀបទិញ (How to Buy Guide)</span>
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={onNavigateWarranty}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    padding: 0,
-                    color: 'var(--text-muted)',
-                    fontSize: '0.88rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px'
-                  }}
-                  onMouseOver={(e) => e.currentTarget.style.color = '#fff'}
-                  onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
-                >
-                  <ArrowRight size={14} color="var(--primary)" />
-                  <span>គោលការណ៍ធានា និងជំនួយ (Warranty & Support)</span>
                 </button>
               </li>
             </ul>

@@ -6,7 +6,6 @@ import { HeroBanner } from './components/HeroBanner';
 import { ProductList } from './components/ProductList';
 import { ProductDetail } from './components/ProductDetail';
 import { HowToBuyPage } from './components/HowToBuyPage';
-import { WarrantySupportPage } from './components/WarrantySupportPage';
 import { AccountSuccessModal } from './components/AccountSuccessModal';
 import { AdminAuthModal } from './components/AdminAuthModal';
 import { AdminDashboard } from './components/AdminDashboard';
@@ -23,9 +22,6 @@ const getInitialView = () => {
   }
   if (path === '/how-to-buy' || hash === '#how-to-buy' || hash === '#guide') {
     return 'how-to-buy';
-  }
-  if (path === '/warranty' || hash === '#warranty' || hash === '#support') {
-    return 'warranty';
   }
   return 'catalog';
 };
@@ -131,11 +127,8 @@ export function App() {
       } else if (path === '/how-to-buy' || hash === '#how-to-buy' || hash === '#guide') {
         setCurrentView('how-to-buy');
         setSelectedProduct(null);
-      } else if (path === '/warranty' || hash === '#warranty' || hash === '#support') {
-        setCurrentView('warranty');
-        setSelectedProduct(null);
       } else {
-        if (currentView === 'admin' || currentView === 'owner-login' || currentView === 'how-to-buy' || currentView === 'warranty') {
+        if (currentView === 'admin' || currentView === 'owner-login' || currentView === 'how-to-buy') {
           setCurrentView('catalog');
           setSelectedProduct(null);
         }
@@ -162,14 +155,6 @@ export function App() {
   const handleNavigateHowToBuy = () => {
     window.history.pushState(null, '', '/how-to-buy');
     setCurrentView('how-to-buy');
-    setSelectedProduct(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Navigate to Warranty & Support
-  const handleNavigateWarranty = () => {
-    window.history.pushState(null, '', '/warranty');
-    setCurrentView('warranty');
     setSelectedProduct(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -258,7 +243,6 @@ export function App() {
         currentView={currentView}
         onNavigateHome={handleNavigateHome}
         onNavigateHowToBuy={handleNavigateHowToBuy}
-        onNavigateWarranty={handleNavigateWarranty}
         adminUser={adminUser}
         onLogoutAdmin={handleAdminLogout}
         purchasedCount={purchases.length}
@@ -271,7 +255,9 @@ export function App() {
           {/* VIEW 1: CATALOG (HOME) */}
           {currentView === 'catalog' && (
             <>
-              <HeroBanner />
+              <HeroBanner 
+                onNavigateHowToBuy={handleNavigateHowToBuy} 
+              />
               <ProductList
                 products={products}
                 selectedCategory={selectedCategory}
@@ -294,14 +280,6 @@ export function App() {
           {/* VIEW 3: HOW TO BUY GUIDE */}
           {currentView === 'how-to-buy' && (
             <HowToBuyPage
-              onBack={handleNavigateHome}
-              onGoToStore={handleNavigateHome}
-            />
-          )}
-
-          {/* VIEW 4: WARRANTY & SUPPORT */}
-          {currentView === 'warranty' && (
-            <WarrantySupportPage
               onBack={handleNavigateHome}
               onGoToStore={handleNavigateHome}
             />
@@ -334,7 +312,6 @@ export function App() {
       <Footer
         onNavigateHome={handleNavigateHome}
         onNavigateHowToBuy={handleNavigateHowToBuy}
-        onNavigateWarranty={handleNavigateWarranty}
       />
 
       {/* MODAL 1: ACCOUNT DETAIL SUCCESS MODAL (POST-PAYMENT BAKONG) */}

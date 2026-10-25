@@ -32,7 +32,7 @@ export const ProductList = ({
   });
 
   return (
-    <section style={{ marginBottom: '60px' }}>
+    <section id="product-catalog-section" style={{ marginBottom: '60px' }}>
       {/* Category Tabs & Filter Header */}
       <div style={{
         display: 'flex',

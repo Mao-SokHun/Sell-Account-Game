@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Lock, Unlock, Gamepad2, Search, History, Crown, 
-  BookOpen, ShieldCheck, Menu, X, Send, ArrowRight 
+  BookOpen, Menu, X, Send, ArrowRight 
 } from 'lucide-react';
 
 export const Navbar = ({
@@ -10,7 +10,6 @@ export const Navbar = ({
   currentView,
   onNavigateHome,
   onNavigateHowToBuy,
-  onNavigateWarranty,
   adminUser,
   onLogoutAdmin,
   purchasedCount,
@@ -116,27 +115,6 @@ export const Navbar = ({
             >
               <BookOpen size={16} color={currentView === 'how-to-buy' ? 'var(--primary)' : 'currentColor'} />
               <span>របៀបទិញ</span>
-            </button>
-
-            <button
-              onClick={() => handleNavClick(onNavigateWarranty)}
-              className="btn"
-              style={{
-                padding: '7px 14px',
-                fontSize: '0.86rem',
-                borderRadius: '10px',
-                background: currentView === 'warranty' ? 'rgba(16, 185, 129, 0.18)' : 'transparent',
-                border: currentView === 'warranty' ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid transparent',
-                color: currentView === 'warranty' ? '#fff' : 'var(--text-muted)',
-                fontWeight: currentView === 'warranty' ? 700 : 500,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                cursor: 'pointer'
-              }}
-            >
-              <ShieldCheck size={16} color={currentView === 'warranty' ? '#10b981' : 'currentColor'} />
-              <span>ការធានា & ជំនួយ</span>
             </button>
           </nav>
         )}
@@ -387,24 +365,6 @@ export const Navbar = ({
           >
             <BookOpen size={18} color={currentView === 'how-to-buy' ? 'var(--primary)' : 'currentColor'} />
             <span>របៀបទិញគណនី (How to Buy Guide)</span>
-          </button>
-
-          <button
-            onClick={() => handleNavClick(onNavigateWarranty)}
-            className="btn"
-            style={{
-              justifyContent: 'flex-start',
-              padding: '12px 14px',
-              borderRadius: '12px',
-              fontSize: '0.94rem',
-              fontWeight: currentView === 'warranty' ? 800 : 600,
-              color: currentView === 'warranty' ? '#fff' : 'var(--text-muted)',
-              background: currentView === 'warranty' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255, 255, 255, 0.03)',
-              border: currentView === 'warranty' ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid transparent'
-            }}
-          >
-            <ShieldCheck size={18} color={currentView === 'warranty' ? '#10b981' : 'currentColor'} />
-            <span>គោលការណ៍ធានា និងជំនួយ (Warranty & Support)</span>
           </button>
 
           {purchasedCount > 0 && (
