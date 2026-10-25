@@ -348,3 +348,122 @@ html, body, #root {
     grid-template-columns: 1fr !important;
   }
 }
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 12px;
+  }
+}
+
+/* ========================================================
+   RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS
+   ======================================================== */
+
+.navbar-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(7, 9, 14, 0.92);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 0;
+  transition: all 0.2s ease;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+.navbar-brand-subtitle {
+  display: block;
+}
+
+.navbar-desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar-desktop-search {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 320px;
+}
+
+.navbar-mobile-toggle-btn {
+  display: none !important;
+}
+
+.navbar-mobile-search-btn {
+  display: none !important;
+}
+
+@media (max-width: 880px) {
+  .navbar-header {
+    padding: 8px 0;
+  }
+
+  .navbar-brand-subtitle {
+    display: none !important;
+  }
+
+  .navbar-desktop-nav {
+    display: none !important;
+  }
+
+  .navbar-desktop-search {
+    display: none !important;
+  }
+
+  .navbar-mobile-toggle-btn {
+    display: inline-flex !important;
+  }
+
+  .navbar-mobile-search-btn {
+    display: inline-flex !important;
+  }
+}
+
+/* Hero Banner Responsive Classes */
+.hero-banner-card {
+  position: relative;
+  margin: 28px 0;
+  padding: 36px 30px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.hero-features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 880px) {
+  .hero-banner-card {
+    margin: 14px 0 20px 0;
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  .hero-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
