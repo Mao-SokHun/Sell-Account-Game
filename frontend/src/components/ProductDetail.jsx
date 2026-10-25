@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import QRCode from 'qrcode';
 import { 
   ArrowLeft, ShieldCheck, CheckCircle2, QrCode, Clock, 
-  Coins, Trophy, Sparkles, AlertCircle, Copy, Check, 
+  Coins, Trophy, AlertCircle, Copy, Check, 
   Lock, Eye, Flame, Smartphone, HelpCircle, Zap
 } from 'lucide-react';
 import { formatUSD, formatKHR, generateBakongKhqrString } from '../utils/currency';
@@ -293,7 +293,6 @@ export const ProductDetail = ({
                   gap: '8px',
                   color: '#c7d2fe'
                 }}>
-                  <Sparkles size={18} color="#818cf8" />
                   <span>ព័ត៌មានលម្អិតក្នុងហ្គេម</span>
                 </h3>
 

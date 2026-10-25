@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti';
 import { 
   CheckCircle, Copy, Check, Eye, EyeOff, 
   Download, ExternalLink, ShieldAlert, Key, 
-  User, Lock, Sparkles, X, FileText
+  User, Lock, X, FileText
 } from 'lucide-react';
 
 export const AccountSuccessModal = ({ 

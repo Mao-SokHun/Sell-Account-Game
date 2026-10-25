@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ProductCard } from './ProductCard';
 import { GAME_CATEGORIES } from '../data/initialProducts';
-import { Sparkles, SlidersHorizontal, AlertCircle } from 'lucide-react';
+import { SlidersHorizontal, AlertCircle } from 'lucide-react';
 
 export const ProductList = ({
   products,

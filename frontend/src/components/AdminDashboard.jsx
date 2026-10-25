@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   PlusCircle, Package, DollarSign, CheckCircle2, 
   Trash2, Edit3, ArrowLeft, Image as ImageIcon, 
-  Key, ShieldCheck, Tag, Sparkles, AlertTriangle,
+  Key, ShieldCheck, Tag, AlertTriangle,
   Upload, Camera, Smartphone, Monitor, X, Layers
 } from 'lucide-react';
 import { formatUSD, formatKHR, convertUsdToKhr } from '../utils/currency';
@@ -16,7 +16,7 @@ export const DEFAULT_GAME_STATS_TEMPLATES = {
     { key: 'ក្បាច់ Melee ផ្សេងទៀត', value: 'Superhuman, Death Step, Sharkman Karate' },
     { key: 'ដាវ និងអាវុធ', value: 'ដាវគូ Cursed Dual Katana (CDK), TTK, Hallow Scythe' },
     { key: 'កាំភ្លើង', value: 'Soul Guitar' },
-    { key: 'ពូជតួអង្គ (Race)', value: 'Cyborg V4 (ដោះសោ Gears ទាំងអស់)' },
+    { key: 'ប្រភេទតួអង្គ (Race)', value: 'Cyborg V4 (ដោះសោ Gears ទាំងអស់)' },
     { key: 'ពិន្ទុ Bounty', value: '១២.៥ លាន (12.5M Bounty)' },
     { key: 'ប្រាក់ Beli ក្នុងហ្គេម', value: '៨៥ លាន Beli' },
     { key: 'បំណែក Fragments', value: '១២០,០០០ Fragments' }
@@ -24,7 +24,7 @@ export const DEFAULT_GAME_STATS_TEMPLATES = {
   'ឈុត VIP Avatar': [
     { key: 'អាយុកាលគណនី', value: 'បង្កើតឡើង ៥ ឆ្នាំមុន (គណនីចាស់)' },
     { key: 'ទឹកប្រាក់ Robux', value: '៥០,២៣០ Robux (មានស្រាប់ក្នុងគណនី)' },
-    { key: 'គ្រឿងតុបតែងក្បាល', value: 'Golden Valkyrie Helm, Dominus Rex Hood' },
+    { key: 'គ្រឿងតុបតែង', value: 'Golden Valkyrie Helm, Dominus Rex Hood' },
     { key: 'ឈុតរូបរាង', value: 'Korblox Deathspeaker (ជើងឆ្អឹង Korblox Leg)' },
     { key: 'កាយវិការ Animation', value: 'Ninja, Cartoony, Levitation, Mage' },
     { key: 'មេដាយហ្គេម', value: 'ច្រើនជាង ៣៥០+ Game Badges' },
@@ -815,8 +815,7 @@ export const AdminDashboard = ({
                 flexWrap: 'wrap',
                 gap: '10px'
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <Sparkles size={18} color="#818cf8" />
+                <div>
                   <h3 style={{ fontSize: '1.08rem', fontWeight: 700, color: '#ffffff', margin: 0 }}>
                     ព័ត៌មានលម្អិតក្នុងហ្គេម (In-Game Detailed Stats Table)
                   </h3>

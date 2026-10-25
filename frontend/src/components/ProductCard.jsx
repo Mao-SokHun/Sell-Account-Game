@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Zap, Coins, Trophy, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
+import { ShieldCheck, Zap, Coins, Trophy, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { formatUSD, formatKHR } from '../utils/currency';
 
 export const ProductCard = ({ product, onSelectProduct }) => {
@@ -113,7 +113,7 @@ export const ProductCard = ({ product, onSelectProduct }) => {
         {product.badge && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
             <span className="badge badge-gold" style={{ fontSize: '0.74rem', padding: '2px 8px' }}>
-              <Sparkles size={11} /> {product.badge}
+              {product.badge}
             </span>
           </div>
         )}
