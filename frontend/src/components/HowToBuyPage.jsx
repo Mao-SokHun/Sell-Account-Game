@@ -332,7 +332,7 @@ export const HowToBuyPage = ({ onBack, onGoToStore }) => {
                 ចូលទៅកាន់គេហទំព័រផ្លូវការ Roblox
               </div>
               <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)', margin: 0 }}>
-                បើក Browser លើទូរស័ព្ទ ឬកុំព្យូទ័ររបស់អ្នក រួចចូលទៅកាន់គេហទំព័រ <a href="https://www.roblox.com/login" target="_blank" rel="noopener noreferrer" style={{ color: '#38bdf8', textDecoration: 'underline' }}>www.roblox.com/login</a>
+                បើក Browser លើទូរស័ព្ទ ឬកុំព្យូទ័ររបស់អ្នក រួចចូលទៅកាន់គេហទំព័រ <a href="Roblox://placeId=1234" target="_blank" rel="noopener noreferrer" style={{ color: '#38bdf8', textDecoration: 'underline' }}>www.roblox.com/login</a>
               </p>
             </div>
           </div>
