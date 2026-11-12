@@ -9,15 +9,15 @@ export const ProductCard = ({ product, onSelectProduct }) => {
   const getCategoryTheme = (category) => {
     switch (category) {
       case 'Blox Fruits':
-        return { color: '#38bdf8', bg: 'rgba(56, 189, 248, 0.15)', border: 'rgba(56, 189, 248, 0.4)' };
+        return { color: '#38bdf8', bg: 'rgba(56, 189, 248, 0.12)', border: 'rgba(56, 189, 248, 0.4)' };
       case 'ឈុត VIP Avatar':
-        return { color: '#fbbf24', bg: 'rgba(251, 191, 36, 0.15)', border: 'rgba(251, 191, 36, 0.4)' };
+        return { color: '#fbbf24', bg: 'rgba(251, 191, 36, 0.12)', border: 'rgba(251, 191, 36, 0.4)' };
       case 'Pet Sim 99':
-        return { color: '#c084fc', bg: 'rgba(192, 132, 252, 0.15)', border: 'rgba(192, 132, 252, 0.4)' };
+        return { color: '#c084fc', bg: 'rgba(192, 132, 252, 0.12)', border: 'rgba(192, 132, 252, 0.4)' };
       case 'Blade Ball':
-        return { color: '#f43f5e', bg: 'rgba(244, 63, 94, 0.15)', border: 'rgba(244, 63, 94, 0.4)' };
+        return { color: '#f43f5e', bg: 'rgba(244, 63, 94, 0.12)', border: 'rgba(244, 63, 94, 0.4)' };
       default:
-        return { color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.15)', border: 'rgba(139, 92, 246, 0.4)' };
+        return { color: '#8b5cf6', bg: 'rgba(139, 92, 246, 0.12)', border: 'rgba(139, 92, 246, 0.4)' };
     }
   };
 
@@ -35,7 +35,7 @@ export const ProductCard = ({ product, onSelectProduct }) => {
         }
       }}
     >
-      {/* Thumbnail Container */}
+      {/* Tall Gaming Poster Thumbnail */}
       <div className="pixel-card-thumb">
         <img
           src={product.image}
@@ -45,10 +45,10 @@ export const ProductCard = ({ product, onSelectProduct }) => {
           }}
         />
 
-        {/* Dual Vignette Layers for high contrast */}
+        {/* Cinematic Vignette Overlay */}
         <div className="pixel-card-vignette" />
 
-        {/* Top Header Strip: Category & Stock status */}
+        {/* Top Header Strip: Category & Star Rating */}
         <div style={{
           position: 'absolute',
           top: '12px',
@@ -60,45 +60,46 @@ export const ProductCard = ({ product, onSelectProduct }) => {
           gap: '8px',
           zIndex: 3
         }}>
-          {/* Category Badge */}
+          {/* Category Badge (Sleek sharp 6px radius) */}
           <span style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '5px',
-            background: 'rgba(10, 8, 20, 0.85)',
+            background: 'rgba(8, 6, 16, 0.85)',
             border: `1px solid ${theme.border}`,
             color: theme.color,
-            fontSize: '0.76rem',
+            fontSize: '0.74rem',
             fontWeight: 700,
-            padding: '4px 10px',
-            borderRadius: '8px',
-            backdropFilter: 'blur(10px)'
+            padding: '3px 9px',
+            borderRadius: '6px',
+            backdropFilter: 'blur(8px)',
+            letterSpacing: '0.2px'
           }}>
             {product.category === 'ឈុត VIP Avatar' && <Crown size={12} />}
             {product.category === 'Blox Fruits' && <Sparkles size={12} />}
             {product.category}
           </span>
 
-          {/* Rating Badge (PixelVault signature: ★ 5.0) */}
+          {/* Rating Badge (Sleek gold badge) */}
           <span style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '4px',
-            background: 'rgba(10, 8, 20, 0.85)',
-            border: '1px solid rgba(251, 191, 36, 0.3)',
+            background: 'rgba(8, 6, 16, 0.85)',
+            border: '1px solid rgba(251, 191, 36, 0.35)',
             color: '#fbbf24',
-            fontSize: '0.76rem',
+            fontSize: '0.74rem',
             fontWeight: 800,
-            padding: '4px 8px',
-            borderRadius: '8px',
-            backdropFilter: 'blur(10px)'
+            padding: '3px 8px',
+            borderRadius: '6px',
+            backdropFilter: 'blur(8px)'
           }}>
             <Star size={11} fill="#fbbf24" color="#fbbf24" />
             <span>5.0</span>
           </span>
         </div>
 
-        {/* Bottom specs overlay on thumb */}
+        {/* Bottom Overlay Specs on Thumbnail */}
         <div style={{
           position: 'absolute',
           bottom: '10px',
@@ -107,22 +108,23 @@ export const ProductCard = ({ product, onSelectProduct }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
+          gap: '8px',
           zIndex: 3
         }}>
           <span style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '5px',
-            background: 'rgba(10, 8, 20, 0.85)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            padding: '4px 9px',
-            borderRadius: '8px',
-            fontSize: '0.74rem',
+            background: 'rgba(8, 6, 16, 0.85)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            padding: '3px 8px',
+            borderRadius: '6px',
+            fontSize: '0.72rem',
             fontWeight: 700,
             color: '#ffffff',
             backdropFilter: 'blur(8px)'
           }}>
-            <Trophy size={12} color="#38bdf8" />
+            <Trophy size={11} color="#38bdf8" />
             <span>{product.level}</span>
           </span>
 
@@ -131,49 +133,49 @@ export const ProductCard = ({ product, onSelectProduct }) => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '4px',
-              background: 'rgba(10, 8, 20, 0.85)',
-              border: '1px solid rgba(251, 191, 36, 0.3)',
-              padding: '4px 9px',
-              borderRadius: '8px',
-              fontSize: '0.74rem',
+              background: 'rgba(8, 6, 16, 0.85)',
+              border: '1px solid rgba(251, 191, 36, 0.35)',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              fontSize: '0.72rem',
               fontWeight: 700,
               color: '#fbbf24',
               backdropFilter: 'blur(8px)'
             }}>
-              <Coins size={12} color="#fbbf24" />
+              <Coins size={11} color="#fbbf24" />
               <span>{product.robux.toLocaleString()} R$</span>
             </span>
           )}
         </div>
       </div>
 
-      {/* Card Content */}
+      {/* Card Body */}
       <div className="pixel-card-body">
         {/* Title */}
         <h3 className="pixel-card-title">
           {product.title}
         </h3>
 
-        {/* Security / Clean Account Guarantee Line */}
+        {/* Security / Clean Account Guarantee Micro-Tag */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
           gap: '6px',
-          fontSize: '0.75rem',
+          fontSize: '0.74rem',
           color: '#34d399',
-          marginBottom: '14px',
-          background: 'rgba(16, 185, 129, 0.1)',
-          padding: '6px 10px',
-          borderRadius: '8px',
+          marginBottom: '12px',
+          background: 'rgba(16, 185, 129, 0.08)',
+          padding: '5px 9px',
+          borderRadius: '6px',
           border: '1px solid rgba(16, 185, 129, 0.2)'
         }}>
-          <ShieldCheck size={14} color="#10b981" />
+          <ShieldCheck size={13} color="#10b981" />
           <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {product.emailStatus || 'គណនីស្អាត ១០០% មិនទាន់ភ្ជាប់ Email'}
           </span>
         </div>
 
-        {/* Bottom Price & PixelVault Action Button */}
+        {/* Bottom Price & High-Tech Cyber Action Button */}
         <div style={{
           marginTop: 'auto',
           paddingTop: '12px',
@@ -185,15 +187,16 @@ export const ProductCard = ({ product, onSelectProduct }) => {
         }}>
           <div>
             <div style={{
-              fontSize: '1.28rem',
+              fontSize: '1.25rem',
               fontWeight: 900,
               color: '#ffffff',
-              lineHeight: 1.2
+              lineHeight: 1.15,
+              fontFamily: 'var(--font-gaming)'
             }}>
               {formatUSD(product.priceUsd)}
             </div>
             <div style={{
-              fontSize: '0.74rem',
+              fontSize: '0.72rem',
               color: '#94a3b8',
               fontWeight: 600,
               marginTop: '2px'
@@ -206,8 +209,6 @@ export const ProductCard = ({ product, onSelectProduct }) => {
             type="button"
             className={isAvailable ? 'pixel-btn-buy' : 'btn btn-secondary'}
             style={{
-              padding: '9px 16px',
-              fontSize: '0.84rem',
               opacity: isAvailable ? 1 : 0.6
             }}
           >

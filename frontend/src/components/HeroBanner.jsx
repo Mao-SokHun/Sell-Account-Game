@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   Search, Flame, ArrowRight, BookOpen, ShieldCheck, 
-  Zap, Trophy, Sparkles, TrendingUp, Users 
+  Zap, Trophy, Sparkles, TrendingUp, QrCode, CheckCircle2 
 } from 'lucide-react';
 
 const TRENDING_TAGS = [
@@ -41,7 +41,7 @@ export const HeroBanner = ({
       <div className="seamless-hero-glow" />
 
       <div className="seamless-hero-grid">
-        {/* LEFT COLUMN: Modern Headline, Search & Trending */}
+        {/* LEFT COLUMN: Modern Headline, Search, Tags & Trust Badges */}
         <div className="seamless-hero-left">
           {/* Eyebrow badge */}
           <div className="seamless-hero-eyebrow">
@@ -131,62 +131,59 @@ export const HeroBanner = ({
               </button>
             )}
           </div>
+
+          {/* Sleek Horizontal Trust Line (Never overlaps the character visual!) */}
+          <div className="hero-trust-strip">
+            <span className="hero-trust-item">
+              <Zap size={14} color="#38bdf8" />
+              <span>ប្រគល់ជូនក្នុង ៥ វិនាទី</span>
+            </span>
+            <span className="hero-trust-divider">•</span>
+            <span className="hero-trust-item">
+              <ShieldCheck size={14} color="#10b981" />
+              <span>Clean 100% គ្មាន 2FA</span>
+            </span>
+            <span className="hero-trust-divider">•</span>
+            <span className="hero-trust-item">
+              <QrCode size={14} color="#f43f5e" />
+              <span>Bakong KHQR គ្រប់ធនាគារ</span>
+            </span>
+          </div>
         </div>
 
-        {/* RIGHT COLUMN: PixelVault Cyber Warrior Artwork & Clean Floating Stat Cards */}
+        {/* RIGHT COLUMN: Majestic Cyber Warrior Artwork (100% Clear, No Clutter, No Giant Overlapping Boxes!) */}
         <div className="seamless-hero-right">
-          {/* Cyber Ninja Character Artwork (Seamlessly blending with ambient background) */}
           <div className="seamless-character-stage">
             <img
               src="/images/hero_character.jpg"
               alt="Cyber Warrior Legendary Character"
               className="seamless-character-visual"
             />
-            {/* Soft Ambient Vignette / Edge Fades */}
+            {/* Soft Ambient Vignette */}
             <div className="seamless-character-fade" />
-          </div>
 
-          {/* Clean Floating Stat Cards (Positioned naturally, NO clipped text, NO awkward borders!) */}
-          <div className="seamless-stats-stack">
-            {/* Stat Card 1: Total In-Stock */}
-            <div className="seamless-stat-box">
-              <div className="seamless-stat-box-header">
-                <span className="seamless-stat-box-title">Total Accounts</span>
-                <span className="seamless-stat-box-trend">
-                  <TrendingUp size={12} /> +24 new
-                </span>
+            {/* Top Minimal Floating Badge (Discreet, in the corner) */}
+            <div className="hero-corner-stat top-right">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <TrendingUp size={13} color="#10b981" />
+                <span style={{ fontSize: '0.74rem', color: '#94a3b8', fontWeight: 700 }}>In-Stock</span>
               </div>
-              <div className="seamless-stat-box-number">
-                120+ <span className="seamless-stat-box-unit">In-Stock</span>
+              <div style={{ fontSize: '1.15rem', fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-gaming)' }}>
+                120+ <span style={{ fontSize: '0.76rem', color: '#c4b5fd', fontWeight: 600 }}>Accounts</span>
               </div>
             </div>
 
-            {/* Stat Card 2: Active Gamers */}
-            <div className="seamless-stat-box">
-              <div className="seamless-stat-box-header">
+            {/* Bottom Floating Gamers Strip */}
+            <div className="hero-corner-stat bottom-left">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span className="pulse-dot-green" />
-                <span className="seamless-stat-box-title">Active Gamers</span>
+                <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#ffffff' }}>1,480+ Gamers Online</span>
               </div>
-              <div className="seamless-stat-box-number">
-                1,480+ <span className="seamless-stat-box-unit">Online</span>
-              </div>
-              <div className="seamless-avatars-row">
-                <span className="seamless-avatar" style={{ background: '#ec4899' }}>🎮</span>
-                <span className="seamless-avatar" style={{ background: '#8b5cf6' }}>⚔️</span>
-                <span className="seamless-avatar" style={{ background: '#06b6d4' }}>⚡</span>
-                <span className="seamless-avatar-count">+1.4k</span>
-              </div>
-            </div>
-
-            {/* Stat Card 3: Instant Delivery & Safe Clean */}
-            <div className="seamless-stat-box">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#38bdf8', fontSize: '0.8rem', fontWeight: 800, marginBottom: '2px' }}>
-                <Zap size={14} color="#38bdf8" />
-                <span>Instant Delivery &lt; 5s</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#34d399', fontSize: '0.74rem', fontWeight: 600 }}>
-                <ShieldCheck size={13} color="#10b981" />
-                <span>Clean 100% • គ្មាន 2FA • Bakong KHQR</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
+                <span className="hero-mini-avatar" style={{ background: '#ec4899' }}>🎮</span>
+                <span className="hero-mini-avatar" style={{ background: '#8b5cf6' }}>⚔️</span>
+                <span className="hero-mini-avatar" style={{ background: '#06b6d4' }}>⚡</span>
+                <span style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 700, marginLeft: '3px' }}>+1.4k Active</span>
               </div>
             </div>
           </div>
