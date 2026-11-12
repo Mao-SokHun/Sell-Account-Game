@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { 
   Search, Flame, ArrowRight, BookOpen, ShieldCheck, 
-  Zap, Trophy, Sparkles, TrendingUp, CheckCircle2 
+  Zap, Trophy, Sparkles, TrendingUp, Users 
 } from 'lucide-react';
 
 const TRENDING_TAGS = [
@@ -13,58 +13,12 @@ const TRENDING_TAGS = [
   { label: '#CDK', query: 'CDK' }
 ];
 
-const SHOWCASE_SLIDES = [
-  {
-    id: 'bloxfruits',
-    title: 'Account Blox Fruits Kitsune Max',
-    category: 'Blox Fruits',
-    image: '/images/bloxfruits.jpg',
-    glow: 'rgba(56, 189, 248, 0.45)',
-    accent: '#38bdf8'
-  },
-  {
-    id: 'avatar',
-    title: 'Account Roblox VIP Rich Avatar',
-    category: 'ឈុត VIP Avatar',
-    image: '/images/avatar_rich.jpg',
-    glow: 'rgba(251, 191, 36, 0.45)',
-    accent: '#fbbf24'
-  },
-  {
-    id: 'petsim',
-    title: 'Pet Sim 99 Huge Titanic Dragon',
-    category: 'Pet Sim 99',
-    image: '/images/petsim.jpg',
-    glow: 'rgba(192, 132, 252, 0.45)',
-    accent: '#c084fc'
-  },
-  {
-    id: 'bladeball',
-    title: 'Blade Ball Chromatic Mythic',
-    category: 'Blade Ball',
-    image: '/images/bladeball.jpg',
-    glow: 'rgba(244, 63, 94, 0.45)',
-    accent: '#f43f5e'
-  }
-];
-
 export const HeroBanner = ({
   searchQuery,
   setSearchQuery,
   onNavigateHowToBuy,
   onSelectCategory
 }) => {
-  const [slideIndex, setSlideIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSlideIndex((prev) => (prev + 1) % SHOWCASE_SLIDES.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const currentSlide = SHOWCASE_SLIDES[slideIndex];
-
   const handleScrollToCatalog = () => {
     const el = document.getElementById('product-catalog-section');
     if (el) {
@@ -84,24 +38,19 @@ export const HeroBanner = ({
   return (
     <div className="seamless-hero">
       {/* Background ambient lighting aura */}
-      <div 
-        className="seamless-hero-glow"
-        style={{
-          background: `radial-gradient(circle at 75% 35%, ${currentSlide.glow} 0%, rgba(139, 92, 246, 0.15) 40%, transparent 70%)`
-        }}
-      />
+      <div className="seamless-hero-glow" />
 
       <div className="seamless-hero-grid">
-        {/* LEFT COLUMN: Open, roomier typography, Search Pill & Tags */}
+        {/* LEFT COLUMN: Modern Headline, Search & Trending */}
         <div className="seamless-hero-left">
-          {/* Eyebrow */}
+          {/* Eyebrow badge */}
           <div className="seamless-hero-eyebrow">
             <Sparkles size={15} color="#38bdf8" />
             <span>LEVEL UP YOUR ACCOUNT</span>
             <span className="pulse-dot-green" style={{ marginLeft: '4px' }} />
           </div>
 
-          {/* Headline */}
+          {/* Clean, Powerful PixelVault Headline */}
           <h1 className="seamless-hero-title">
             DISCOVER THE NEXT <br />
             <span className="gradient-text">LEGENDARY ACCOUNT</span>
@@ -112,7 +61,7 @@ export const HeroBanner = ({
             ស្វែងរក និងជាវគណនី Roblox កំពូលៗ Blox Fruits, VIP Avatar, Pet Sim 99 ស្កេនទូទាត់តាម Bakong KHQR គ្រប់ធនាគារ ទទួលបានគណនី Login ភ្លាមៗ 100% គ្មាន 2FA។
           </p>
 
-          {/* SEARCH PILL */}
+          {/* PIXELVAULT SEARCH PILL */}
           <div className="seamless-search-box">
             <div className="seamless-search-inner">
               <Search size={19} color="#94a3b8" />
@@ -142,7 +91,7 @@ export const HeroBanner = ({
             </div>
           </div>
 
-          {/* Trending Tags */}
+          {/* Trending Tags Row */}
           <div className="pixel-trending-row">
             <span className="pixel-trending-label">Trending Now:</span>
             {TRENDING_TAGS.map((tag) => (
@@ -157,7 +106,7 @@ export const HeroBanner = ({
             ))}
           </div>
 
-          {/* Action Buttons */}
+          {/* Action Button Pills */}
           <div className="pixel-hero-buttons">
             <button
               type="button"
@@ -184,64 +133,62 @@ export const HeroBanner = ({
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Cinematic Seamless Character Showcase */}
+        {/* RIGHT COLUMN: PixelVault Cyber Warrior Artwork & Clean Floating Stat Cards */}
         <div className="seamless-hero-right">
-          {/* Main Visual Showcase (Blends naturally into background with soft masks) */}
-          <div className="seamless-character-wrap">
+          {/* Cyber Ninja Character Artwork (Seamlessly blending with ambient background) */}
+          <div className="seamless-character-stage">
             <img
-              key={currentSlide.id}
-              src={currentSlide.image}
-              alt={currentSlide.title}
-              className="seamless-character-img"
+              src="/images/hero_character.jpg"
+              alt="Cyber Warrior Legendary Character"
+              className="seamless-character-visual"
             />
-            {/* Cinematic Gradient Fade Overlays */}
-            <div className="seamless-character-fade-bottom" />
-            <div className="seamless-character-fade-left" />
+            {/* Soft Ambient Vignette / Edge Fades */}
+            <div className="seamless-character-fade" />
+          </div>
 
-            {/* Subtle Info Overlay at bottom */}
-            <div className="seamless-character-card-info">
-              <div>
-                <span style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '5px',
-                  fontSize: '0.74rem',
-                  fontWeight: 800,
-                  color: currentSlide.accent,
-                  textTransform: 'uppercase',
-                  marginBottom: '2px'
-                }}>
-                  <Sparkles size={12} /> {currentSlide.category}
+          {/* Clean Floating Stat Cards (Positioned naturally, NO clipped text, NO awkward borders!) */}
+          <div className="seamless-stats-stack">
+            {/* Stat Card 1: Total In-Stock */}
+            <div className="seamless-stat-box">
+              <div className="seamless-stat-box-header">
+                <span className="seamless-stat-box-title">Total Accounts</span>
+                <span className="seamless-stat-box-trend">
+                  <TrendingUp size={12} /> +24 new
                 </span>
-                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#ffffff' }}>
-                  {currentSlide.title}
-                </div>
               </div>
-
-              <button
-                type="button"
-                onClick={() => {
-                  if (onSelectCategory) onSelectCategory(currentSlide.category);
-                  handleScrollToCatalog();
-                }}
-                className="btn-pixel-glass"
-                style={{ padding: '6px 14px', fontSize: '0.78rem' }}
-              >
-                មើលគណនី
-              </button>
+              <div className="seamless-stat-box-number">
+                120+ <span className="seamless-stat-box-unit">In-Stock</span>
+              </div>
             </div>
-          </div>
 
-          {/* Clean Top Stat Badge */}
-          <div className="seamless-stat-pill top">
-            <Zap size={15} color="#38bdf8" />
-            <span>ប្រគល់គណនីស្វ័យប្រវត្តិក្នុ​ង <strong>&lt; 5s</strong> តាម Bakong KHQR</span>
-          </div>
+            {/* Stat Card 2: Active Gamers */}
+            <div className="seamless-stat-box">
+              <div className="seamless-stat-box-header">
+                <span className="pulse-dot-green" />
+                <span className="seamless-stat-box-title">Active Gamers</span>
+              </div>
+              <div className="seamless-stat-box-number">
+                1,480+ <span className="seamless-stat-box-unit">Online</span>
+              </div>
+              <div className="seamless-avatars-row">
+                <span className="seamless-avatar" style={{ background: '#ec4899' }}>🎮</span>
+                <span className="seamless-avatar" style={{ background: '#8b5cf6' }}>⚔️</span>
+                <span className="seamless-avatar" style={{ background: '#06b6d4' }}>⚡</span>
+                <span className="seamless-avatar-count">+1.4k</span>
+              </div>
+            </div>
 
-          {/* Clean Bottom Stat Badge */}
-          <div className="seamless-stat-pill bottom">
-            <ShieldCheck size={15} color="#10b981" />
-            <span>Clean 100% • គ្មានជាប់ Email / លេខទូរស័ព្ទ</span>
+            {/* Stat Card 3: Instant Delivery & Safe Clean */}
+            <div className="seamless-stat-box">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#38bdf8', fontSize: '0.8rem', fontWeight: 800, marginBottom: '2px' }}>
+                <Zap size={14} color="#38bdf8" />
+                <span>Instant Delivery &lt; 5s</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#34d399', fontSize: '0.74rem', fontWeight: 600 }}>
+                <ShieldCheck size={13} color="#10b981" />
+                <span>Clean 100% • គ្មាន 2FA • Bakong KHQR</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
