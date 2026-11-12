@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Search, Flame, ArrowRight, BookOpen, ShieldCheck, 
-  Zap, Trophy, Sparkles, TrendingUp, Users 
+  Zap, Trophy, Sparkles, TrendingUp, CheckCircle2 
 } from 'lucide-react';
 
 const TRENDING_TAGS = [
@@ -13,34 +13,38 @@ const TRENDING_TAGS = [
   { label: '#CDK', query: 'CDK' }
 ];
 
-const FEATURED_HERO_SLIDES = [
+const SHOWCASE_SLIDES = [
   {
     id: 'bloxfruits',
-    title: 'Blox Fruits Kitsune Max',
+    title: 'Account Blox Fruits Kitsune Max',
     category: 'Blox Fruits',
     image: '/images/bloxfruits.jpg',
-    glow: 'rgba(56, 189, 248, 0.4)'
+    glow: 'rgba(56, 189, 248, 0.45)',
+    accent: '#38bdf8'
   },
   {
     id: 'avatar',
-    title: 'Roblox VIP Rich Avatar',
+    title: 'Account Roblox VIP Rich Avatar',
     category: 'ឈុត VIP Avatar',
     image: '/images/avatar_rich.jpg',
-    glow: 'rgba(251, 191, 36, 0.4)'
+    glow: 'rgba(251, 191, 36, 0.45)',
+    accent: '#fbbf24'
   },
   {
     id: 'petsim',
-    title: 'Pet Sim 99 Huge Titanic',
+    title: 'Pet Sim 99 Huge Titanic Dragon',
     category: 'Pet Sim 99',
     image: '/images/petsim.jpg',
-    glow: 'rgba(168, 85, 247, 0.4)'
+    glow: 'rgba(192, 132, 252, 0.45)',
+    accent: '#c084fc'
   },
   {
     id: 'bladeball',
-    title: 'Blade Ball Arena Mythic',
+    title: 'Blade Ball Chromatic Mythic',
     category: 'Blade Ball',
     image: '/images/bladeball.jpg',
-    glow: 'rgba(244, 63, 94, 0.4)'
+    glow: 'rgba(244, 63, 94, 0.45)',
+    accent: '#f43f5e'
   }
 ];
 
@@ -52,22 +56,21 @@ export const HeroBanner = ({
 }) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
-  // Cycle through featured character visual every 5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      setSlideIndex((prev) => (prev + 1) % FEATURED_HERO_SLIDES.length);
-    }, 5000);
+      setSlideIndex((prev) => (prev + 1) % SHOWCASE_SLIDES.length);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
-  const currentSlide = FEATURED_HERO_SLIDES[slideIndex];
+  const currentSlide = SHOWCASE_SLIDES[slideIndex];
 
   const handleScrollToCatalog = () => {
     const el = document.getElementById('product-catalog-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     } else {
-      window.scrollTo({ top: 500, behavior: 'smooth' });
+      window.scrollTo({ top: 550, behavior: 'smooth' });
     }
   };
 
@@ -79,176 +82,166 @@ export const HeroBanner = ({
   };
 
   return (
-    <div className="pixel-hero">
-      {/* LEFT COLUMN: Modern Headline, Search & Trending */}
-      <div>
-        {/* Eyebrow badge */}
-        <div className="pixel-hero-eyebrow">
-          <Sparkles size={16} color="#38bdf8" />
-          <span>LEVEL UP YOUR ACCOUNT</span>
-        </div>
+    <div className="seamless-hero">
+      {/* Background ambient lighting aura */}
+      <div 
+        className="seamless-hero-glow"
+        style={{
+          background: `radial-gradient(circle at 75% 35%, ${currentSlide.glow} 0%, rgba(139, 92, 246, 0.15) 40%, transparent 70%)`
+        }}
+      />
 
-        {/* Clean, Impactful PixelVault Title */}
-        <h1 className="pixel-hero-title">
-          DISCOVER THE NEXT <br />
-          <span className="gradient-text">LEGENDARY ACCOUNT</span>
-        </h1>
+      <div className="seamless-hero-grid">
+        {/* LEFT COLUMN: Open, roomier typography, Search Pill & Tags */}
+        <div className="seamless-hero-left">
+          {/* Eyebrow */}
+          <div className="seamless-hero-eyebrow">
+            <Sparkles size={15} color="#38bdf8" />
+            <span>LEVEL UP YOUR ACCOUNT</span>
+            <span className="pulse-dot-green" style={{ marginLeft: '4px' }} />
+          </div>
 
-        {/* Subtitle in clean Khmer */}
-        <p className="pixel-hero-desc">
-          ស្វែងរក និងជាវគណនីហ្គេមលំដាប់កំពូល Roblox, Blox Fruits, VIP Avatar ស្កេនទូទាត់តាម Bakong KHQR គ្រប់ធនាគារ ទទួលបានគណនី Login ភ្លាមៗ 100% គ្មាន 2FA។
-        </p>
+          {/* Headline */}
+          <h1 className="seamless-hero-title">
+            DISCOVER THE NEXT <br />
+            <span className="gradient-text">LEGENDARY ACCOUNT</span>
+          </h1>
 
-        {/* PIXELVAULT SEARCH PILL */}
-        <div className="pixel-search-box">
-          <div className="pixel-search-inner">
-            <Search size={19} color="#94a3b8" />
-            <input
-              type="text"
-              className="pixel-search-input"
-              placeholder="ស្វែងរកគណនី (ឧទាហរណ៍៖ Blox Fruits, Kitsune, VIP Avatar...)"
-              value={searchQuery || ''}
-              onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') handleScrollToCatalog();
-              }}
-            />
+          {/* Subtitle */}
+          <p className="seamless-hero-desc">
+            ស្វែងរក និងជាវគណនី Roblox កំពូលៗ Blox Fruits, VIP Avatar, Pet Sim 99 ស្កេនទូទាត់តាម Bakong KHQR គ្រប់ធនាគារ ទទួលបានគណនី Login ភ្លាមៗ 100% គ្មាន 2FA។
+          </p>
+
+          {/* SEARCH PILL */}
+          <div className="seamless-search-box">
+            <div className="seamless-search-inner">
+              <Search size={19} color="#94a3b8" />
+              <input
+                type="text"
+                className="pixel-search-input"
+                placeholder="ស្វែងរកគណនី (ឧទាហរណ៍៖ Blox Fruits, Kitsune, VIP Avatar...)"
+                value={searchQuery || ''}
+                onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleScrollToCatalog();
+                }}
+              />
+              <button
+                type="button"
+                onClick={handleScrollToCatalog}
+                className="btn-pixel-primary"
+                style={{
+                  padding: '8px 18px',
+                  borderRadius: '9999px',
+                  fontSize: '0.84rem'
+                }}
+              >
+                <span>ស្វែងរក</span>
+                <ArrowRight size={14} />
+              </button>
+            </div>
+          </div>
+
+          {/* Trending Tags */}
+          <div className="pixel-trending-row">
+            <span className="pixel-trending-label">Trending Now:</span>
+            {TRENDING_TAGS.map((tag) => (
+              <button
+                key={tag.label}
+                type="button"
+                className="pixel-trending-tag"
+                onClick={() => handleTagClick(tag.query)}
+              >
+                {tag.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="pixel-hero-buttons">
             <button
               type="button"
               onClick={handleScrollToCatalog}
-              style={{
-                background: 'linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)',
-                border: 'none',
-                color: '#fff',
-                padding: '8px 16px',
-                borderRadius: '9999px',
-                fontSize: '0.84rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px'
-              }}
+              className="btn-pixel-primary"
+              style={{ padding: '13px 28px', fontSize: '0.96rem' }}
             >
-              <span>ស្វែងរក</span>
-              <ArrowRight size={14} />
+              <Flame size={18} />
+              <span>Explore Accounts</span>
+              <ArrowRight size={16} />
             </button>
+
+            {onNavigateHowToBuy && (
+              <button
+                type="button"
+                onClick={onNavigateHowToBuy}
+                className="btn-pixel-glass"
+                style={{ padding: '13px 24px', fontSize: '0.94rem' }}
+              >
+                <BookOpen size={17} color="#38bdf8" />
+                <span>របៀបទិញ (How to Buy)</span>
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Trending Tags Row */}
-        <div className="pixel-trending-row">
-          <span className="pixel-trending-label">Trending Now:</span>
-          {TRENDING_TAGS.map((tag) => (
-            <button
-              key={tag.label}
-              type="button"
-              className="pixel-trending-tag"
-              onClick={() => handleTagClick(tag.query)}
-            >
-              {tag.label}
-            </button>
-          ))}
-        </div>
+        {/* RIGHT COLUMN: Cinematic Seamless Character Showcase */}
+        <div className="seamless-hero-right">
+          {/* Main Visual Showcase (Blends naturally into background with soft masks) */}
+          <div className="seamless-character-wrap">
+            <img
+              key={currentSlide.id}
+              src={currentSlide.image}
+              alt={currentSlide.title}
+              className="seamless-character-img"
+            />
+            {/* Cinematic Gradient Fade Overlays */}
+            <div className="seamless-character-fade-bottom" />
+            <div className="seamless-character-fade-left" />
 
-        {/* Action Button Pills */}
-        <div className="pixel-hero-buttons">
-          <button
-            type="button"
-            onClick={handleScrollToCatalog}
-            className="btn-pixel-primary"
-          >
-            <Flame size={18} />
-            <span>Explore Accounts</span>
-            <ArrowRight size={16} />
-          </button>
-
-          {onNavigateHowToBuy && (
-            <button
-              type="button"
-              onClick={onNavigateHowToBuy}
-              className="btn-pixel-glass"
-            >
-              <BookOpen size={17} color="#38bdf8" />
-              <span>របៀបទិញ (How to Buy)</span>
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* RIGHT COLUMN: Gaming Artwork Showcase & Floating Stat Cards */}
-      <div className="pixel-hero-visual">
-        <div className="pixel-hero-character-card">
-          <img
-            src={currentSlide.image}
-            alt={currentSlide.title}
-          />
-          <div className="pixel-hero-character-overlay" />
-          
-          {/* Bottom tag inside character card */}
-          <div style={{
-            position: 'absolute',
-            bottom: '16px',
-            left: '18px',
-            right: '18px',
-            zIndex: 3,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}>
-            <div>
-              <div style={{ fontSize: '0.78rem', color: '#38bdf8', fontWeight: 800, textTransform: 'uppercase' }}>
-                Featured Account
+            {/* Subtle Info Overlay at bottom */}
+            <div className="seamless-character-card-info">
+              <div>
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  fontSize: '0.74rem',
+                  fontWeight: 800,
+                  color: currentSlide.accent,
+                  textTransform: 'uppercase',
+                  marginBottom: '2px'
+                }}>
+                  <Sparkles size={12} /> {currentSlide.category}
+                </span>
+                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#ffffff' }}>
+                  {currentSlide.title}
+                </div>
               </div>
-              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff' }}>
-                {currentSlide.title}
-              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  if (onSelectCategory) onSelectCategory(currentSlide.category);
+                  handleScrollToCatalog();
+                }}
+                className="btn-pixel-glass"
+                style={{ padding: '6px 14px', fontSize: '0.78rem' }}
+              >
+                មើលគណនី
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                if (onSelectCategory) onSelectCategory(currentSlide.category);
-                handleScrollToCatalog();
-              }}
-              style={{
-                background: 'rgba(139, 92, 246, 0.3)',
-                border: '1px solid rgba(139, 92, 246, 0.6)',
-                color: '#fff',
-                padding: '6px 14px',
-                borderRadius: '10px',
-                fontSize: '0.8rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-                backdropFilter: 'blur(8px)'
-              }}
-            >
-              មើលគណនី
-            </button>
           </div>
-        </div>
 
-        {/* Floating Stat Card 1: Top Right */}
-        <div className="floating-stat-card" style={{ top: '-12px', right: '-12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
-            <span style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: 700 }}>Total In-Stock</span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontSize: '0.72rem', color: '#10b981', fontWeight: 800 }}>
-              <TrendingUp size={12} /> +24 new
-            </span>
+          {/* Clean Top Stat Badge */}
+          <div className="seamless-stat-pill top">
+            <Zap size={15} color="#38bdf8" />
+            <span>ប្រគល់គណនីស្វ័យប្រវត្តិក្នុ​ង <strong>&lt; 5s</strong> តាម Bakong KHQR</span>
           </div>
-          <div style={{ fontSize: '1.35rem', fontWeight: 900, color: '#ffffff', letterSpacing: '-0.3px' }}>
-            120+ <span style={{ fontSize: '0.85rem', color: '#c4b5fd', fontWeight: 600 }}>Accounts</span>
-          </div>
-        </div>
 
-        {/* Floating Stat Card 2: Bottom Left */}
-        <div className="floating-stat-card" style={{ bottom: '-12px', left: '-14px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-            <span className="pulse-dot-green" />
-            <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#ffffff' }}>1,480+ Gamers Active</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.74rem', color: '#34d399' }}>
-            <ShieldCheck size={14} color="#10b981" />
-            <span>ស្កេន KHQR ទទួលភ្លាម &lt; 5s</span>
+          {/* Clean Bottom Stat Badge */}
+          <div className="seamless-stat-pill bottom">
+            <ShieldCheck size={15} color="#10b981" />
+            <span>Clean 100% • គ្មានជាប់ Email / លេខទូរស័ព្ទ</span>
           </div>
         </div>
       </div>
