@@ -84,9 +84,23 @@ export const Navbar = ({
               }}>
                 MIRA STORE
               </span>
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                background: 'rgba(16, 185, 129, 0.15)',
+                border: '1px solid rgba(16, 185, 129, 0.35)',
+                padding: '2px 8px',
+                borderRadius: '8px',
+                fontSize: '0.72rem',
+                fontWeight: 800,
+                color: '#34d399'
+              }} className="navbar-brand-subtitle">
+                <span className="pulse-dot-green" /> 24/7 AUTO
+              </span>
             </div>
-            <p className="navbar-brand-subtitle" style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: 0, whiteSpace: 'nowrap' }}>
-              Platform លក់ Account Game & Roblox
+            <p className="navbar-brand-subtitle" style={{ fontSize: '0.76rem', color: 'var(--text-muted)', margin: 0, whiteSpace: 'nowrap' }}>
+              Platform លក់ Account Game & Roblox កម្ពុជា
             </p>
           </div>
         </div>

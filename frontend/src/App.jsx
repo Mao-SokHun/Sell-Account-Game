@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { initialProducts } from './data/initialProducts';
-import { fetchPurchaseHistoryFromApi, savePurchaseToApi } from './utils/api';
+import { 
+  fetchProductsFromApi, 
+  createProductApi, 
+  updateProductApi, 
+  deleteProductApi, 
+  fetchPurchaseHistoryFromApi, 
+  savePurchaseToApi 
+} from './utils/api';
 import { Navbar } from './components/Navbar';
 import { HeroBanner } from './components/HeroBanner';
+import { LiveGamingTicker } from './components/LiveGamingTicker';
 import { ProductList } from './components/ProductList';
 import { ProductDetail } from './components/ProductDetail';
 import { HowToBuyPage } from './components/HowToBuyPage';
@@ -32,7 +40,8 @@ export function App() {
     const saved = localStorage.getItem('roblox_products');
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
       } catch (e) {
         return initialProducts;
       }
@@ -40,7 +49,26 @@ export function App() {
     return initialProducts;
   });
 
-  // Save products to localStorage on update
+  const [isSyncingProducts, setIsSyncingProducts] = useState(false);
+  const [productsSource, setProductsSource] = useState('local_cache');
+
+  // Load live products from Backend API on mount
+  useEffect(() => {
+    const loadProductsFromBackend = async () => {
+      setIsSyncingProducts(true);
+      const res = await fetchProductsFromApi(null, true);
+      if (res && res.data && res.data.length > 0) {
+        setProducts(res.data);
+      }
+      if (res && res.source) {
+        setProductsSource(res.source);
+      }
+      setIsSyncingProducts(false);
+    };
+    loadProductsFromBackend();
+  }, []);
+
+  // Save products to localStorage on update as persistent fallback
   useEffect(() => {
     localStorage.setItem('roblox_products', JSON.stringify(products));
   }, [products]);
@@ -190,16 +218,24 @@ export function App() {
     }
 
     // Mark product as sold in inventory
+    const updatedProduct = { ...product, status: 'sold' };
     setProducts(prev => prev.map(p => 
-      p.id === product.id ? { ...p, status: 'sold' } : p
+      String(p.id) === String(product.id) ? updatedProduct : p
     ));
 
+    // Sync sold status to Backend API
+    try {
+      await updateProductApi({ id: product.id, status: 'sold' });
+    } catch (err) {
+      console.warn('Could not update status to sold on backend:', err);
+    }
+
     // Also update selectedProduct so the detail view immediately reflects sold status
-    setSelectedProduct(prev => prev && prev.id === product.id ? { ...prev, status: 'sold' } : prev);
+    setSelectedProduct(prev => prev && String(prev.id) === String(product.id) ? updatedProduct : prev);
 
     // Show the detail modal with Roblox account credentials!
     setSuccessModalData({
-      product: { ...product, status: 'sold' },
+      product: updatedProduct,
       orderInfo: { invoiceId }
     });
   };
@@ -219,19 +255,51 @@ export function App() {
     setCurrentView('catalog');
   };
 
-  // Admin Add Product
-  const handleAddProduct = (newProduct) => {
-    setProducts(prev => [newProduct, ...prev]);
+  // Admin Add Product via HTTP POST to Backend API
+  const handleAddProduct = async (newProduct) => {
+    setIsSyncingProducts(true);
+    try {
+      const res = await createProductApi(newProduct);
+      const savedItem = res?.data || newProduct;
+      setProducts(prev => [savedItem, ...prev.filter(p => String(p.id) !== String(savedItem.id))]);
+      if (res?.source) setProductsSource(res.source);
+    } catch (err) {
+      console.error('Error adding product to backend:', err);
+      setProducts(prev => [newProduct, ...prev]);
+    } finally {
+      setIsSyncingProducts(false);
+    }
   };
 
-  // Admin Update Product
-  const handleUpdateProduct = (updatedProduct) => {
-    setProducts(prev => prev.map(p => p.id === updatedProduct.id ? updatedProduct : p));
+  // Admin Update Product via HTTP PUT/POST to Backend API
+  const handleUpdateProduct = async (updatedProduct) => {
+    // Optimistic UI update
+    setProducts(prev => prev.map(p => String(p.id) === String(updatedProduct.id) ? updatedProduct : p));
+    if (selectedProduct && String(selectedProduct.id) === String(updatedProduct.id)) {
+      setSelectedProduct(updatedProduct);
+    }
+
+    try {
+      await updateProductApi(updatedProduct);
+    } catch (err) {
+      console.error('Error updating product on backend:', err);
+    }
   };
 
-  // Admin Delete Product
-  const handleDeleteProduct = (productId) => {
-    setProducts(prev => prev.filter(p => p.id !== productId));
+  // Admin Delete Product via HTTP DELETE to Backend API
+  const handleDeleteProduct = async (productId) => {
+    // Optimistic UI update
+    setProducts(prev => prev.filter(p => String(p.id) !== String(productId)));
+    if (selectedProduct && String(selectedProduct.id) === String(productId)) {
+      setSelectedProduct(null);
+      setCurrentView('catalog');
+    }
+
+    try {
+      await deleteProductApi(productId);
+    } catch (err) {
+      console.error('Error deleting product on backend:', err);
+    }
   };
 
   return (
@@ -255,6 +323,7 @@ export function App() {
           {/* VIEW 1: CATALOG (HOME) */}
           {currentView === 'catalog' && (
             <>
+              <LiveGamingTicker />
               <HeroBanner 
                 onNavigateHowToBuy={handleNavigateHowToBuy} 
                 onSelectCategory={(category) => {
@@ -308,6 +377,8 @@ export function App() {
               onDeleteProduct={handleDeleteProduct}
               onBackToStore={handleNavigateHome}
               adminUser={adminUser}
+              isSyncingProducts={isSyncingProducts}
+              productsSource={productsSource}
             />
           )}
         </div>

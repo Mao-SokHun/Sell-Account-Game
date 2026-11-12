@@ -53,10 +53,13 @@ export const AdminDashboard = ({
   onUpdateProduct,
   onDeleteProduct,
   onBackToStore,
-  adminUser
+  adminUser,
+  isSyncingProducts = false,
+  productsSource = 'local_cache'
 }) => {
   const [activeTab, setActiveTab] = useState('list'); // 'list' or 'add'
   const [editingId, setEditingId] = useState(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -208,7 +211,7 @@ export const AdminDashboard = ({
   };
 
   // Handle Submit (Add or Edit)
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.title.trim() || !formData.username.trim() || !formData.password.trim()) {
@@ -260,37 +263,44 @@ export const AdminDashboard = ({
       }
     };
 
-    if (editingId) {
-      onUpdateProduct(productPayload);
-      setFormSuccess('បានកែប្រែទិន្នន័យគណនីជោគជ័យ!');
-    } else {
-      onAddProduct(productPayload);
-      setFormSuccess('បានដាក់លក់គណនី Roblox ថ្មីជោគជ័យ!');
-    }
+    setIsSaving(true);
+    try {
+      if (editingId) {
+        await onUpdateProduct(productPayload);
+        setFormSuccess('បានកែប្រែទិន្នន័យគណនីជោគជ័យ!');
+      } else {
+        await onAddProduct(productPayload);
+        setFormSuccess('បានដាក់លក់គណនី Roblox ថ្មីជោគជ័យ!');
+      }
 
-    setTimeout(() => {
-      setFormSuccess('');
-      setActiveTab('list');
-      setEditingId(null);
-      // Reset form
-      setFormData({
-        title: '',
-        category: 'Blox Fruits',
-        priceUsd: 15.00,
-        level: 'កម្រិត Max 2550',
-        robux: 1000,
-        badge: 'ពេញនិយម',
-        image: '/images/bloxfruits.jpg',
-        gallery: ['/images/bloxfruits.jpg'],
-        description: '',
-        emailStatus: 'គណនីស្អាត ១០០% មិនទាន់ភ្ជាប់ Email (អាចដាក់ Email ផ្ទាល់ខ្លួន)',
-        status: 'available',
-        username: '',
-        password: '',
-        linkedEmail: 'មិនទាន់ភ្ជាប់ (ស្អាត ១០០%)'
-      });
-      setCustomStats(DEFAULT_GAME_STATS_TEMPLATES['Blox Fruits']);
-    }, 1200);
+      setTimeout(() => {
+        setFormSuccess('');
+        setActiveTab('list');
+        setEditingId(null);
+        // Reset form
+        setFormData({
+          title: '',
+          category: 'Blox Fruits',
+          priceUsd: 15.00,
+          level: 'កម្រិត Max 2550',
+          robux: 1000,
+          badge: 'ពេញនិយម',
+          image: '/images/bloxfruits.jpg',
+          gallery: ['/images/bloxfruits.jpg'],
+          description: '',
+          emailStatus: 'គណនីស្អាត ១០០% មិនទាន់ភ្ជាប់ Email (អាចដាក់ Email ផ្ទាល់ខ្លួន)',
+          status: 'available',
+          username: '',
+          password: '',
+          linkedEmail: 'មិនទាន់ភ្ជាប់ (ស្អាត ១០០%)'
+        });
+        setCustomStats(DEFAULT_GAME_STATS_TEMPLATES['Blox Fruits']);
+      }, 1000);
+    } catch (err) {
+      alert('កំហុសពេលរក្សាទុក៖ ' + (err.message || 'Error'));
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   // Toggle Stock Status
@@ -328,6 +338,34 @@ export const AdminDashboard = ({
           <p style={{ fontSize: '0.86rem', color: 'var(--text-muted)' }}>
             សួស្តី {adminUser?.username || 'Admin'}! អ្នកអាចគ្រប់គ្រង និងបន្ថែមគណនី Roblox សម្រាប់ដាក់លក់នៅទីនេះ។
           </p>
+        </div>
+
+        {/* Cloud Database Sync Status Pill */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          background: 'rgba(99, 102, 241, 0.1)',
+          border: '1px solid rgba(99, 102, 241, 0.3)',
+          padding: '8px 14px',
+          borderRadius: '20px',
+          fontSize: '0.82rem',
+          color: '#818cf8'
+        }}>
+          <span style={{
+            width: '8px',
+            height: '8px',
+            borderRadius: '50%',
+            backgroundColor: productsSource === 'backend_api' ? '#10b981' : '#f59e0b',
+            boxShadow: productsSource === 'backend_api' ? '0 0 8px #10b981' : '0 0 8px #f59e0b'
+          }} />
+          <span>
+            {isSyncingProducts ? 'កំពុងភ្ជាប់ Cloud Database...' : (
+              productsSource === 'backend_api' 
+                ? 'ភ្ជាប់ Neon PostgreSQL រួចរាល់' 
+                : 'ទិន្នន័យ Local Cache (Sync ពេល Online)'
+            )}
+          </span>
         </div>
       </div>
 
@@ -970,10 +1008,13 @@ export const AdminDashboard = ({
               <button
                 type="submit"
                 className="btn btn-primary"
-                style={{ padding: '12px 24px', fontSize: '0.95rem' }}
+                disabled={isSaving}
+                style={{ padding: '12px 24px', fontSize: '0.95rem', opacity: isSaving ? 0.7 : 1 }}
               >
                 <CheckCircle2 size={18} />
-                <span>{editingId ? 'រក្សាទុកការកែប្រែ' : 'ដាក់លក់គណនីភ្លាមៗ'}</span>
+                <span>
+                  {isSaving ? 'កំពុងរក្សាទុកទៅ Cloud DB...' : (editingId ? 'រក្សាទុកការកែប្រែ' : 'ដាក់លក់គណនីភ្លាមៗ')}
+                </span>
               </button>
 
               <button
