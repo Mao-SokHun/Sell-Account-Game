@@ -37,9 +37,6 @@ export const HeroBanner = ({
 
   return (
     <div className="seamless-hero">
-      {/* Background ambient lighting aura */}
-      <div className="seamless-hero-glow" />
-
       <div className="seamless-hero-grid">
         {/* LEFT COLUMN: Modern Headline, Search, Tags & Trust Badges */}
         <div className="seamless-hero-left">
