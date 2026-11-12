@@ -51,14 +51,14 @@ export const Navbar = ({
           }}
         >
           <div style={{
-            width: '46px',
-            height: '46px',
+            width: '44px',
+            height: '44px',
             borderRadius: '13px',
             overflow: 'hidden',
-            border: '1.5px solid rgba(56, 189, 248, 0.5)',
-            boxShadow: '0 0 18px rgba(14, 165, 233, 0.45)',
+            border: '1.5px solid rgba(139, 92, 246, 0.6)',
+            boxShadow: '0 0 20px rgba(139, 92, 246, 0.45)',
             flexShrink: 0,
-            background: '#0c1222'
+            background: '#0d0a18'
           }}>
             <img
               src="/images/logo.jpg"
@@ -73,16 +73,15 @@ export const Navbar = ({
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{
-                fontSize: '1.42rem',
+                fontFamily: 'var(--font-gaming)',
+                fontSize: '1.38rem',
                 fontWeight: 900,
-                letterSpacing: '0.2px',
+                letterSpacing: '0.5px',
                 lineHeight: 1.2,
-                background: 'linear-gradient(to right, #ffffff, #c7d2fe, #38bdf8)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                color: '#ffffff',
                 whiteSpace: 'nowrap'
               }}>
-                MIRA STORE
+                MIRA<span style={{ color: '#8b5cf6' }}>STORE</span>
               </span>
               <span style={{
                 display: 'inline-flex',

@@ -1,280 +1,254 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Flame, ArrowRight, BookOpen, CheckCircle2, 
-  Zap, ShieldCheck, QrCode, Headphones, Sparkles, Crown, Swords 
+  Search, Flame, ArrowRight, BookOpen, ShieldCheck, 
+  Zap, Trophy, Sparkles, TrendingUp, Users 
 } from 'lucide-react';
 
-const FEATURED_SLIDES = [
+const TRENDING_TAGS = [
+  { label: '#BloxFruits', query: 'Blox Fruits' },
+  { label: '#VIPAvatar', query: 'VIP' },
+  { label: '#PetSim99', query: 'Pet Sim 99' },
+  { label: '#BladeBall', query: 'Blade Ball' },
+  { label: '#Kitsune', query: 'Kitsune' },
+  { label: '#CDK', query: 'CDK' }
+];
+
+const FEATURED_HERO_SLIDES = [
   {
     id: 'bloxfruits',
-    tabLabel: 'Blox Fruits',
+    title: 'Blox Fruits Kitsune Max',
     category: 'Blox Fruits',
-    badge: '⚡ HOT GAMING DEAL • ស្វ័យប្រវត្តិ ២៤/៧',
-    title: 'Account Blox Fruits កម្រិត Max 2550',
-    highlight: 'Kitsune Mythical + Godhuman + Cursed Dual Katana',
-    description: 'មិនបាច់ចុះឈ្មោះ ស្កេនបាគង KHQR គ្រប់ធនាគារ ទទួលបានឈ្មោះគណនី និងលេខសម្ងាត់សម្រាប់ Login ចូលលេងភ្លាមៗក្នុង ៥ វិនាទី!',
     image: '/images/bloxfruits.jpg',
-    glowColor: 'rgba(6, 182, 212, 0.45)'
+    glow: 'rgba(56, 189, 248, 0.4)'
   },
   {
     id: 'avatar',
-    tabLabel: 'VIP Avatar',
+    title: 'Roblox VIP Rich Avatar',
     category: 'ឈុត VIP Avatar',
-    badge: '👑 ULTRA RARE • 50,000+ ROBUX',
-    title: 'Account Roblox VIP Rich Avatar',
-    highlight: 'Dominus + Golden Valkyrie + Korblox Deathspeaker',
-    description: 'ឈុតកម្រតម្លៃរាប់ពាន់ដុល្លារ គណនីស្អាត Clean 100% គ្មានជាប់ Email អាចដាក់ Email ផ្ទាល់ខ្លួនបានភ្លាមៗ!',
     image: '/images/avatar_rich.jpg',
-    glowColor: 'rgba(245, 158, 11, 0.45)'
+    glow: 'rgba(251, 191, 36, 0.4)'
   },
   {
     id: 'petsim',
-    tabLabel: 'Pet Sim 99',
+    title: 'Pet Sim 99 Huge Titanic',
     category: 'Pet Sim 99',
-    badge: '💎 TITANIC OP • 8.4B GEMS',
-    title: 'Pet Simulator 99 Huge Titanic',
-    highlight: 'Huge Titanic Rainbow Dragon + Rainbow Plaza VIP',
-    description: 'គណនី Pet Simulator 99 កំពូលកម្រ ស្កេនទូទាត់តាមបាគង KHQR ទទួលគណនីភ្លាមៗ ធានាសុវត្ថិភាពខ្ពស់!',
     image: '/images/petsim.jpg',
-    glowColor: 'rgba(168, 85, 247, 0.45)'
+    glow: 'rgba(168, 85, 247, 0.4)'
   },
   {
     id: 'bladeball',
-    tabLabel: 'Blade Ball',
-    category: 'Blade Ball',
-    badge: '⚔️ TOP RANK • GRAND CHAMPION',
     title: 'Blade Ball Arena Mythic',
-    highlight: 'Chromatic Void Blade Mythic + VIP Explosion Effect',
-    description: 'គណនី Rank ខ្ពស់ដាវកម្រ Chromatic Void ស្កេនទូទាត់ភ្លាម ទទួលបាន Username & Password លើអេក្រង់ភ្លាមៗ!',
+    category: 'Blade Ball',
     image: '/images/bladeball.jpg',
-    glowColor: 'rgba(244, 63, 94, 0.45)'
+    glow: 'rgba(244, 63, 94, 0.4)'
   }
 ];
 
-export const HeroBanner = ({ onNavigateHowToBuy, onSelectCategory }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+export const HeroBanner = ({
+  searchQuery,
+  setSearchQuery,
+  onNavigateHowToBuy,
+  onSelectCategory
+}) => {
+  const [slideIndex, setSlideIndex] = useState(0);
 
-  // Auto-cycle through featured games every 6 seconds
+  // Cycle through featured character visual every 5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % FEATURED_SLIDES.length);
-    }, 6000);
+      setSlideIndex((prev) => (prev + 1) % FEATURED_HERO_SLIDES.length);
+    }, 5000);
     return () => clearInterval(timer);
-  }, [activeIndex]);
+  }, []);
 
-  const currentSlide = FEATURED_SLIDES[activeIndex];
+  const currentSlide = FEATURED_HERO_SLIDES[slideIndex];
 
-  const handleCtaClick = () => {
-    if (onSelectCategory && currentSlide.category) {
-      onSelectCategory(currentSlide.category);
-    }
+  const handleScrollToCatalog = () => {
     const el = document.getElementById('product-catalog-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     } else {
-      window.scrollTo({ top: 400, behavior: 'smooth' });
+      window.scrollTo({ top: 500, behavior: 'smooth' });
     }
   };
 
+  const handleTagClick = (query) => {
+    if (setSearchQuery) {
+      setSearchQuery(query);
+    }
+    handleScrollToCatalog();
+  };
+
   return (
-    <div style={{ marginBottom: '36px' }}>
-      {/* Cinematic Gaming Hero Banner */}
-      <div 
-        className="cinematic-hero"
-        style={{
-          boxShadow: `0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 50px -10px ${currentSlide.glowColor}`,
-          transition: 'box-shadow 1s ease'
-        }}
-      >
-        {/* Background Cinematic Gaming Images with Crossfade */}
-        {FEATURED_SLIDES.map((slide, idx) => (
-          <div
-            key={slide.id}
-            className={`cinematic-hero-bg-layer ${activeIndex === idx ? 'active' : ''}`}
-            aria-hidden={activeIndex !== idx}
-          >
-            <img
-              src={slide.image}
-              alt={slide.title}
-              className="cinematic-hero-bg-img"
+    <div className="pixel-hero">
+      {/* LEFT COLUMN: Modern Headline, Search & Trending */}
+      <div>
+        {/* Eyebrow badge */}
+        <div className="pixel-hero-eyebrow">
+          <Sparkles size={16} color="#38bdf8" />
+          <span>LEVEL UP YOUR ACCOUNT</span>
+        </div>
+
+        {/* Clean, Impactful PixelVault Title */}
+        <h1 className="pixel-hero-title">
+          DISCOVER THE NEXT <br />
+          <span className="gradient-text">LEGENDARY ACCOUNT</span>
+        </h1>
+
+        {/* Subtitle in clean Khmer */}
+        <p className="pixel-hero-desc">
+          ស្វែងរក និងជាវគណនីហ្គេមលំដាប់កំពូល Roblox, Blox Fruits, VIP Avatar ស្កេនទូទាត់តាម Bakong KHQR គ្រប់ធនាគារ ទទួលបានគណនី Login ភ្លាមៗ 100% គ្មាន 2FA។
+        </p>
+
+        {/* PIXELVAULT SEARCH PILL */}
+        <div className="pixel-search-box">
+          <div className="pixel-search-inner">
+            <Search size={19} color="#94a3b8" />
+            <input
+              type="text"
+              className="pixel-search-input"
+              placeholder="ស្វែងរកគណនី (ឧទាហរណ៍៖ Blox Fruits, Kitsune, VIP Avatar...)"
+              value={searchQuery || ''}
+              onChange={(e) => setSearchQuery && setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleScrollToCatalog();
+              }}
             />
-          </div>
-        ))}
-
-        {/* Dynamic Dark Cyber Vignette Overlay */}
-        <div className="cinematic-hero-overlay" />
-
-        {/* Hero Content */}
-        <div className="cinematic-hero-content">
-          <div key={activeIndex} className="hero-text-anim">
-            {/* Glowing Category Badge */}
-            <div style={{ marginBottom: '14px' }}>
-              <span style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '6px 14px',
-                borderRadius: '12px',
-                background: 'rgba(10, 14, 26, 0.85)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.5)',
-                fontSize: '0.8rem',
-                fontWeight: 800,
-                color: '#ffffff',
-                backdropFilter: 'blur(10px)'
-              }}>
-                <span className="pulse-dot-green" />
-                <span>{currentSlide.badge}</span>
-              </span>
-            </div>
-
-            {/* Clean Headline with High Contrast Gaming Glow */}
-            <h1 className="cinematic-hero-title">
-              {currentSlide.title} <br />
-              <span style={{
-                background: 'linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #818cf8 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                display: 'inline-block'
-              }}>
-                ស្កេនបាគង KHQR ភ្លាមទទួលបាន Account ភ្លាមៗ
-              </span>
-            </h1>
-
-            {/* Description */}
-            <p className="cinematic-hero-desc">
-              {currentSlide.description}
-            </p>
-          </div>
-
-          {/* CTA Actions */}
-          <div className="cinematic-hero-actions">
             <button
-              onClick={handleCtaClick}
-              className="btn-gaming-action"
+              type="button"
+              onClick={handleScrollToCatalog}
               style={{
-                padding: '13px 28px',
-                fontSize: '0.96rem',
-                borderRadius: '14px',
-                boxShadow: '0 10px 30px rgba(99, 102, 241, 0.5)'
+                background: 'linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)',
+                border: 'none',
+                color: '#fff',
+                padding: '8px 16px',
+                borderRadius: '9999px',
+                fontSize: '0.84rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
               }}
             >
-              <Flame size={18} />
-              <span>ទិញគណនីហ្គេមឥឡូវនេះ</span>
-              <ArrowRight size={16} />
+              <span>ស្វែងរក</span>
+              <ArrowRight size={14} />
             </button>
-
-            {onNavigateHowToBuy && (
-              <button
-                onClick={onNavigateHowToBuy}
-                className="btn btn-secondary"
-                style={{
-                  padding: '13px 22px',
-                  fontSize: '0.92rem',
-                  fontWeight: 700,
-                  borderRadius: '14px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: 'rgba(15, 23, 42, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  backdropFilter: 'blur(12px)',
-                  cursor: 'pointer'
-                }}
-              >
-                <BookOpen size={18} color="#38bdf8" />
-                <span>របៀបទិញ (How to Buy)</span>
-              </button>
-            )}
-          </div>
-
-          {/* Trust Badges */}
-          <div className="cinematic-hero-trust">
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#cbd5e1' }}>
-              <CheckCircle2 size={16} color="#10b981" /> មិនបាច់ចុះឈ្មោះ
-            </span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#cbd5e1' }}>
-              <CheckCircle2 size={16} color="#10b981" /> ស្កេនបាគង KHQR គ្រប់ធនាគារ
-            </span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#cbd5e1' }}>
-              <CheckCircle2 size={16} color="#10b981" /> Clean 100% គ្មាន 2FA
-            </span>
           </div>
         </div>
 
-        {/* Game Selector Tabs (Bottom Right of Banner) */}
-        <div className="cinematic-hero-tabs">
-          {FEATURED_SLIDES.map((slide, idx) => (
+        {/* Trending Tags Row */}
+        <div className="pixel-trending-row">
+          <span className="pixel-trending-label">Trending Now:</span>
+          {TRENDING_TAGS.map((tag) => (
             <button
-              key={slide.id}
-              onClick={() => setActiveIndex(idx)}
-              className={`cinematic-tab-btn ${activeIndex === idx ? 'active' : ''}`}
+              key={tag.label}
+              type="button"
+              className="pixel-trending-tag"
+              onClick={() => handleTagClick(tag.query)}
             >
-              {slide.tabLabel}
+              {tag.label}
             </button>
           ))}
         </div>
+
+        {/* Action Button Pills */}
+        <div className="pixel-hero-buttons">
+          <button
+            type="button"
+            onClick={handleScrollToCatalog}
+            className="btn-pixel-primary"
+          >
+            <Flame size={18} />
+            <span>Explore Accounts</span>
+            <ArrowRight size={16} />
+          </button>
+
+          {onNavigateHowToBuy && (
+            <button
+              type="button"
+              onClick={onNavigateHowToBuy}
+              className="btn-pixel-glass"
+            >
+              <BookOpen size={17} color="#38bdf8" />
+              <span>របៀបទិញ (How to Buy)</span>
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* 4-Pillar Gaming Platform Assurance Strip */}
-      <div className="gaming-trust-strip">
-        {/* Card 1 */}
-        <div className="gaming-trust-card">
-          <div className="gaming-trust-icon-box" style={{ background: 'rgba(99, 102, 241, 0.2)', border: '1px solid rgba(99, 102, 241, 0.4)' }}>
-            <Zap size={22} color="#818cf8" />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#ffffff', marginBottom: '2px' }}>
-              ប្រគល់ជូនក្នុង ៥ វិនាទី
+      {/* RIGHT COLUMN: Gaming Artwork Showcase & Floating Stat Cards */}
+      <div className="pixel-hero-visual">
+        <div className="pixel-hero-character-card">
+          <img
+            src={currentSlide.image}
+            alt={currentSlide.title}
+          />
+          <div className="pixel-hero-character-overlay" />
+          
+          {/* Bottom tag inside character card */}
+          <div style={{
+            position: 'absolute',
+            bottom: '16px',
+            left: '18px',
+            right: '18px',
+            zIndex: 3,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            <div>
+              <div style={{ fontSize: '0.78rem', color: '#38bdf8', fontWeight: 800, textTransform: 'uppercase' }}>
+                Featured Account
+              </div>
+              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#ffffff' }}>
+                {currentSlide.title}
+              </div>
             </div>
-            <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
-              បង្ហាញ Username & Password លើអេក្រង់ភ្លាមៗ
-            </div>
+            <button
+              type="button"
+              onClick={() => {
+                if (onSelectCategory) onSelectCategory(currentSlide.category);
+                handleScrollToCatalog();
+              }}
+              style={{
+                background: 'rgba(139, 92, 246, 0.3)',
+                border: '1px solid rgba(139, 92, 246, 0.6)',
+                color: '#fff',
+                padding: '6px 14px',
+                borderRadius: '10px',
+                fontSize: '0.8rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                backdropFilter: 'blur(8px)'
+              }}
+            >
+              មើលគណនី
+            </button>
           </div>
         </div>
 
-        {/* Card 2 */}
-        <div className="gaming-trust-card">
-          <div className="gaming-trust-icon-box" style={{ background: 'rgba(16, 185, 129, 0.2)', border: '1px solid rgba(16, 185, 129, 0.4)' }}>
-            <ShieldCheck size={22} color="#34d399" />
+        {/* Floating Stat Card 1: Top Right */}
+        <div className="floating-stat-card" style={{ top: '-12px', right: '-12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+            <span style={{ fontSize: '0.78rem', color: '#94a3b8', fontWeight: 700 }}>Total In-Stock</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '3px', fontSize: '0.72rem', color: '#10b981', fontWeight: 800 }}>
+              <TrendingUp size={12} /> +24 new
+            </span>
           </div>
-          <div>
-            <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#ffffff', marginBottom: '2px' }}>
-              គណនីស្អាត ១០០%
-            </div>
-            <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
-              គ្មានជាប់ Email ឬលេខទូរស័ព្ទ (Unverified)
-            </div>
+          <div style={{ fontSize: '1.35rem', fontWeight: 900, color: '#ffffff', letterSpacing: '-0.3px' }}>
+            120+ <span style={{ fontSize: '0.85rem', color: '#c4b5fd', fontWeight: 600 }}>Accounts</span>
           </div>
         </div>
 
-        {/* Card 3 */}
-        <div className="gaming-trust-card">
-          <div className="gaming-trust-icon-box" style={{ background: 'rgba(211, 32, 39, 0.2)', border: '1px solid rgba(211, 32, 39, 0.4)' }}>
-            <QrCode size={22} color="#f87171" />
+        {/* Floating Stat Card 2: Bottom Left */}
+        <div className="floating-stat-card" style={{ bottom: '-12px', left: '-14px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+            <span className="pulse-dot-green" />
+            <span style={{ fontSize: '0.82rem', fontWeight: 800, color: '#ffffff' }}>1,480+ Gamers Active</span>
           </div>
-          <div>
-            <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#ffffff', marginBottom: '2px' }}>
-              បាគង KHQR គ្រប់ធនាគារ
-            </div>
-            <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
-              ABA, ACLEDA, Wing, Canadia គ្មានកម្រៃសេវា
-            </div>
-          </div>
-        </div>
-
-        {/* Card 4 */}
-        <div className="gaming-trust-card">
-          <div className="gaming-trust-icon-box" style={{ background: 'rgba(6, 182, 212, 0.2)', border: '1px solid rgba(6, 182, 212, 0.4)' }}>
-            <Headphones size={22} color="#38bdf8" />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#ffffff', marginBottom: '2px' }}>
-              សេវាបម្រើ ២៤/៧
-            </div>
-            <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
-              Telegram Support រហ័ស និងការធានាពេញលេញ
-            </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.74rem', color: '#34d399' }}>
+            <ShieldCheck size={14} color="#10b981" />
+            <span>ស្កេន KHQR ទទួលភ្លាម &lt; 5s</span>
           </div>
         </div>
       </div>

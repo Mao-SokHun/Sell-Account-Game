@@ -10,7 +10,6 @@ import {
 } from './utils/api';
 import { Navbar } from './components/Navbar';
 import { HeroBanner } from './components/HeroBanner';
-import { LiveGamingTicker } from './components/LiveGamingTicker';
 import { ProductList } from './components/ProductList';
 import { ProductDetail } from './components/ProductDetail';
 import { HowToBuyPage } from './components/HowToBuyPage';
@@ -323,8 +322,9 @@ export function App() {
           {/* VIEW 1: CATALOG (HOME) */}
           {currentView === 'catalog' && (
             <>
-              <LiveGamingTicker />
               <HeroBanner 
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
                 onNavigateHowToBuy={handleNavigateHowToBuy} 
                 onSelectCategory={(category) => {
                   setSelectedCategory(category);
