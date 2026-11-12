@@ -405,13 +405,13 @@ html, body, #root {
 }
 
 .nav-link-btn {
+  position: relative;
   background: transparent;
   border: none;
   color: #94a3b8;
-  font-size: 0.92rem;
-  font-weight: 600;
-  padding: 8px 16px;
-  border-radius: 9999px;
+  font-size: 0.94rem;
+  font-weight: 500;
+  padding: 8px 14px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
@@ -421,13 +421,26 @@ html, body, #root {
 
 .nav-link-btn:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
+  background: transparent;
 }
 
 .nav-link-btn.active {
   color: #ffffff;
-  background: rgba(139, 92, 246, 0.18);
-  border: 1px solid rgba(139, 92, 246, 0.4);
+  font-weight: 700;
+  background: transparent;
+  border: none;
+}
+
+.nav-link-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  background: #8b5cf6;
+  border-radius: 2px;
+  box-shadow: 0 0 8px #8b5cf6;
 }
 
 .nav-icon-btn {
